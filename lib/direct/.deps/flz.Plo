@@ -1,0 +1,7 @@
+flz.lo: flz.c /usr/include/stdc-predef.h ../../config.h flz.c
+
+/usr/include/stdc-predef.h:
+
+../../config.h:
+
+flz.c:

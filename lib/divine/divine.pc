@@ -1,0 +1,10 @@
+prefix=/opt/opendfb
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=@GENERIC_INCLUDEDIR@
+
+Name: DiVine
+Description: DirectFB Virtual Input
+Version: 1.6.3
+Libs: -L${libdir} -ldivine
+Cflags: -I@GENERIC_INCLUDEDIR@/divine
