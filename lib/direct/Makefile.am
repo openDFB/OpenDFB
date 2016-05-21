@@ -85,7 +85,6 @@ include_HEADERS = \
 	types.h				\
 	utf8.h				\
 	util.h				\
-	oopc.h				\
 	uuid.h
 
 
@@ -125,7 +124,6 @@ libdirect_la_SOURCES = \
 	thread.c		\
 	utf8.c			\
 	util.c			\
-	oopc.c			\
 	uuid.c
 
 libdirect_la_LIBADD = \
