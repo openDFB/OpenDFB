@@ -1997,7 +1997,7 @@ __CoreLayerContextDispatch__Dispatch( CoreLayerContext *obj,
         }
 
         case CoreLayerContextCall_CreateWindow: {
-    CoreWindow *window = NULL;
+    		CoreWindow *window = NULL;
             D_UNUSED
             CoreLayerContextCreateWindow       *args        = (CoreLayerContextCreateWindow *) ptr;
             CoreLayerContextCreateWindowReturn *return_args = (CoreLayerContextCreateWindowReturn *) ret_ptr;
@@ -2016,7 +2016,7 @@ __CoreLayerContextDispatch__Dispatch( CoreLayerContext *obj,
         }
 
         case CoreLayerContextCall_FindWindow: {
-    CoreWindow *window = NULL;
+    		CoreWindow *window = NULL;
             D_UNUSED
             CoreLayerContextFindWindow       *args        = (CoreLayerContextFindWindow *) ptr;
             CoreLayerContextFindWindowReturn *return_args = (CoreLayerContextFindWindowReturn *) ret_ptr;
@@ -2035,7 +2035,7 @@ __CoreLayerContextDispatch__Dispatch( CoreLayerContext *obj,
         }
 
         case CoreLayerContextCall_FindWindowByResourceID: {
-    CoreWindow *window = NULL;
+    		CoreWindow *window = NULL;
             D_UNUSED
             CoreLayerContextFindWindowByResourceID       *args        = (CoreLayerContextFindWindowByResourceID *) ptr;
             CoreLayerContextFindWindowByResourceIDReturn *return_args = (CoreLayerContextFindWindowByResourceIDReturn *) ret_ptr;

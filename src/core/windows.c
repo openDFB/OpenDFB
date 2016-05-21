@@ -124,7 +124,6 @@ window_destructor( FusionObject *object, bool zombie, void *ctx )
 
      dfb_window_destroy( window );
 
-
      if (window->cursor.surface)
           dfb_surface_unlink( &window->cursor.surface );
 
@@ -232,7 +231,6 @@ create_region( CoreDFB                 *core,
      ret = dfb_layer_region_create( context, &region );
      if (ret)
           return ret;
-
 
      do {
           ret = dfb_layer_region_set_configuration( region, &config, CLRCF_ALL );

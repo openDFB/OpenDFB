@@ -227,85 +227,85 @@ typedef struct {
 
 /**********************************************************************************************************************/
 
-static const DeadKeyCombo combos_grave[] = {         
-     { DIKS_SPACE,     (unsigned char) '`' },        
-     { DIKS_SMALL_A,   (unsigned char) 'à' },        
-     { DIKS_SMALL_E,   (unsigned char) 'è' },        
-     { DIKS_SMALL_I,   (unsigned char) 'ì' },        
-     { DIKS_SMALL_O,   (unsigned char) 'ò' },        
-     { DIKS_SMALL_U,   (unsigned char) 'ù' },        
-     { DIKS_CAPITAL_A, (unsigned char) 'À' },        
-     { DIKS_CAPITAL_E, (unsigned char) 'È' },        
-     { DIKS_CAPITAL_I, (unsigned char) 'Ì' },        
-     { DIKS_CAPITAL_O, (unsigned char) 'Ò' },        
-     { DIKS_CAPITAL_U, (unsigned char) 'Ù' },        
-     { 0, 0 }                                        
-};                                                   
-                                                     
-static const DeadKeyCombo combos_acute[] = {         
-     { DIKS_SPACE,     (unsigned char) '\'' },       
-     { DIKS_SMALL_A,   (unsigned char) 'á' },        
-     { DIKS_SMALL_E,   (unsigned char) 'é' },        
-     { DIKS_SMALL_I,   (unsigned char) 'í' },        
-     { DIKS_SMALL_O,   (unsigned char) 'ó' },        
-     { DIKS_SMALL_U,   (unsigned char) 'ú' },        
-     { DIKS_SMALL_Y,   (unsigned char) 'ý' },        
-     { DIKS_CAPITAL_A, (unsigned char) 'Á' },        
-     { DIKS_CAPITAL_E, (unsigned char) 'É' },        
-     { DIKS_CAPITAL_I, (unsigned char) 'Í' },        
-     { DIKS_CAPITAL_O, (unsigned char) 'Ó' },        
-     { DIKS_CAPITAL_U, (unsigned char) 'Ú' },        
-     { DIKS_CAPITAL_Y, (unsigned char) 'Ý' },        
-     { 0, 0 }                                        
-};                                                   
-                                                     
-static const DeadKeyCombo combos_circumflex[] = {    
-     { DIKS_SPACE,     (unsigned char) '^' },        
-     { DIKS_SMALL_A,   (unsigned char) 'â' },        
-     { DIKS_SMALL_E,   (unsigned char) 'ê' },        
-     { DIKS_SMALL_I,   (unsigned char) 'î' },        
-     { DIKS_SMALL_O,   (unsigned char) 'ô' },        
-     { DIKS_SMALL_U,   (unsigned char) 'û' },        
-     { DIKS_CAPITAL_A, (unsigned char) 'Â' },        
-     { DIKS_CAPITAL_E, (unsigned char) 'Ê' },        
-     { DIKS_CAPITAL_I, (unsigned char) 'Î' },        
-     { DIKS_CAPITAL_O, (unsigned char) 'Ô' },        
-     { DIKS_CAPITAL_U, (unsigned char) 'Û' },        
-     { 0, 0 }                                        
-};                                                   
-                                                     
-static const DeadKeyCombo combos_diaeresis[] = {     
-     { DIKS_SPACE,     (unsigned char) '¨' },        
-     { DIKS_SMALL_A,   (unsigned char) 'ä' },        
-     { DIKS_SMALL_E,   (unsigned char) 'ë' },        
-     { DIKS_SMALL_I,   (unsigned char) 'ï' },        
-     { DIKS_SMALL_O,   (unsigned char) 'ö' },        
-     { DIKS_SMALL_U,   (unsigned char) 'ü' },        
-     { DIKS_CAPITAL_A, (unsigned char) 'Ä' },        
-     { DIKS_CAPITAL_E, (unsigned char) 'Ë' },        
-     { DIKS_CAPITAL_I, (unsigned char) 'Ï' },        
-     { DIKS_CAPITAL_O, (unsigned char) 'Ö' },        
-     { DIKS_CAPITAL_U, (unsigned char) 'Ü' },        
-     { 0, 0 }                                        
-};                                                   
-                                                     
-static const DeadKeyCombo combos_tilde[] = {         
-     { DIKS_SPACE,     (unsigned char) '~' },        
-     { DIKS_SMALL_A,   (unsigned char) 'ã' },        
-     { DIKS_SMALL_N,   (unsigned char) 'ñ' },        
-     { DIKS_SMALL_O,   (unsigned char) 'õ' },        
-     { DIKS_CAPITAL_A, (unsigned char) 'Ã' },        
-     { DIKS_CAPITAL_N, (unsigned char) 'Ñ' },        
-     { DIKS_CAPITAL_O, (unsigned char) 'Õ' },        
-     { 0, 0 }                                        
+static const DeadKeyCombo combos_grave[] = {
+     { DIKS_SPACE,     (unsigned char) '`' },
+     { DIKS_SMALL_A,   (unsigned char) 'à' },
+     { DIKS_SMALL_E,   (unsigned char) 'è' },
+     { DIKS_SMALL_I,   (unsigned char) 'ì' },
+     { DIKS_SMALL_O,   (unsigned char) 'ò' },
+     { DIKS_SMALL_U,   (unsigned char) 'ù' },
+     { DIKS_CAPITAL_A, (unsigned char) 'À' },
+     { DIKS_CAPITAL_E, (unsigned char) 'È' },
+     { DIKS_CAPITAL_I, (unsigned char) 'Ì' },
+     { DIKS_CAPITAL_O, (unsigned char) 'Ò' },
+     { DIKS_CAPITAL_U, (unsigned char) 'Ù' },
+     { 0, 0 }
 };
 
-static const DeadKeyMap deadkey_maps[] = {           
-     { DIKS_DEAD_GRAVE,      combos_grave },         
-     { DIKS_DEAD_ACUTE,      combos_acute },         
-     { DIKS_DEAD_CIRCUMFLEX, combos_circumflex },    
-     { DIKS_DEAD_DIAERESIS,  combos_diaeresis },     
-     { DIKS_DEAD_TILDE,      combos_tilde }          
+static const DeadKeyCombo combos_acute[] = {
+     { DIKS_SPACE,     (unsigned char) '\'' },
+     { DIKS_SMALL_A,   (unsigned char) 'á' },
+     { DIKS_SMALL_E,   (unsigned char) 'é' },
+     { DIKS_SMALL_I,   (unsigned char) 'í' },
+     { DIKS_SMALL_O,   (unsigned char) 'ó' },
+     { DIKS_SMALL_U,   (unsigned char) 'ú' },
+     { DIKS_SMALL_Y,   (unsigned char) 'ý' },
+     { DIKS_CAPITAL_A, (unsigned char) 'Á' },
+     { DIKS_CAPITAL_E, (unsigned char) 'É' },
+     { DIKS_CAPITAL_I, (unsigned char) 'Í' },
+     { DIKS_CAPITAL_O, (unsigned char) 'Ó' },
+     { DIKS_CAPITAL_U, (unsigned char) 'Ú' },
+     { DIKS_CAPITAL_Y, (unsigned char) 'Ý' },
+     { 0, 0 }
+};
+
+static const DeadKeyCombo combos_circumflex[] = {
+     { DIKS_SPACE,     (unsigned char) '^' },
+     { DIKS_SMALL_A,   (unsigned char) 'â' },
+     { DIKS_SMALL_E,   (unsigned char) 'ê' },
+     { DIKS_SMALL_I,   (unsigned char) 'î' },
+     { DIKS_SMALL_O,   (unsigned char) 'ô' },
+     { DIKS_SMALL_U,   (unsigned char) 'û' },
+     { DIKS_CAPITAL_A, (unsigned char) 'Â' },
+     { DIKS_CAPITAL_E, (unsigned char) 'Ê' },
+     { DIKS_CAPITAL_I, (unsigned char) 'Î' },
+     { DIKS_CAPITAL_O, (unsigned char) 'Ô' },
+     { DIKS_CAPITAL_U, (unsigned char) 'Û' },
+     { 0, 0 }
+};
+
+static const DeadKeyCombo combos_diaeresis[] = {
+     { DIKS_SPACE,     (unsigned char) '¨' },
+     { DIKS_SMALL_A,   (unsigned char) 'ä' },
+     { DIKS_SMALL_E,   (unsigned char) 'ë' },
+     { DIKS_SMALL_I,   (unsigned char) 'ï' },
+     { DIKS_SMALL_O,   (unsigned char) 'ö' },
+     { DIKS_SMALL_U,   (unsigned char) 'ü' },
+     { DIKS_CAPITAL_A, (unsigned char) 'Ä' },
+     { DIKS_CAPITAL_E, (unsigned char) 'Ë' },
+     { DIKS_CAPITAL_I, (unsigned char) 'Ï' },
+     { DIKS_CAPITAL_O, (unsigned char) 'Ö' },
+     { DIKS_CAPITAL_U, (unsigned char) 'Ü' },
+     { 0, 0 }
+};
+
+static const DeadKeyCombo combos_tilde[] = {
+     { DIKS_SPACE,     (unsigned char) '~' },
+     { DIKS_SMALL_A,   (unsigned char) 'ã' },
+     { DIKS_SMALL_N,   (unsigned char) 'ñ' },
+     { DIKS_SMALL_O,   (unsigned char) 'õ' },
+     { DIKS_CAPITAL_A, (unsigned char) 'Ã' },
+     { DIKS_CAPITAL_N, (unsigned char) 'Ñ' },
+     { DIKS_CAPITAL_O, (unsigned char) 'Õ' },
+     { 0, 0 }
+};
+
+static const DeadKeyMap deadkey_maps[] = {
+     { DIKS_DEAD_GRAVE,      combos_grave },
+     { DIKS_DEAD_ACUTE,      combos_acute },
+     { DIKS_DEAD_CIRCUMFLEX, combos_circumflex },
+     { DIKS_DEAD_DIAERESIS,  combos_diaeresis },
+     { DIKS_DEAD_TILDE,      combos_tilde }
 };
 
 /* define a lookup table to go from key IDs to names.
@@ -639,7 +639,7 @@ dfb_input_core_shutdown( DFBInputCore *data,
 
           if (devshared->keymap.entries)
                SHFREE( pool, devshared->keymap.entries );
-  
+
           if (devshared->axis_info)
                SHFREE( pool, devshared->axis_info );
 
@@ -724,12 +724,12 @@ dfb_input_core_suspend( DFBInputCore *data )
           InputDeviceShared *devshared;
 
           (void)devshared;
-          
+
           D_MAGIC_ASSERT( device, CoreInputDevice );
-          
+
           driver = device->driver;
           D_ASSERT( driver != NULL );
-          
+
           devshared = device->shared;
           D_ASSERT( devshared != NULL );
 
@@ -2050,12 +2050,12 @@ set_keymap_entry( CoreInputDevice                 *device,
 
      /* copy the entry to the map */
      map->entries[code - map->min_keycode] = *entry;
-     
+
      return DFB_OK;
 }
 
 /* replace the complete current keymap with a keymap from a file.
- * the minimum-maximum keycodes of the driver are to be respected. 
+ * the minimum-maximum keycodes of the driver are to be respected.
  */
 static DFBResult
 load_keymap( CoreInputDevice           *device,
@@ -2088,9 +2088,9 @@ load_keymap( CoreInputDevice           *device,
           char  diki[201];
           char  diks[4][201];
           char *b;
-          
+
           DFBInputDeviceKeymapEntry entry = { .code = 0 };
-          
+
           b = fgets( buffer, 200, file );
           if( !b ) {
                if( feof(file) ) {
@@ -2156,7 +2156,7 @@ static DFBInputDeviceKeySymbol lookup_keysymbol( char *symbolname )
 {
      int i;
 
-     /* we want uppercase */  
+     /* we want uppercase */
      for( i=0; i<strlen(symbolname); i++ )
           if( symbolname[i] >= 'a' && symbolname[i] <= 'z' )
                symbolname[i] = symbolname[i] - 'a' + 'A';
@@ -2165,7 +2165,7 @@ static DFBInputDeviceKeySymbol lookup_keysymbol( char *symbolname )
           if( strcmp( symbolname, KeySymbolNames[i].name ) == 0 )
                return KeySymbolNames[i].symbol;
      }
-     
+
      /* not found, maybe starting with 0x for raw conversion.
       * We are already at uppercase.
       */
@@ -2185,7 +2185,7 @@ static DFBInputDeviceKeySymbol lookup_keysymbol( char *symbolname )
           }
           return code;
      }
-     
+
      return DIKS_NULL;
 }
 
@@ -2193,7 +2193,7 @@ static DFBInputDeviceKeyIdentifier lookup_keyidentifier( char *identifiername )
 {
      int i;
 
-     /* we want uppercase */  
+     /* we want uppercase */
      for( i=0; i<strlen(identifiername); i++ )
           if( identifiername[i] >= 'a' && identifiername[i] <= 'z' )
                identifiername[i] = identifiername[i] - 'a' + 'A';
@@ -2202,7 +2202,7 @@ static DFBInputDeviceKeyIdentifier lookup_keyidentifier( char *identifiername )
           if( strcmp( identifiername, KeyIdentifierNames[i].name ) == 0 )
                return KeyIdentifierNames[i].identifier;
      }
-     
+
      return DIKI_UNKNOWN;
 }
 
@@ -2542,7 +2542,7 @@ fixup_key_event( CoreInputDevice *device, DFBInputEvent *event )
           shared->first_press = false;
      }
      else if (event->type == DIET_KEYRELEASE) {
-          
+
           shared->first_press = true;
      }
 
@@ -2606,7 +2606,7 @@ fixup_mouse_event( CoreInputDevice *device, DFBInputEvent *event )
 
                          event->flags |= DIEF_MIN;
                     }
-                         
+
                     if (!(event->flags & DIEF_MAX) && (shared->axis_info[event->axis].flags & DIAIF_ABS_MAX)) {
                          event->max = shared->axis_info[event->axis].abs_max;
 

@@ -30,7 +30,6 @@
 #define ___CorePalette__H___
 
 #include <core/CorePalette_includes.h>
-#include <direct/oopc.h>
 
 /**********************************************************************************************************************
  * CorePalette

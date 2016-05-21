@@ -1361,12 +1361,12 @@ sawman_surface_reaction( const void *msg_data,
                                         /* Copy back the updated region. */
                                         if (tier->left.updated.num_regions) {
                                              D_DEBUG_AT( SaWMan_Surface, "  -> copying %d updated regions (F->I) (left)\n", tier->left.updated.num_regions );
-     
+
                                              for (i=0; i<tier->left.updated.num_regions; i++) {
                                                   D_DEBUG_AT( SaWMan_Surface, "    -> %4d,%4d - %4dx%4d  [%d]\n",
                                                               DFB_RECTANGLE_VALS_FROM_REGION( &tier->left.updated.regions[i] ), i );
                                              }
-     
+
                                              dfb_gfx_copy_regions( tier->surface, CSBR_FRONT, tier->surface, CSBR_IDLE,
                                                                    tier->left.updated.regions, tier->left.updated.num_regions, 0, 0 );
                                         }
@@ -2710,8 +2710,8 @@ wm_set_window_config( CoreWindow             *window,
                }
 
                sawman_update_window( sawman, sawwin, NULL, DSFLIP_NONE, SWMUF_UPDATE_BORDER | SWMUF_FORCE_COMPLETE );
-               if ( tier->region->config.options & DLOP_STEREO ) 
-                    sawman_update_window( sawman, sawwin, NULL, DSFLIP_NONE, 
+               if ( tier->region->config.options & DLOP_STEREO )
+                    sawman_update_window( sawman, sawwin, NULL, DSFLIP_NONE,
                          SWMUF_UPDATE_BORDER | SWMUF_FORCE_COMPLETE | SWMUF_RIGHT_EYE );
           }
 
@@ -2788,7 +2788,7 @@ wm_set_window_config( CoreWindow             *window,
           sawman_update_focus( sawman, stack, stack->cursor.x, stack->cursor.y );
      }
 
-     if (flags & CWCF_STEREO_DEPTH) 
+     if (flags & CWCF_STEREO_DEPTH)
           sawman_set_stereo_depth( sawman, sawwin, config->z );
 
      if (flags & CWCF_KEY_SELECTION) {
@@ -2860,8 +2860,6 @@ wm_set_window_config( CoreWindow             *window,
 
                window->config.association = 0;
           }
-
-
 
           /* Lookup new parent window. */
           if (config->association) {

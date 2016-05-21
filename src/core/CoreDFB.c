@@ -27,20 +27,15 @@
 */
 
 #include <config.h>
-
 #include "CoreDFB.h"
-
 #include <directfb_util.h>
-
 #include <direct/debug.h>
 #include <direct/mem.h>
 #include <direct/memcpy.h>
 #include <direct/messages.h>
 
 #include <fusion/conf.h>
-
 #include <core/core.h>
-
 #include <core/CoreDFB_CallMode.h>
 
 D_DEBUG_DOMAIN( DirectFB_CoreDFB, "DirectFB/CoreDFB", "DirectFB CoreDFB" );
@@ -158,11 +153,9 @@ CoreDFB_CreateSurface(CoreDFB *obj,
 }
 
 DFBResult
-CoreDFB_CreatePalette(
-                    CoreDFB                                   *obj,
+CoreDFB_CreatePalette(CoreDFB                                   *obj,
                     u32                                        size,
-                    CorePalette                              **ret_palette
-)
+                    CorePalette                              **ret_palette)
 {
     DFBResult ret;
 
@@ -197,10 +190,8 @@ CoreDFB_CreatePalette(
 }
 
 DFBResult
-CoreDFB_CreateState(
-                    CoreDFB                                   *obj,
-                    CoreGraphicsState                        **ret_state
-)
+CoreDFB_CreateState(CoreDFB                                   *obj,
+                    CoreGraphicsState                        **ret_state)
 {
     DFBResult ret;
 
@@ -235,10 +226,7 @@ CoreDFB_CreateState(
 }
 
 DFBResult
-CoreDFB_WaitIdle(
-                    CoreDFB                                   *obj
-
-)
+CoreDFB_WaitIdle(CoreDFB *obj)
 {
     DFBResult ret;
 
@@ -276,8 +264,7 @@ DFBResult
 CoreDFB_CreateImageProvider(
                     CoreDFB                                   *obj,
                     u32                                        buffer_call,
-                    u32                                       *ret_call
-)
+                    u32                                       *ret_call)
 {
     DFBResult ret;
 
@@ -316,8 +303,7 @@ CoreDFB_AllowSurface(
                     CoreDFB                                   *obj,
                     CoreSurface                               *surface,
                     const char                                *executable,
-                    u32                                        executable_length
-)
+                    u32                                        executable_length)
 {
     DFBResult ret;
 
@@ -355,8 +341,7 @@ DFBResult
 CoreDFB_GetSurface(
                     CoreDFB                                   *obj,
                     u32                                        surface_id,
-                    CoreSurface                              **ret_surface
-)
+                    CoreSurface                              **ret_surface)
 {
     DFBResult ret;
 
@@ -397,8 +382,7 @@ CoreDFB_ClipboardSet(
                     u32                                        mime_type_size,
                     const char                                *data,
                     u32                                        data_size,
-                    u64                                        timestamp_us
-)
+                    u64                                        timestamp_us)
 {
     DFBResult ret;
 
@@ -438,8 +422,7 @@ CoreDFB_ClipboardGet(
                     char                                      *ret_mime_type,
                     u32                                       *ret_mime_type_size,
                     char                                      *ret_data,
-                    u32                                       *ret_data_size
-)
+                    u32                                       *ret_data_size)
 {
     DFBResult ret;
 
@@ -476,8 +459,7 @@ CoreDFB_ClipboardGet(
 DFBResult
 CoreDFB_ClipboardGetTimestamp(
                     CoreDFB                                   *obj,
-                    u64                                       *ret_timestamp_us
-)
+                    u64                                       *ret_timestamp_us)
 {
     DFBResult ret;
 
@@ -533,15 +515,13 @@ CoreDFB_Dispatch( int           caller,   /* fusion id of the caller */
 void CoreDFB_Init_Dispatch(
                     CoreDFB              *core,
                     CoreDFB              *obj,
-                    FusionCall           *call
-)
+                    FusionCall           *call)
 {
     fusion_call_init3( call, CoreDFB_Dispatch, obj, core->world );
 }
 
 void  CoreDFB_Deinit_Dispatch(
-                    FusionCall           *call
-)
+                    FusionCall           *call)
 {
      fusion_call_destroy( call );
 }
@@ -569,9 +549,7 @@ static __inline__ void args_free( void *static_buffer, void *buffer )
 
 
 DFBResult
-ICoreRequestor_Initialize(ICore *thiz
-
-)
+ICoreRequestor_Initialize(ICore *thiz)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];
@@ -605,8 +583,6 @@ ICoreRequestor_Initialize(ICore *thiz
         goto out;
     }
 
-
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -616,8 +592,7 @@ out:
 
 DFBResult
 ICoreRequestor_Register(ICore *thiz,
-                    u32                                        slave_call
-)
+                    u32                                        slave_call)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];
@@ -652,8 +627,6 @@ ICoreRequestor_Register(ICore *thiz,
         goto out;
     }
 
-
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -667,8 +640,7 @@ ICoreRequestor_CreateSurface(ICore *thiz,
                     CoreSurfaceTypeFlags                       type,
                     u64                                        resource_id,
                     CorePalette                               *palette,
-                    CoreSurface                              **ret_surface
-)
+                    CoreSurface                              **ret_surface)
 {
     DFBResult           ret = DFB_OK;
     CoreSurface *surface = NULL;
@@ -723,7 +695,6 @@ ICoreRequestor_CreateSurface(ICore *thiz,
 
     *ret_surface = surface;
 
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -734,8 +705,7 @@ out:
 DFBResult
 ICoreRequestor_CreatePalette(ICore *thiz,
                     u32                                        size,
-                    CorePalette                              **ret_palette
-)
+                    CorePalette                              **ret_palette)
 {
     DFBResult           ret = DFB_OK;
     CorePalette *palette = NULL;
@@ -781,7 +751,6 @@ ICoreRequestor_CreatePalette(ICore *thiz,
 
     *ret_palette = palette;
 
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -791,8 +760,7 @@ out:
 
 DFBResult
 ICoreRequestor_CreateState(ICore *thiz,
-                    CoreGraphicsState                        **ret_state
-)
+                    CoreGraphicsState                        **ret_state)
 {
     DFBResult           ret = DFB_OK;
     CoreGraphicsState *state = NULL;
@@ -837,7 +805,6 @@ ICoreRequestor_CreateState(ICore *thiz,
 
     *ret_state = state;
 
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -846,9 +813,7 @@ out:
 
 
 DFBResult
-ICoreRequestor_WaitIdle(ICore *thiz
-
-)
+ICoreRequestor_WaitIdle(ICore *thiz)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];
@@ -882,8 +847,6 @@ ICoreRequestor_WaitIdle(ICore *thiz
         goto out;
     }
 
-
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -894,8 +857,7 @@ out:
 DFBResult
 ICoreRequestor_CreateImageProvider(ICore *thiz,
                     u32                                        buffer_call,
-                    u32                                       *ret_call
-)
+                    u32                                       *ret_call)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];
@@ -944,8 +906,7 @@ DFBResult
 ICoreRequestor_AllowSurface(ICore *thiz,
                     CoreSurface                               *surface,
                     const char                                *executable,
-                    u32                                        executable_length
-)
+                    u32                                        executable_length)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];
@@ -983,8 +944,6 @@ ICoreRequestor_AllowSurface(ICore *thiz,
         goto out;
     }
 
-
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -995,8 +954,7 @@ out:
 DFBResult
 ICoreRequestor_GetSurface(ICore *thiz,
                     u32                                        surface_id,
-                    CoreSurface                              **ret_surface
-)
+                    CoreSurface                              **ret_surface)
 {
     DFBResult           ret = DFB_OK;
     CoreSurface *surface = NULL;
@@ -1042,7 +1000,6 @@ ICoreRequestor_GetSurface(ICore *thiz,
 
     *ret_surface = surface;
 
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -1056,8 +1013,7 @@ ICoreRequestor_ClipboardSet(ICore *thiz,
                     u32                                        mime_type_size,
                     const char                                *data,
                     u32                                        data_size,
-                    u64                                        timestamp_us
-)
+                    u64                                        timestamp_us)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];
@@ -1108,8 +1064,7 @@ ICoreRequestor_ClipboardGet(ICore *thiz,
                     char                                      *ret_mime_type,
                     u32                                       *ret_mime_type_size,
                     char                                      *ret_data,
-                    u32                                       *ret_data_size
-)
+                    u32                                       *ret_data_size)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];
@@ -1157,9 +1112,7 @@ out:
 
 
 DFBResult
-ICoreRequestor_ClipboardGetTimestamp(ICore *thiz,
-                    u64                                       *ret_timestamp_us
-)
+ICoreRequestor_ClipboardGetTimestamp(ICore *thiz, u64 *ret_timestamp_us)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];

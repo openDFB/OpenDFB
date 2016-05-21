@@ -52,8 +52,7 @@ DFBResult
 CoreInputDevice_SetKeymapEntry(
                     CoreInputDevice                           *obj,
                     s32                                        key_code,
-                    const DFBInputDeviceKeymapEntry           *entry
-)
+                    const DFBInputDeviceKeymapEntry           *entry)
 {
     DFBResult ret;
 
@@ -89,9 +88,7 @@ CoreInputDevice_SetKeymapEntry(
 
 DFBResult
 CoreInputDevice_ReloadKeymap(
-                    CoreInputDevice                           *obj
-
-)
+                    CoreInputDevice                           *obj)
 {
     DFBResult ret;
 
@@ -128,8 +125,7 @@ CoreInputDevice_ReloadKeymap(
 DFBResult
 CoreInputDevice_SetConfiguration(
                     CoreInputDevice                           *obj,
-                    const DFBInputDeviceConfig                *config
-)
+                    const DFBInputDeviceConfig                *config)
 {
     DFBResult ret;
 
@@ -260,8 +256,6 @@ IInputDeviceRequestor_SetKeymapEntry(IInputDevice *thiz,
         goto out;
     }
 
-
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -270,9 +264,7 @@ out:
 
 
 DFBResult
-IInputDeviceRequestor_ReloadKeymap(IInputDevice *thiz
-
-)
+IInputDeviceRequestor_ReloadKeymap(IInputDevice *thiz)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];
@@ -306,8 +298,6 @@ IInputDeviceRequestor_ReloadKeymap(IInputDevice *thiz
         goto out;
     }
 
-
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -317,8 +307,7 @@ out:
 
 DFBResult
 IInputDeviceRequestor_SetConfiguration(IInputDevice *thiz,
-                    const DFBInputDeviceConfig                *config
-)
+                    const DFBInputDeviceConfig                *config)
 {
     DFBResult           ret = DFB_OK;
     char        args_static[FLUXED_ARGS_BYTES];
@@ -353,8 +342,6 @@ IInputDeviceRequestor_SetConfiguration(IInputDevice *thiz,
         ret = return_args->result;
         goto out;
     }
-
-
 
 out:
     args_free( return_args_static, return_args );

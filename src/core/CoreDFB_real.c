@@ -45,7 +45,6 @@
 #include <core/core.h>
 
 #include <media/idirectfbdatabuffer_client.h>
-
 #include <idirectfb.h>
 
 D_DEBUG_DOMAIN( DirectFB_CoreDFB, "DirectFB/Core", "DirectFB Core" );
@@ -53,8 +52,7 @@ D_DEBUG_DOMAIN( DirectFB_CoreDFB, "DirectFB/Core", "DirectFB Core" );
 /*********************************************************************************************************************/
 
 DFBResult
-ICoreReal_Initialize(ICore *thiz
-)
+ICoreReal_Initialize(ICore *thiz)
 {
     D_DEBUG_AT( DirectFB_CoreDFB, "ICoreReal_%s()\n", __FUNCTION__ );
 
@@ -149,8 +147,7 @@ ICoreReal_WaitIdle(ICore *thiz
 DFBResult
 ICoreReal_CreateImageProvider(ICore *thiz,
                     u32                                        buffer_call,
-                    u32                                       *ret_call
-)
+                    u32                                       *ret_call)
 {
      DFBResult               ret;
      IDirectFBDataBuffer    *buffer;
@@ -254,8 +251,7 @@ ICoreReal_ClipboardSet(ICore *thiz,
                     u32                                        mime_type_size,
                     const char                                *data,
                     u32                                        data_size,
-                    u64                                        timestamp_us
-)
+                    u64                                        timestamp_us)
 {
     struct timeval tv;
 
@@ -273,8 +269,7 @@ ICoreReal_ClipboardGet(ICore *thiz,
                     char                                      *ret_mime_type,
                     u32                                       *ret_mime_type_size,
                     char                                      *ret_data,
-                    u32                                       *ret_data_size
-)
+                    u32                                       *ret_data_size)
 {
     DFBResult     ret;
     char         *mime_type;
@@ -301,9 +296,7 @@ ICoreReal_ClipboardGet(ICore *thiz,
 
 
 DFBResult
-ICoreReal_ClipboardGetTimestamp(ICore *thiz,
-                    u64                                       *ret_timestamp_us
-)
+ICoreReal_ClipboardGetTimestamp(ICore *thiz, u64 *ret_timestamp_us)
 {
     DFBResult      ret;
     struct timeval tv;
