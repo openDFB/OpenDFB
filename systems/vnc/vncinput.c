@@ -99,7 +99,7 @@ driver_open_device( CoreInputDevice      *device,
      info->desc.type   = /*DIDTF_JOYSTICK |*/ DIDTF_KEYBOARD| DIDTF_MOUSE;
 
      /* set capabilities */
-     info->desc.caps   = DICAPS_ALL;
+     info->desc.caps   = DIDCAPS_ALL;
 
      /* set private data pointer */
      /* *driver_data = device;*/

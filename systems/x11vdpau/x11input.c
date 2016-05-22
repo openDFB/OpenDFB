@@ -130,92 +130,92 @@ static DFBInputDeviceKeyIdentifier
 xsymbol_to_id( KeySym xKeySymbol )
 {
      switch (xKeySymbol) {
-          case XK_a                : return DIKI_A;     
-          case XK_b                : return DIKI_B;     
-          case XK_c                : return DIKI_C;     
-          case XK_d                : return DIKI_D;     
-          case XK_e                : return DIKI_E;     
-          case XK_f                : return DIKI_F;     
-          case XK_g                : return DIKI_G;     
-          case XK_h                : return DIKI_H;     
-          case XK_i                : return DIKI_I;     
-          case XK_j                : return DIKI_J;     
-          case XK_k                : return DIKI_K;     
-          case XK_l                : return DIKI_L;     
-          case XK_m                : return DIKI_M;     
-          case XK_n                : return DIKI_N;     
-          case XK_o                : return DIKI_O;     
-          case XK_p                : return DIKI_P;     
-          case XK_q                : return DIKI_Q;     
-          case XK_r                : return DIKI_R;     
-          case XK_s                : return DIKI_S;     
-          case XK_t                : return DIKI_T;     
-          case XK_u                : return DIKI_U;     
-          case XK_v                : return DIKI_V;     
-          case XK_w                : return DIKI_W;     
-          case XK_x                : return DIKI_X;     
-          case XK_y                : return DIKI_Y;     
-          case XK_z                : return DIKI_Z;     
-          case XK_0                : return DIKI_0;     
-          case XK_1                : return DIKI_1;     
-          case XK_2                : return DIKI_2;     
-          case XK_3                : return DIKI_3;     
-          case XK_4                : return DIKI_4;     
-          case XK_5                : return DIKI_5;     
-          case XK_6                : return DIKI_6;     
-          case XK_7                : return DIKI_7;     
-          case XK_8                : return DIKI_8;     
-          case XK_9                : return DIKI_9;     
-          case XK_F1               : return DIKI_F1;    
-          case XK_F2               : return DIKI_F2;    
-          case XK_F3               : return DIKI_F3;    
-          case XK_F4               : return DIKI_F4;    
-          case XK_F5               : return DIKI_F5;    
-          case XK_F6               : return DIKI_F6;    
-          case XK_F7               : return DIKI_F7;    
-          case XK_F8               : return DIKI_F8;    
-          case XK_F9               : return DIKI_F9;    
-          case XK_F10              : return DIKI_F10;   
-          case XK_F11              : return DIKI_F11;   
-          case XK_F12              : return DIKI_F12;   
+          case XK_a                : return DIKI_A;
+          case XK_b                : return DIKI_B;
+          case XK_c                : return DIKI_C;
+          case XK_d                : return DIKI_D;
+          case XK_e                : return DIKI_E;
+          case XK_f                : return DIKI_F;
+          case XK_g                : return DIKI_G;
+          case XK_h                : return DIKI_H;
+          case XK_i                : return DIKI_I;
+          case XK_j                : return DIKI_J;
+          case XK_k                : return DIKI_K;
+          case XK_l                : return DIKI_L;
+          case XK_m                : return DIKI_M;
+          case XK_n                : return DIKI_N;
+          case XK_o                : return DIKI_O;
+          case XK_p                : return DIKI_P;
+          case XK_q                : return DIKI_Q;
+          case XK_r                : return DIKI_R;
+          case XK_s                : return DIKI_S;
+          case XK_t                : return DIKI_T;
+          case XK_u                : return DIKI_U;
+          case XK_v                : return DIKI_V;
+          case XK_w                : return DIKI_W;
+          case XK_x                : return DIKI_X;
+          case XK_y                : return DIKI_Y;
+          case XK_z                : return DIKI_Z;
+          case XK_0                : return DIKI_0;
+          case XK_1                : return DIKI_1;
+          case XK_2                : return DIKI_2;
+          case XK_3                : return DIKI_3;
+          case XK_4                : return DIKI_4;
+          case XK_5                : return DIKI_5;
+          case XK_6                : return DIKI_6;
+          case XK_7                : return DIKI_7;
+          case XK_8                : return DIKI_8;
+          case XK_9                : return DIKI_9;
+          case XK_F1               : return DIKI_F1;
+          case XK_F2               : return DIKI_F2;
+          case XK_F3               : return DIKI_F3;
+          case XK_F4               : return DIKI_F4;
+          case XK_F5               : return DIKI_F5;
+          case XK_F6               : return DIKI_F6;
+          case XK_F7               : return DIKI_F7;
+          case XK_F8               : return DIKI_F8;
+          case XK_F9               : return DIKI_F9;
+          case XK_F10              : return DIKI_F10;
+          case XK_F11              : return DIKI_F11;
+          case XK_F12              : return DIKI_F12;
 
-          case XK_Shift_L          : return DIKI_SHIFT_L;     
-          case XK_Shift_R          : return DIKI_SHIFT_R;     
-          case XK_Control_L        : return DIKI_CONTROL_L;   
-          case XK_Control_R        : return DIKI_CONTROL_R;   
-          case XK_Alt_L            : return DIKI_ALT_L;       
-          case XK_Alt_R            : return DIKI_ALT_R;       
-          case XK_Meta_L           : return DIKI_META_L;      
-          case XK_Meta_R           : return DIKI_META_R;      
-          case XK_Super_L          : return DIKI_SUPER_L;     
-          case XK_Super_R          : return DIKI_SUPER_R;     
-          case XK_Hyper_L          : return DIKI_HYPER_L;     
-          case XK_Hyper_R          : return DIKI_HYPER_R;     
+          case XK_Shift_L          : return DIKI_SHIFT_L;
+          case XK_Shift_R          : return DIKI_SHIFT_R;
+          case XK_Control_L        : return DIKI_CONTROL_L;
+          case XK_Control_R        : return DIKI_CONTROL_R;
+          case XK_Alt_L            : return DIKI_ALT_L;
+          case XK_Alt_R            : return DIKI_ALT_R;
+          case XK_Meta_L           : return DIKI_META_L;
+          case XK_Meta_R           : return DIKI_META_R;
+          case XK_Super_L          : return DIKI_SUPER_L;
+          case XK_Super_R          : return DIKI_SUPER_R;
+          case XK_Hyper_L          : return DIKI_HYPER_L;
+          case XK_Hyper_R          : return DIKI_HYPER_R;
           case XK_Mode_switch      : return DIKI_ALT_R;
 
-          case XK_Caps_Lock        : return DIKI_CAPS_LOCK;   
-          case XK_Num_Lock         : return DIKI_NUM_LOCK;    
-          case XK_Scroll_Lock      : return DIKI_SCROLL_LOCK; 
+          case XK_Caps_Lock        : return DIKI_CAPS_LOCK;
+          case XK_Num_Lock         : return DIKI_NUM_LOCK;
+          case XK_Scroll_Lock      : return DIKI_SCROLL_LOCK;
 
-          case XK_Escape           : return DIKI_ESCAPE;      
-          case XK_Left             : return DIKI_LEFT;        
-          case XK_Right            : return DIKI_RIGHT;       
-          case XK_Up               : return DIKI_UP;          
-          case XK_Down             : return DIKI_DOWN;        
+          case XK_Escape           : return DIKI_ESCAPE;
+          case XK_Left             : return DIKI_LEFT;
+          case XK_Right            : return DIKI_RIGHT;
+          case XK_Up               : return DIKI_UP;
+          case XK_Down             : return DIKI_DOWN;
 
           case XK_Tab              : return DIKI_TAB;
           case XK_ISO_Left_Tab     : return DIKI_TAB;
-          case XK_Return           : return DIKI_ENTER;       
-          case XK_space            : return DIKI_SPACE;       
-          case XK_BackSpace        : return DIKI_BACKSPACE;   
-          case XK_Insert           : return DIKI_INSERT;      
-          case XK_Delete           : return DIKI_DELETE;      
-          case XK_Home             : return DIKI_HOME;       
-          case XK_End              : return DIKI_END;        
-          case XK_Page_Up          : return DIKI_PAGE_UP;    
-          case XK_Page_Down        : return DIKI_PAGE_DOWN;  
+          case XK_Return           : return DIKI_ENTER;
+          case XK_space            : return DIKI_SPACE;
+          case XK_BackSpace        : return DIKI_BACKSPACE;
+          case XK_Insert           : return DIKI_INSERT;
+          case XK_Delete           : return DIKI_DELETE;
+          case XK_Home             : return DIKI_HOME;
+          case XK_End              : return DIKI_END;
+          case XK_Page_Up          : return DIKI_PAGE_UP;
+          case XK_Page_Down        : return DIKI_PAGE_DOWN;
           case XK_Print            : return DIKI_PRINT;
-          case XK_Pause            : return DIKI_PAUSE;       
+          case XK_Pause            : return DIKI_PAUSE;
 
           /*  The labels on these keys depend on the type of keyboard.
            *  We've choosen the names from a US keyboard layout. The
@@ -234,49 +234,49 @@ xsymbol_to_id( KeySym xKeySymbol )
           case XK_slash            : return DIKI_SLASH;        /*  AB10  */
           case XK_less             : return DIKI_LESS_SIGN;    /*  103rd  */
 
-          case XK_KP_Divide        : return DIKI_KP_DIV;      
-          case XK_KP_Multiply      : return DIKI_KP_MULT;     
-          case XK_KP_Subtract      : return DIKI_KP_MINUS;    
-          case XK_KP_Add           : return DIKI_KP_PLUS;     
-          case XK_KP_Enter         : return DIKI_KP_ENTER;    
-          case XK_KP_Space         : return DIKI_KP_SPACE;    
-          case XK_KP_Tab           : return DIKI_KP_TAB;      
-          case XK_KP_F1            : return DIKI_KP_F1;       
-          case XK_KP_F2            : return DIKI_KP_F2;       
-          case XK_KP_F3            : return DIKI_KP_F3;       
-          case XK_KP_F4            : return DIKI_KP_F4;       
-          case XK_KP_Equal         : return DIKI_KP_EQUAL;    
+          case XK_KP_Divide        : return DIKI_KP_DIV;
+          case XK_KP_Multiply      : return DIKI_KP_MULT;
+          case XK_KP_Subtract      : return DIKI_KP_MINUS;
+          case XK_KP_Add           : return DIKI_KP_PLUS;
+          case XK_KP_Enter         : return DIKI_KP_ENTER;
+          case XK_KP_Space         : return DIKI_KP_SPACE;
+          case XK_KP_Tab           : return DIKI_KP_TAB;
+          case XK_KP_F1            : return DIKI_KP_F1;
+          case XK_KP_F2            : return DIKI_KP_F2;
+          case XK_KP_F3            : return DIKI_KP_F3;
+          case XK_KP_F4            : return DIKI_KP_F4;
+          case XK_KP_Equal         : return DIKI_KP_EQUAL;
           case XK_KP_Separator     : return DIKI_KP_SEPARATOR;
-                                   
+
           case XK_KP_Delete        : return DIKI_KP_DECIMAL;
-          case XK_KP_Insert        : return DIKI_KP_0;      
-          case XK_KP_End           : return DIKI_KP_1;      
-          case XK_KP_Down          : return DIKI_KP_2;      
-          case XK_KP_Page_Down     : return DIKI_KP_3;      
-          case XK_KP_Left          : return DIKI_KP_4;      
-          case XK_KP_Begin         : return DIKI_KP_5;      
-          case XK_KP_Right         : return DIKI_KP_6;      
-          case XK_KP_Home          : return DIKI_KP_7;      
-          case XK_KP_Up            : return DIKI_KP_8;      
+          case XK_KP_Insert        : return DIKI_KP_0;
+          case XK_KP_End           : return DIKI_KP_1;
+          case XK_KP_Down          : return DIKI_KP_2;
+          case XK_KP_Page_Down     : return DIKI_KP_3;
+          case XK_KP_Left          : return DIKI_KP_4;
+          case XK_KP_Begin         : return DIKI_KP_5;
+          case XK_KP_Right         : return DIKI_KP_6;
+          case XK_KP_Home          : return DIKI_KP_7;
+          case XK_KP_Up            : return DIKI_KP_8;
           case XK_KP_Page_Up       : return DIKI_KP_9;
 
           case XK_KP_Decimal       : return DIKI_KP_DECIMAL;
-          case XK_KP_0             : return DIKI_KP_0;      
-          case XK_KP_1             : return DIKI_KP_1;      
-          case XK_KP_2             : return DIKI_KP_2;      
-          case XK_KP_3             : return DIKI_KP_3;      
-          case XK_KP_4             : return DIKI_KP_4;      
-          case XK_KP_5             : return DIKI_KP_5;      
-          case XK_KP_6             : return DIKI_KP_6;      
-          case XK_KP_7             : return DIKI_KP_7;      
-          case XK_KP_8             : return DIKI_KP_8;      
+          case XK_KP_0             : return DIKI_KP_0;
+          case XK_KP_1             : return DIKI_KP_1;
+          case XK_KP_2             : return DIKI_KP_2;
+          case XK_KP_3             : return DIKI_KP_3;
+          case XK_KP_4             : return DIKI_KP_4;
+          case XK_KP_5             : return DIKI_KP_5;
+          case XK_KP_6             : return DIKI_KP_6;
+          case XK_KP_7             : return DIKI_KP_7;
+          case XK_KP_8             : return DIKI_KP_8;
           case XK_KP_9             : return DIKI_KP_9;
 
           case 0                   : break;
 
           default:
                D_DEBUG_AT( X11_Input, "Unknown key symbol 0x%lx\n", xKeySymbol);
-     }    
+     }
 
      return DIKI_UNKNOWN;
 }
@@ -292,86 +292,86 @@ xsymbol_to_symbol( KeySym xKeySymbol )
 
      switch (xKeySymbol) {
           case XK_Shift_L          : return DIKS_SHIFT;
-          case XK_Shift_R          : return DIKS_SHIFT;     
-          case XK_Control_L        : return DIKS_CONTROL;   
-          case XK_Control_R        : return DIKS_CONTROL;   
-          case XK_Alt_L            : return DIKS_ALT;       
-          case XK_Alt_R            : return DIKS_ALT;       
-          case XK_Meta_L           : return DIKS_META;      
-          case XK_Meta_R           : return DIKS_META;      
-          case XK_Super_L          : return DIKS_SUPER;     
-          case XK_Super_R          : return DIKS_SUPER;     
-          case XK_Hyper_L          : return DIKS_HYPER;     
-          case XK_Hyper_R          : return DIKS_HYPER;     
+          case XK_Shift_R          : return DIKS_SHIFT;
+          case XK_Control_L        : return DIKS_CONTROL;
+          case XK_Control_R        : return DIKS_CONTROL;
+          case XK_Alt_L            : return DIKS_ALT;
+          case XK_Alt_R            : return DIKS_ALT;
+          case XK_Meta_L           : return DIKS_META;
+          case XK_Meta_R           : return DIKS_META;
+          case XK_Super_L          : return DIKS_SUPER;
+          case XK_Super_R          : return DIKS_SUPER;
+          case XK_Hyper_L          : return DIKS_HYPER;
+          case XK_Hyper_R          : return DIKS_HYPER;
           case XK_Mode_switch      : return DIKS_ALTGR;
 
-          case XK_Caps_Lock        : return DIKS_CAPS_LOCK;   
-          case XK_Num_Lock         : return DIKS_NUM_LOCK;    
-          case XK_Scroll_Lock      : return DIKS_SCROLL_LOCK; 
+          case XK_Caps_Lock        : return DIKS_CAPS_LOCK;
+          case XK_Num_Lock         : return DIKS_NUM_LOCK;
+          case XK_Scroll_Lock      : return DIKS_SCROLL_LOCK;
 
-          case XK_Escape           : return DIKS_ESCAPE;      
+          case XK_Escape           : return DIKS_ESCAPE;
           case XK_Left             : return DIKS_CURSOR_LEFT;
-          case XK_Right            : return DIKS_CURSOR_RIGHT;       
-          case XK_Up               : return DIKS_CURSOR_UP;          
-          case XK_Down             : return DIKS_CURSOR_DOWN;        
+          case XK_Right            : return DIKS_CURSOR_RIGHT;
+          case XK_Up               : return DIKS_CURSOR_UP;
+          case XK_Down             : return DIKS_CURSOR_DOWN;
 
           case XK_Tab              : return DIKS_TAB;
           case XK_ISO_Left_Tab     : return DIKS_TAB;
-          case XK_Return           : return DIKS_ENTER;       
-          case XK_space            : return DIKS_SPACE;       
-          case XK_BackSpace        : return DIKS_BACKSPACE;   
-          case XK_Insert           : return DIKS_INSERT;      
-          case XK_Delete           : return DIKS_DELETE;      
-          case XK_Home             : return DIKS_HOME;       
-          case XK_End              : return DIKS_END;        
-          case XK_Page_Up          : return DIKS_PAGE_UP;    
-          case XK_Page_Down        : return DIKS_PAGE_DOWN;  
+          case XK_Return           : return DIKS_ENTER;
+          case XK_space            : return DIKS_SPACE;
+          case XK_BackSpace        : return DIKS_BACKSPACE;
+          case XK_Insert           : return DIKS_INSERT;
+          case XK_Delete           : return DIKS_DELETE;
+          case XK_Home             : return DIKS_HOME;
+          case XK_End              : return DIKS_END;
+          case XK_Page_Up          : return DIKS_PAGE_UP;
+          case XK_Page_Down        : return DIKS_PAGE_DOWN;
           case XK_Print            : return DIKS_PRINT;
-          case XK_Pause            : return DIKS_PAUSE;       
+          case XK_Pause            : return DIKS_PAUSE;
 
           case XK_KP_Divide        : return DIKS_SLASH;
-          case XK_KP_Multiply      : return DIKS_ASTERISK;     
-          case XK_KP_Subtract      : return DIKS_MINUS_SIGN;    
-          case XK_KP_Add           : return DIKS_PLUS_SIGN;     
-          case XK_KP_Enter         : return DIKS_ENTER;    
-          case XK_KP_Space         : return DIKS_SPACE;    
-          case XK_KP_Tab           : return DIKS_TAB;      
-          case XK_KP_F1            : return DIKS_F1;       
-          case XK_KP_F2            : return DIKS_F2;       
-          case XK_KP_F3            : return DIKS_F3;       
-          case XK_KP_F4            : return DIKS_F4;       
-          case XK_KP_Equal         : return DIKS_EQUALS_SIGN;    
+          case XK_KP_Multiply      : return DIKS_ASTERISK;
+          case XK_KP_Subtract      : return DIKS_MINUS_SIGN;
+          case XK_KP_Add           : return DIKS_PLUS_SIGN;
+          case XK_KP_Enter         : return DIKS_ENTER;
+          case XK_KP_Space         : return DIKS_SPACE;
+          case XK_KP_Tab           : return DIKS_TAB;
+          case XK_KP_F1            : return DIKS_F1;
+          case XK_KP_F2            : return DIKS_F2;
+          case XK_KP_F3            : return DIKS_F3;
+          case XK_KP_F4            : return DIKS_F4;
+          case XK_KP_Equal         : return DIKS_EQUALS_SIGN;
           case XK_KP_Separator     : return DIKS_COLON; /* FIXME: what is a separator */
-                                   
+
           case XK_KP_Delete        : return DIKS_DELETE;
-          case XK_KP_Insert        : return DIKS_INSERT;      
-          case XK_KP_End           : return DIKS_END;      
-          case XK_KP_Down          : return DIKS_CURSOR_DOWN;      
-          case XK_KP_Page_Down     : return DIKS_PAGE_DOWN;      
-          case XK_KP_Left          : return DIKS_CURSOR_LEFT;      
-          case XK_KP_Begin         : return DIKS_BEGIN;      
-          case XK_KP_Right         : return DIKS_CURSOR_RIGHT;      
-          case XK_KP_Home          : return DIKS_HOME;      
-          case XK_KP_Up            : return DIKS_CURSOR_UP;      
+          case XK_KP_Insert        : return DIKS_INSERT;
+          case XK_KP_End           : return DIKS_END;
+          case XK_KP_Down          : return DIKS_CURSOR_DOWN;
+          case XK_KP_Page_Down     : return DIKS_PAGE_DOWN;
+          case XK_KP_Left          : return DIKS_CURSOR_LEFT;
+          case XK_KP_Begin         : return DIKS_BEGIN;
+          case XK_KP_Right         : return DIKS_CURSOR_RIGHT;
+          case XK_KP_Home          : return DIKS_HOME;
+          case XK_KP_Up            : return DIKS_CURSOR_UP;
           case XK_KP_Page_Up       : return DIKS_PAGE_UP;
 
           case XK_KP_Decimal       : return DIKS_PERIOD;
-          case XK_KP_0             : return DIKS_0;      
-          case XK_KP_1             : return DIKS_1;      
-          case XK_KP_2             : return DIKS_2;      
-          case XK_KP_3             : return DIKS_3;      
-          case XK_KP_4             : return DIKS_4;      
-          case XK_KP_5             : return DIKS_5;      
-          case XK_KP_6             : return DIKS_6;      
-          case XK_KP_7             : return DIKS_7;      
-          case XK_KP_8             : return DIKS_8;      
+          case XK_KP_0             : return DIKS_0;
+          case XK_KP_1             : return DIKS_1;
+          case XK_KP_2             : return DIKS_2;
+          case XK_KP_3             : return DIKS_3;
+          case XK_KP_4             : return DIKS_4;
+          case XK_KP_5             : return DIKS_5;
+          case XK_KP_6             : return DIKS_6;
+          case XK_KP_7             : return DIKS_7;
+          case XK_KP_8             : return DIKS_8;
           case XK_KP_9             : return DIKS_9;
 
           case 0                   : break;
 
           default:
                D_DEBUG("X11: Unknown key symbol 0x%lx\n", xKeySymbol);
-     }    
+     }
 
      return DIKS_NULL;
 }
@@ -462,7 +462,7 @@ x11EventThread( DirectThread *thread, void *driver_data )
 
      while (!data->stop) {
           unsigned int  pull = 23;
-          XEvent        xEvent; 
+          XEvent        xEvent;
           DFBInputEvent dfbEvent;
           static int    nextKeyIsRepeat = false;
 
@@ -607,7 +607,7 @@ driver_open_device( CoreInputDevice  *device,
      info->desc.type   = DIDTF_JOYSTICK | DIDTF_KEYBOARD | DIDTF_MOUSE;
 
      /* set capabilities */
-     info->desc.caps   = DICAPS_ALL;
+     info->desc.caps   = DIDCAPS_ALL;
 
      /* enable translation of fake raw hardware keycodes */
      info->desc.min_keycode = 8;

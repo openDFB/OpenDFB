@@ -922,20 +922,12 @@ typedef enum {
  * Basic input device features.
  */
 typedef enum {
-#ifndef DIRECTFB_DISABLE_DEPRECATED
-     DICAPS_KEYS         = 0x00000001,  /* device supports key events */
-     DICAPS_AXES         = 0x00000002,  /* device supports axis events */
-     DICAPS_BUTTONS      = 0x00000004,  /* device supports button events */
-
-     DICAPS_ALL          = 0x00000007   /* all capabilities */
-#else
      DIDCAPS_NONE        = 0x00000000,  /* device supports no events */
-     DIDCAPS_KEYS        = 0x00000001,  /* device supports key events */ 
-     DIDCAPS_AXES        = 0x00000002,  /* device supports axis events */  
+     DIDCAPS_KEYS        = 0x00000001,  /* device supports key events */
+     DIDCAPS_AXES        = 0x00000002,  /* device supports axis events */
      DIDCAPS_BUTTONS     = 0x00000004,  /* device supports button events */
 
      DIDCAPS_ALL         = 0x00000007   /* all capabilities */
-#endif
 } DFBInputDeviceCapabilities;
 
 /*
@@ -2663,11 +2655,9 @@ typedef enum {
      DSEPF_ALL                          = 0x0000001f
 } DFBScreenEncoderPictureFraming;
 
-#ifndef DIRECTFB_DISABLE_DEPRECATED
 #define DSEPF_STEREO_PACKED_HORIZ  DSEPF_STEREO_SIDE_BY_SIDE_HALF
 #define DSEPF_STEREO_PACKED_VERT   DSEPF_STEREO_TOP_AND_BOTTOM
 #define DSEPF_STEREO_SEQUENTIAL    DSEPF_STEREO_FRAME_PACKING
-#endif
 
 typedef enum {
     DFB_ASPECT_RATIO_eAuto, /* 4x3 for SD and 480p, 16x9 for HD (including 720p, 1080i, etc.) */

@@ -144,7 +144,7 @@ CoreInputHub_Dispatch( void                  *context,
      direct_mutex_lock( &hub->lock );
 
      // FIXME: replace by own list of devices recorded in CoreInputHub_AddDevice/RemoveDevice calls
-     dfb_input_enumerate_devices( CoreInputHub_EnumDevice_Callback, request, DICAPS_ALL );
+     dfb_input_enumerate_devices( CoreInputHub_EnumDevice_Callback, request, DIDCAPS_ALL );
 
 
      InputHubNotification notification;

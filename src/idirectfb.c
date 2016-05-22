@@ -1250,11 +1250,7 @@ IDirectFB_EnumInputDevices( IDirectFB              *thiz,
      context.callback     = callbackfunc;
      context.callback_ctx = callbackdata;
 
-#ifndef DIRECTFB_DISABLE_DEPRECATED
-     dfb_input_enumerate_devices( EnumInputDevices_Callback, &context, DICAPS_ALL );
-#else
      dfb_input_enumerate_devices( EnumInputDevices_Callback, &context, DIDCAPS_ALL );
-#endif
 
      return DFB_OK;
 }
@@ -1278,11 +1274,7 @@ IDirectFB_GetInputDevice( IDirectFB             *thiz,
      context.id        = id;
      context.ret       = DFB_IDNOTFOUND;
 
-#ifndef DIRECTFB_DISABLE_DEPRECATED
-     dfb_input_enumerate_devices( GetInputDevice_Callback, &context, DICAPS_ALL );
-#else
      dfb_input_enumerate_devices( GetInputDevice_Callback, &context, DIDCAPS_ALL );
-#endif
 
      if (!context.ret)
           *interface = iface;

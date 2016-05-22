@@ -162,19 +162,19 @@ create_devices( CoreDFB       *core,
 
           switch (i) {
                case UDCI_POINTER:
-                    caps = DICAPS_AXES | DICAPS_BUTTONS;
+                    caps = DIDCAPS_AXES | DIDCAPS_BUTTONS;
                     break;
 
                case UDCI_WHEEL:
-                    caps = DICAPS_AXES;
+                    caps = DIDCAPS_AXES;
                     break;
 
                case UDCI_KEYBOARD:
-                    caps = DICAPS_KEYS;
+                    caps = DIDCAPS_KEYS;
                     break;
 
                default:
-                    caps = DICAPS_ALL;
+                    caps = DIDCAPS_ALL;
                     break;
           }
 

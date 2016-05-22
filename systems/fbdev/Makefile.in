@@ -130,8 +130,8 @@ libdirectfb_fbdev_la_DEPENDENCIES =  \
 	$(top_builddir)/lib/direct/libdirect.la \
 	$(top_builddir)/lib/fusion/libfusion.la \
 	$(top_builddir)/src/libdirectfb.la
-am_libdirectfb_fbdev_la_OBJECTS = agp.lo fbdev.lo \
-	fbdev_surface_pool.lo surfacemanager.lo vt.lo
+am_libdirectfb_fbdev_la_OBJECTS = fbdev.lo fbdev_surface_pool.lo \
+	surfacemanager.lo vt.lo
 libdirectfb_fbdev_la_OBJECTS = $(am_libdirectfb_fbdev_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -448,7 +448,6 @@ INCLUDES = \
 AM_CPPFLAGS = -D_XOPEN_SOURCE=500
 internalincludedir = $(INTERNALINCLUDEDIR)/fbdev
 internalinclude_HEADERS = \
-	agp.h			\
 	fb.h			\
 	fbdev.h			\
 	surfacemanager.h	\
@@ -462,7 +461,6 @@ libdirectfb_fbdev_la_LDFLAGS = \
 	-module
 
 libdirectfb_fbdev_la_SOURCES = \
-	agp.c			\
 	fbdev.c			\
 	fbdev_surface_pool.c	\
 	surfacemanager.c	\
@@ -553,7 +551,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/agp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fbdev.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fbdev_surface_pool.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/surfacemanager.Plo@am__quote@

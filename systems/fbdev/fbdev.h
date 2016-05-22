@@ -40,7 +40,6 @@
 #include <fusion/call.h>
 #include <fusion/reactor.h>
 
-#include "agp.h"
 #include "fb.h"
 #include "surfacemanager.h"
 #include "vt.h"
@@ -78,19 +77,17 @@ typedef struct {
      unsigned long            page_mask;     /* PAGE_SIZE - 1 */
 
      CoreSurfacePool          *pool;
-     
+
      struct {
           int                 bus;
           int                 dev;
           int                 func;
      } pci;                                  /* PCI Bus ID of graphics device */
-     
+
      struct {
           unsigned short      vendor;        /* Graphics device vendor id */
           unsigned short      model;         /* Graphics device model id */
      } device;
-
-     AGPShared               *agp;
 
      FusionSHMPoolShared     *shmpool;
      FusionSHMPoolShared     *shmpool_data;
@@ -112,7 +109,6 @@ typedef struct {
 
      VirtualTerminal         *vt;
 
-     AGPDevice               *agp;
 } FBDev;
 
 

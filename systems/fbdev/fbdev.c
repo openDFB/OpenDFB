@@ -90,7 +90,6 @@
 #include "fbdev.h"
 #include "fb.h"
 #include "vt.h"
-#include "agp.h"
 
 #include <core/core_system.h>
 
@@ -586,16 +585,6 @@ system_initialize( CoreDFB *core, void **data )
 
      dfb_fbdev_get_pci_info( shared );
 
-     if (dfb_config->agp) {
-          /* Do not fail here, AGP slot could be unavailable */
-          ret = dfb_agp_initialize();
-          if (ret) {
-               D_DEBUG( "DirectFB/FBDev: dfb_agp_initialize()\n\t->%s\n",
-                         DirectFBErrorString( ret ) );
-               ret = DFB_OK;
-          }
-     }
-
      fusion_call_init( &shared->fbdev_ioctl,
                        fbdev_ioctl_call_handler, NULL, dfb_core_world(core) );
 
@@ -684,19 +673,6 @@ system_join( CoreDFB *core, void **data )
           return DFB_INIT;
      }
 
-     /* Open AGP device */
-     ret = dfb_agp_join();
-     if (ret) {
-          D_ERROR( "DirectFB/FBDev: Could not join AGP!\n" );
-          munmap( dfb_fbdev->framebuffer_base,
-                  dfb_fbdev->shared->fix.smem_len );
-          close( dfb_fbdev->fd );
-          D_FREE( dfb_fbdev );
-          dfb_fbdev = NULL;
-
-          return ret;
-     }
-
      dfb_surface_pool_join( core, dfb_fbdev->shared->pool, &fbdevSurfacePoolFuncs );
 
      /* Register primary screen functions */
@@ -757,8 +733,6 @@ system_shutdown( bool emergency )
 
      fusion_call_destroy( &shared->fbdev_ioctl );
 
-     dfb_agp_shutdown();
-
      dfb_surface_pool_destroy( dfb_fbdev->shared->pool );
 
      munmap( dfb_fbdev->framebuffer_base, shared->fix.smem_len );
@@ -784,8 +758,6 @@ system_leave( bool emergency )
      DFBResult ret;
 
      D_ASSERT( dfb_fbdev != NULL );
-
-     dfb_agp_leave();
 
      dfb_surface_pool_leave( dfb_fbdev->shared->pool );
 
@@ -942,24 +914,18 @@ system_videoram_length( void )
 static unsigned long
 system_aux_memory_physical( unsigned int offset )
 {
-     if (dfb_fbdev->shared->agp)
-          return dfb_fbdev->shared->agp->info.aper_base + offset;
      return 0;
 }
 
 static void *
 system_aux_memory_virtual( unsigned int offset )
 {
-     if (dfb_fbdev->agp)
-          return (void*)(u8*)dfb_fbdev->agp->base + offset;
      return NULL;
 }
 
 static unsigned int
 system_auxram_length( void )
 {
-     if (dfb_fbdev->shared->agp)
-          return dfb_fbdev->shared->agp->agp_mem;
      return 0;
 }
 

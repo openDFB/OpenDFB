@@ -13,7 +13,6 @@ AM_CPPFLAGS = -D_XOPEN_SOURCE=500
 internalincludedir = $(INTERNALINCLUDEDIR)/fbdev
 
 internalinclude_HEADERS = \
-	agp.h			\
 	fb.h			\
 	fbdev.h			\
 	surfacemanager.h	\
@@ -32,7 +31,6 @@ libdirectfb_fbdev_la_LDFLAGS = \
 	-module
 
 libdirectfb_fbdev_la_SOURCES = \
-	agp.c			\
 	fbdev.c			\
 	fbdev_surface_pool.c	\
 	surfacemanager.c	\
