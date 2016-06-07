@@ -107,7 +107,7 @@ main( int argc, char *argv[] )
      }
 
      /* Get the input device. */
-     ret = dfb->CreateInputEventBuffer( dfb, DICAPS_ALL, DFB_TRUE, &events );
+     ret = dfb->CreateInputEventBuffer( dfb, DIDCAPS_ALL, DFB_TRUE, &events );
      if (ret) {
           D_DERROR( ret, "Tools/DumpInput: IDirectFB::CreateInputEventBuffer() failed!\n" );
           goto error;

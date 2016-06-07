@@ -1,11 +1,13 @@
 /*
-   (c) Copyright 2001-2009  The world wide DirectFB Open Source Community (directfb.org)
+   (c) Copyright 2012-2013  DirectFB integrated media GmbH
+   (c) Copyright 2001-2013  The world wide DirectFB Open Source Community (directfb.org)
    (c) Copyright 2000-2004  Convergence (integrated media) GmbH
 
    All rights reserved.
 
    Written by Denis Oliver Kropp <dok@directfb.org>,
-              Andreas Hundt <andi@fischlustig.de>,
+              Andreas Shimokawa <andi@directfb.org>,
+              Marek Pikarski <mass@directfb.org>,
               Sven Neumann <neo@directfb.org>,
               Ville Syrjälä <syrjala@sci.fi> and
               Claudio Ciccani <klan@users.sf.net>.
@@ -26,6 +28,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+
+
 #ifndef __FUSION__LOCK_H__
 #define __FUSION__LOCK_H__
 
@@ -36,6 +40,7 @@
 #include <direct/util.h>
 
 typedef struct {
+     int                      magic;
      DirectMutex              lock;
      DirectWaitQueue          cond;
      int                      count;
@@ -107,6 +112,13 @@ DirectResult FUSION_API fusion_skirmish_destroy( FusionSkirmish    *skirmish );
 DirectResult FUSION_API fusion_skirmish_wait   ( FusionSkirmish    *skirmish,
                                                  unsigned int       timeout );
 DirectResult FUSION_API fusion_skirmish_notify ( FusionSkirmish    *skirmish );
+
+
+DirectResult FUSION_API fusion_skirmish_prevail_multi( FusionSkirmish **skirmishs,
+                                                       unsigned int     num );
+
+DirectResult FUSION_API fusion_skirmish_dismiss_multi( FusionSkirmish **skirmishs,
+                                                       unsigned int     num );
 
 
 #if D_DEBUG_ENABLED

@@ -115,7 +115,7 @@ IWindowReal_SetConfig( IWindow *thiz, const CoreWindowConfig        *config,
           if (ret)
                return ret;
 
-          if (parent->object.owner && parent->object.owner != Core_GetIdentity()) {
+          if (fusion_object_check_owner( &parent->object, Core_GetIdentity(), false )) {
                dfb_window_unref( parent );
                return DFB_ACCESSDENIED;
           }

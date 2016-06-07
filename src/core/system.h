@@ -51,7 +51,8 @@ typedef enum {
      CORE_PVR2D,
      CORE_CARE1,
      CORE_ANDROID,
-     CORE_EGL
+     CORE_EGL,
+     CORE_DRMKMS
 } CoreSystemType;
 
 typedef enum {
@@ -61,8 +62,12 @@ typedef enum {
      CSCAPS_PREFER_SHM        = 0x00000002,  /* Prefer shared memory surface pool over local memory pool. */
      CSCAPS_SECURE_FUSION     = 0x00000004,  /* Fusion needs to be in secure fusion mode. */
      CSCAPS_ALWAYS_INDIRECT   = 0x00000008,  /* All calls need to be indirect. */
+     CSCAPS_SYSMEM_EXTERNAL   = 0x00000010,  /* Makes system memory surface pools have CSTF_EXTERNAL support. */
+     CSCAPS_DISPLAY_TASKS     = 0x00000020,  /* Calls Task_Done() on display tasks. */
+     CSCAPS_NOTIFY_DISPLAY    = 0x00000040,  /* Calls dfb_surface_notify_display2() when appropriate. */
+     CSCAPS_DISPLAY_PTS       = 0x00000080,  /* Supports PTS on display tasks */
 
-     CSCAPS_ALL               = 0x0000000F   /* All of these. */
+     CSCAPS_ALL               = 0x000000FF   /* All of these. */
 } CoreSystemCapabilities;
 
 /*

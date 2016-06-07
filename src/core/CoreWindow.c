@@ -2775,6 +2775,7 @@ __CoreWindowDispatch__Dispatch( CoreWindow *obj,
                 if (ret) {
                      D_DERROR( ret, "%s: Looking up relative by ID %u failed!\n", __FUNCTION__, args->relative_id );
                      return_args->result = ret;
+                     D_BREAK( "could not lookup object" );
                      return ret;
                 }
             }
@@ -2846,6 +2847,7 @@ __CoreWindowDispatch__Dispatch( CoreWindow *obj,
             if (ret) {
                  D_DERROR( ret, "%s: Looking up source by ID %u failed!\n", __FUNCTION__, args->source_id );
                  return_args->result = ret;
+                 D_BREAK( "could not lookup object" );
                  return ret;
             }
 

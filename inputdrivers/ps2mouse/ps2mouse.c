@@ -432,7 +432,7 @@ driver_get_available( void )
                          dfb_config->mouse_source );
                return 0;
           }
-          
+
           devlist[0] = dfb_config->mouse_source;
           close( fd );
           return 1;
@@ -482,7 +482,7 @@ driver_open_device( CoreInputDevice  *device,
      flags = (dfb_config->mouse_gpm_source)
              ? (O_RDONLY | O_NONBLOCK)
              : (O_RDWR | O_SYNC | O_EXCL);
-     
+
      fd = open( devlist[number], flags );
      if (fd < 0) {
           D_PERROR( "DirectFB/PS2Mouse: failed opening `%s' !\n",
@@ -492,10 +492,10 @@ driver_open_device( CoreInputDevice  *device,
      }
 
      fcntl( fd, F_SETFL, fcntl ( fd, F_GETFL ) & ~O_NONBLOCK );
- 
+
      if (!dfb_config->mouse_gpm_source) {
           mouseId = init_ps2( fd, true );
-          
+
           if (mouseId  < 0) {
                D_PERROR( "DirectFB/PS2Mouse: could not initialize mouse on `%s'!\n",
                           devlist[number] );
@@ -507,10 +507,10 @@ driver_open_device( CoreInputDevice  *device,
      if (dfb_config->mouse_protocol) {
           if (strcasecmp( dfb_config->mouse_protocol, "IMPS/2" ) == 0) {
                mouseId = PS2_ID_IMPS2;
-          } 
+          }
           else if (strcasecmp( dfb_config->mouse_protocol, "PS/2" ) == 0) {
                mouseId = PS2_ID_PS2;
-          } 
+          }
           else {
                D_ERROR( "DirectFB/PS2Mouse: unsupported protocol `%s' !\n",
                          dfb_config->mouse_protocol );
@@ -528,11 +528,7 @@ driver_open_device( CoreInputDevice  *device,
 
      info->prefered_id     = DIDID_MOUSE;
      info->desc.type       = DIDTF_MOUSE;
-#ifndef DIRECTFB_DISABLE_DEPRECATED
-     info->desc.caps       = DICAPS_AXES | DICAPS_BUTTONS;
-#else
      info->desc.caps       = DIDCAPS_AXES | DIDCAPS_BUTTONS;
-#endif
      info->desc.max_axis   = (mouseId == PS2_ID_IMPS2) ? DIAI_Z : DIAI_Y;
      info->desc.max_button = DIBI_MIDDLE;     /* TODO: probe!? */
 

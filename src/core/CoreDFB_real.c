@@ -235,8 +235,7 @@ ICoreReal_GetSurface(ICore *thiz, u32           surface_id,
                return ret;
           }
 
-          // FIXME: access to this object needs to be given for other places like using as a blitting source
-          surface->object.owner = Core_GetIdentity();
+          fusion_object_add_owner( &surface->object, Core_GetIdentity() );
      }
 
      *ret_surface = surface;

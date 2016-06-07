@@ -1,11 +1,13 @@
 /*
-   (c) Copyright 2001-2009  The world wide DirectFB Open Source Community (directfb.org)
+   (c) Copyright 2012-2013  DirectFB integrated media GmbH
+   (c) Copyright 2001-2013  The world wide DirectFB Open Source Community (directfb.org)
    (c) Copyright 2000-2004  Convergence (integrated media) GmbH
 
    All rights reserved.
 
    Written by Denis Oliver Kropp <dok@directfb.org>,
-              Andreas Hundt <andi@fischlustig.de>,
+              Andreas Shimokawa <andi@directfb.org>,
+              Marek Pikarski <mass@directfb.org>,
               Sven Neumann <neo@directfb.org>,
               Ville Syrjälä <syrjala@sci.fi> and
               Claudio Ciccani <klan@users.sf.net>.
@@ -26,6 +28,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+
+
 #ifndef __FUSION__OBJECT_H__
 #define __FUSION__OBJECT_H__
 
@@ -39,6 +43,8 @@
 #include <direct/debug.h>
 
 typedef void (*FusionObjectDestructor)( FusionObject *object, bool zombie, void *ctx );
+
+typedef const char * (*FusionObjectDescribe)( FusionObject *object, void *ctx );
 
 typedef bool (*FusionPropIterator)( char *key, void *value, void *ctx);
 
@@ -71,9 +77,33 @@ struct __Fusion_FusionObject {
      FusionWorldShared *shared;
      FusionHash        *properties;
 
-     FusionID           owner;
+     FusionVector       owners;
 
      FusionVector       access;
+
+     DirectTraceBuffer *create_stack;
+};
+
+struct __Fusion_FusionObjectPool {
+     int                     magic;
+
+     FusionWorldShared      *shared;
+
+     FusionSkirmish          lock;
+     FusionHash             *objects;
+     FusionObjectID          id_pool;
+
+     char                   *name;
+     int                     object_size;
+     int                     message_size;
+     FusionObjectDestructor  destructor;
+     void                   *ctx;
+
+     FusionCall              call;
+
+     bool                    secure;
+
+     FusionObjectDescribe    describe;
 };
 
 
@@ -90,19 +120,33 @@ FusionObjectPool FUSION_API *fusion_object_pool_create        ( const char      
                                                                 const FusionWorld      *world );
 
 DirectResult     FUSION_API  fusion_object_pool_destroy       ( FusionObjectPool       *pool,
-                                                                const FusionWorld      *world );
+                                                                FusionWorld            *world );
+
+DirectResult     FUSION_API  fusion_object_pool_set_describe  ( FusionObjectPool       *pool,
+                                                                FusionObjectDescribe    func );
 
 
 DirectResult     FUSION_API  fusion_object_pool_enum          ( FusionObjectPool       *pool,
                                                                 FusionObjectCallback    callback,
                                                                 void                   *ctx );
 
+DirectResult     FUSION_API  fusion_object_pool_size          ( FusionObjectPool       *pool,
+                                                                size_t                 *ret_size );
+
 
 FusionObject     FUSION_API *fusion_object_create             ( FusionObjectPool       *pool,
                                                                 const FusionWorld      *world,
                                                                 FusionID                identity );
 
+/*
+ * Must unref object if function returns DR_OK. 
+ * It may also return DR_DEAD with allocated object, but no refs (don't unref).
+ */
 DirectResult     FUSION_API  fusion_object_get                ( FusionObjectPool       *pool,
+                                                                FusionObjectID          object_id,
+                                                                FusionObject          **ret_object );
+
+DirectResult     FUSION_API  fusion_object_lookup             ( FusionObjectPool       *pool,
                                                                 FusionObjectID          object_id,
                                                                 FusionObject          **ret_object );
 
@@ -138,6 +182,13 @@ DirectResult     FUSION_API  fusion_object_add_access         ( FusionObject    
 
 DirectResult     FUSION_API  fusion_object_has_access         ( FusionObject           *object,
                                                                 const char             *executable );
+
+DirectResult     FUSION_API  fusion_object_add_owner          ( FusionObject           *object,
+                                                                FusionID                owner );
+
+DirectResult     FUSION_API  fusion_object_check_owner        ( FusionObject           *object,
+                                                                FusionID                owner,
+                                                                bool                    succeed_if_not_owned );
 
 DirectResult     FUSION_API  fusion_object_catch              ( FusionObject           *object );
 

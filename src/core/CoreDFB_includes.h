@@ -53,6 +53,7 @@ extern "C" {
 #include <core/windows.h>
 #include <core/windows_internal.h>
 
+#define CALLBUFFER_FUSION_MESSAGE_SIZE (FUSION_CALL_MAX_LENGTH)
 
 static __inline__ DirectResult
 CoreDFB_Call( CoreDFB             *core,
@@ -90,7 +91,7 @@ CoreGraphicsState_Lookup( CoreDFB            *core,
      if (ret)
           return (DirectResult) ret;
 
-     if (state->object.owner && state->object.owner != caller) {
+     if (fusion_object_check_owner( &state->object, caller, false )) {
           dfb_graphics_state_unref( state );
           return DR_ACCESSDENIED;
      }
@@ -131,8 +132,7 @@ CoreGraphicsState_Throw( CoreGraphicsState *state,
      if (dfb_config->graphics_state_call_limit)
           fusion_call_set_quota( &state->call, catcher, dfb_config->graphics_state_call_limit );
 
-     if (!state->object.owner)
-          state->object.owner = catcher;
+     fusion_object_add_owner( &state->object, catcher );
 
      return fusion_ref_throw( &state->object.ref, catcher );
 }
@@ -171,21 +171,6 @@ CoreLayer_Unref( CoreLayer *layer )
 }
 
 static __inline__ DirectResult
-CoreLayer_Catch__( CoreDFB    *core,
-                 u32         object_id,
-                 CoreLayer **ret_layer )
-{
-     D_UNUSED_P( core );
-
-     if (object_id >= (u32) dfb_layer_num())
-          return DR_IDNOTFOUND;
-
-     *ret_layer = dfb_layer_at( object_id );
-
-     return DR_OK;
-}
-
-static __inline__ DirectResult
 CoreLayer_Throw( CoreLayer *layer,
                  FusionID   catcher,
                  u32       *ret_object_id )
@@ -219,7 +204,7 @@ CoreLayerContext_Lookup( CoreDFB           *core,
      if (ret)
           return (DirectResult) ret;
 
-     if (context->object.owner && context->object.owner != caller) {
+     if (fusion_object_check_owner( &context->object, caller, true )) {
           dfb_layer_context_unref( context );
           return DR_ACCESSDENIED;
      }
@@ -283,7 +268,7 @@ CoreLayerRegion_Lookup( CoreDFB          *core,
      if (ret)
           return (DirectResult) ret;
 
-     if (region->object.owner && region->object.owner != caller) {
+     if (fusion_object_check_owner( &region->object, caller, false )) {
           dfb_layer_region_unref( region );
           return DR_ACCESSDENIED;
      }
@@ -345,7 +330,7 @@ CorePalette_Lookup( CoreDFB      *core,
      if (ret)
           return (DirectResult) ret;
 
-     if (palette->object.owner && palette->object.owner != caller) {
+     if (fusion_object_check_owner( &palette->object, caller, false )) {
           dfb_palette_unref( palette );
           return DR_ACCESSDENIED;
      }
@@ -383,8 +368,7 @@ CorePalette_Throw( CorePalette *palette,
                                  (FusionRefPermissions)(FUSION_REF_PERMIT_REF_UNREF_LOCAL | FUSION_REF_PERMIT_CATCH) );
      fusion_call_add_permissions( &palette->call, catcher, FUSION_CALL_PERMIT_EXECUTE );
 
-     if (!palette->object.owner)
-          palette->object.owner = catcher;
+     fusion_object_add_owner( &palette->object, catcher );
 
      return fusion_ref_throw( &palette->object.ref, catcher );
 }
@@ -468,15 +452,16 @@ CoreSurface_Lookup( CoreDFB      *core,
      DFBResult    ret;
      CoreSurface *surface;
 
-     ret = dfb_core_get_surface( core, object_id, &surface );
+//     ret = dfb_core_get_surface( core, object_id, &surface );
+     ret = (DFBResult) fusion_object_lookup( core->shared->surface_pool, object_id, (FusionObject**) &surface );
      if (ret)
           return (DirectResult) ret;
 
      if (caller != FUSION_ID_MASTER &&
-         surface->object.identity && surface->object.identity != caller &&
-         surface->object.owner && surface->object.owner != caller)
+         surface->object.identity != caller &&
+         fusion_object_check_owner( &surface->object, caller, false ))
      {
-          dfb_surface_unref( surface );
+//          dfb_surface_unref( surface );
           return DR_ACCESSDENIED;
      }
 
@@ -488,7 +473,7 @@ CoreSurface_Lookup( CoreDFB      *core,
 static __inline__ DirectResult
 CoreSurface_Unref( CoreSurface *surface )
 {
-     return (DirectResult) dfb_surface_unref( surface );
+     return DR_OK;//(DirectResult) dfb_surface_unref( surface );
 }
 
 static __inline__ DirectResult
@@ -514,8 +499,7 @@ CoreSurface_Throw( CoreSurface *surface,
                                  (FusionRefPermissions)(FUSION_REF_PERMIT_REF_UNREF_LOCAL | FUSION_REF_PERMIT_CATCH) );
      fusion_call_add_permissions( &surface->call, catcher, FUSION_CALL_PERMIT_EXECUTE );
 
-     if (!surface->object.owner && !(surface->type & CSTF_LAYER) && !(surface->config.caps & DSCAPS_SHARED))
-          surface->object.owner = catcher;
+     fusion_object_add_owner( &surface->object, catcher );
 
      return fusion_ref_throw( &surface->object.ref, catcher );
 }
@@ -541,7 +525,7 @@ CoreSurfaceAllocation_Lookup( CoreDFB                *core,
      if (ret)
           return (DirectResult) ret;
 
-     if (allocation->object.owner && allocation->object.owner != caller) {
+     if (fusion_object_check_owner( &allocation->object, caller, false )) {
           dfb_surface_allocation_unref( allocation );
           return DR_ACCESSDENIED;
      }
@@ -579,8 +563,7 @@ CoreSurfaceAllocation_Throw( CoreSurfaceAllocation *allocation,
                                  (FusionRefPermissions)(FUSION_REF_PERMIT_REF_UNREF_LOCAL | FUSION_REF_PERMIT_CATCH) );
      //fusion_call_add_permissions( &allocation->call, catcher, FUSION_CALL_PERMIT_EXECUTE );
 
-     if (!allocation->object.owner)
-          allocation->object.owner = catcher;
+     fusion_object_add_owner( &allocation->object, catcher );
 
      return fusion_ref_throw( &allocation->object.ref, catcher );
 }
@@ -606,7 +589,7 @@ CoreSurfaceBuffer_Lookup( CoreDFB            *core,
      if (ret)
           return (DirectResult) ret;
 
-     if (buffer->object.owner && buffer->object.owner != caller) {
+     if (fusion_object_check_owner( &buffer->object, caller, false )) {
           dfb_surface_buffer_unref( buffer );
           return DR_ACCESSDENIED;
      }
@@ -644,8 +627,7 @@ CoreSurfaceBuffer_Throw( CoreSurfaceBuffer *buffer,
                                  (FusionRefPermissions)(FUSION_REF_PERMIT_REF_UNREF_LOCAL | FUSION_REF_PERMIT_CATCH) );
      //fusion_call_add_permissions( &buffer->call, catcher, FUSION_CALL_PERMIT_EXECUTE );
 
-     if (!buffer->object.owner)
-          buffer->object.owner = catcher;
+     fusion_object_add_owner( &buffer->object, catcher );
 
      return fusion_ref_throw( &buffer->object.ref, catcher );
 }
@@ -671,7 +653,7 @@ CoreSurfaceClient_Lookup( CoreDFB            *core,
      if (ret)
           return (DirectResult) ret;
 
-     if (client->object.owner && client->object.owner != caller) {
+     if (fusion_object_check_owner( &client->object, caller, false )) {
           dfb_surface_client_unref( client );
           return DR_ACCESSDENIED;
      }
@@ -709,8 +691,7 @@ CoreSurfaceClient_Throw( CoreSurfaceClient *client,
                                  (FusionRefPermissions)(FUSION_REF_PERMIT_REF_UNREF_LOCAL | FUSION_REF_PERMIT_CATCH) );
      fusion_call_add_permissions( &client->call, catcher, FUSION_CALL_PERMIT_EXECUTE );
 
-     if (!client->object.owner)
-          client->object.owner = catcher;
+     fusion_object_add_owner( &client->object, catcher );
 
      return fusion_ref_throw( &client->object.ref, catcher );
 }
@@ -736,7 +717,10 @@ CoreWindow_Lookup( CoreDFB     *core,
      if (ret)
           return (DirectResult) ret;
 
-     if (window->object.owner && window->object.owner != caller) {
+     if (caller != FUSION_ID_MASTER &&
+         window->object.identity != caller &&
+         fusion_object_check_owner( &window->object, caller, false ))
+     {
           dfb_window_unref( window );
           return DR_ACCESSDENIED;
      }
@@ -774,8 +758,7 @@ CoreWindow_Throw( CoreWindow *window,
                                  (FusionRefPermissions)(FUSION_REF_PERMIT_REF_UNREF_LOCAL | FUSION_REF_PERMIT_CATCH) );
      fusion_call_add_permissions( &window->call, catcher, FUSION_CALL_PERMIT_EXECUTE );
 
-     if (!window->object.owner)
-          window->object.owner = catcher;
+     fusion_object_add_owner( &window->object, catcher );
 
      return fusion_ref_throw( &window->object.ref, catcher );
 }

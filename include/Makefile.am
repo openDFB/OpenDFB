@@ -2,7 +2,7 @@
 
 includedir = @INCLUDEDIR@
 
-DISTCLEANFILES = directfb_keynames.h directfb_strings.h directfb_water_strings.h
+DISTCLEANFILES = directfb_keynames.h directfb_strings.h
 
 include_HEADERS = \
 	directfb.h		\
@@ -10,10 +10,8 @@ include_HEADERS = \
 	directfb_keyboard.h	\
 	directfb_keynames.h	\
 	directfb_strings.h	\
-	directfb_water_strings.h\
 	directfb_util.h		\
 	directfb_version.h	\
-	directfb_water.h	\
 	directfb_windows.h	\
 	directfbgl.h		\
 	directfbgl2.h		\
@@ -135,16 +133,3 @@ directfb_strings.h: directfb.h $(MKNAMES) Makefile
 	@echo '' >> $@
 	@echo '#endif' >> $@
 
-
-
-directfb_water_strings.h: directfb.h $(MKNAMES) Makefile
-	@echo '#ifndef __DIRECTFB_WATER_STRINGS_H__' > $@
-	@echo '#define __DIRECTFB_WATER_STRINGS_H__' >> $@
-	@echo '#include <directfb.h>' >> $@
-	@echo '#include <directfb_water.h>' >> $@
-
-	@$(MKNAMES) WaterElementType WET UNKNOWN WaterElementType type $(INCP)/directfb_water.h \
-	   | grep -v WET_ALL >> $@
-
-	@echo '' >> $@
-	@echo '#endif' >> $@

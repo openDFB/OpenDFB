@@ -1,11 +1,13 @@
 /*
-   (c) Copyright 2001-2009  The world wide DirectFB Open Source Community (directfb.org)
+   (c) Copyright 2012-2013  DirectFB integrated media GmbH
+   (c) Copyright 2001-2013  The world wide DirectFB Open Source Community (directfb.org)
    (c) Copyright 2000-2004  Convergence (integrated media) GmbH
 
    All rights reserved.
 
    Written by Denis Oliver Kropp <dok@directfb.org>,
-              Andreas Hundt <andi@fischlustig.de>,
+              Andreas Shimokawa <andi@directfb.org>,
+              Marek Pikarski <mass@directfb.org>,
               Sven Neumann <neo@directfb.org>,
               Ville Syrjälä <syrjala@sci.fi> and
               Claudio Ciccani <klan@users.sf.net>.
@@ -26,6 +28,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+
+
 #ifndef __FUSION__REF_H__
 #define __FUSION__REF_H__
 
@@ -35,28 +39,30 @@
 #include <fusion/call.h>
 #include <fusion/lock.h>
 
-typedef union {
+typedef struct {
      /* multi app */
      struct {
           int                      id;
-          const FusionWorldShared *shared;
+          FusionWorldShared       *shared;
           FusionID                 creator;
           /* builtin impl */
           struct {
                int                 local;
                int                 global;
-               FusionSkirmish      lock; 
-          
+               FusionSkirmish      lock;
+
                FusionCall         *call;
                int                 call_arg;
           } builtin;
+          bool                     user;
      } multi;
-     
+
      /* single app */
      struct {
           int                      refs;
           DirectWaitQueue          cond;
           DirectMutex              lock;
+          int                      dead;
           bool                     destroyed;
           int                      locked;
 
@@ -70,6 +76,11 @@ typedef union {
  */
 DirectResult FUSION_API fusion_ref_init         (FusionRef         *ref,
                                                  const char        *name,
+                                                 const FusionWorld *world);
+
+DirectResult FUSION_API fusion_ref_init2        (FusionRef         *ref,
+                                                 const char        *name,
+                                                 bool               user,
                                                  const FusionWorld *world);
 
 DirectResult FUSION_API fusion_ref_set_name     (FusionRef         *ref,
@@ -132,6 +143,8 @@ DirectResult FUSION_API fusion_ref_watch        (FusionRef  *ref,
  */
 DirectResult FUSION_API fusion_ref_inherit      (FusionRef *ref,
                                                  FusionRef *from);
+
+DirectResult FUSION_API fusion_ref_set_sync     (FusionRef *ref);
 
 /*
  * Deinitialize.

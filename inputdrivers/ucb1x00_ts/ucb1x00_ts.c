@@ -199,9 +199,9 @@ ucb1x00tsEventThread( DirectThread *thread, void *driver_data )
 
           filter_event( &ts_event );
           scale_point( &ts_event );
-	
+
 	  ts_event.pressure = (ts_event.pressure > config.zthresh );
-	
+
           if (ts_event.pressure) {
                if (ts_event.x != old_x) {
                     evt.type    = DIET_AXISMOTION;
@@ -303,7 +303,7 @@ driver_open_device( CoreInputDevice      *device,
      info->prefered_id     = DIDID_MOUSE;
 
      info->desc.type       = DIDTF_MOUSE;
-     info->desc.caps       = DICAPS_AXES | DICAPS_BUTTONS;
+     info->desc.caps       = DIDCAPS_AXES | DIDCAPS_BUTTONS;
      info->desc.max_axis   = DIAI_Y;
      info->desc.max_button = DIBI_LEFT;
 

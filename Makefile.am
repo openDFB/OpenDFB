@@ -14,19 +14,12 @@ if BUILD_TESTS
 TESTS_DIR = tests
 endif
 
-if ENABLE_VOODOO
-PROXY_DIR = proxy
-endif
 
-if DIRECTFB_BUILD_PURE_VOODOO
-NON_PURE_VOODOO_SUBDIRS = 
-else
 NON_PURE_VOODOO_SUBDIRS = \
 	systems			\
 	wm			\
 	interfaces 		\
 	$(LINUXONLY_DIRS)
-endif
 
 if ENABLE_DIVINE
 DIVINE_DIR = lib/divine

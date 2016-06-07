@@ -26,7 +26,7 @@
    Boston, MA 02111-1307, USA.
 */
 
-/* 
+/*
  * This is a driver for a Zytronic Touchscreen.
  * Note that is not the standard Zytronic (microsoft-DLL controllable) touchscreen;
  * It uses a micro-controller similar to the one of Elo or Mutouch touchscreens.
@@ -74,7 +74,7 @@ DFB_INPUT_DRIVER( zytronic )
 
 
 // codes de retours :
-  #define ZYT_ERR_NOT_START_OF_READ                   -1 // erreur si on demande un lecture de msg alors que l'on ne 
+  #define ZYT_ERR_NOT_START_OF_READ                   -1 // erreur si on demande un lecture de msg alors que l'on ne
                                                          // reçoit pas ':' comme premier caractère (à priori ne devrait
                                                          // jamais arriver...?)
   #define ZYT_ERR_CANT_OPEN                           -2 // erreur si on n'arrive pas à ouvrir le "fichier" lié au device.
@@ -596,7 +596,7 @@ static DFBResult driver_open_device(CoreInputDevice *device,
 
      info->prefered_id     = DIDID_MOUSE;
      info->desc.type       = DIDTF_MOUSE;
-     info->desc.caps       = DICAPS_AXES | DICAPS_BUTTONS;
+     info->desc.caps       = DIDCAPS_AXES | DIDCAPS_BUTTONS;
      info->desc.max_axis   = DIAI_Y;
      info->desc.max_button = DIBI_LEFT;
 

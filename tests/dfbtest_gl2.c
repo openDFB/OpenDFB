@@ -88,15 +88,15 @@ static GLfloat ProjectionMatrix[16];
 /** The direction of the directional light for the scene */
 static const GLfloat LightSourcePosition[4] = { 5.0, 5.0, 10.0, 1.0};
 
-/** 
+/**
  * Fills a gear vertex.
- * 
+ *
  * @param v the vertex to fill
  * @param x the x coordinate
  * @param y the y coordinate
  * @param z the z coortinate
- * @param n pointer to the normal table 
- * 
+ * @param n pointer to the normal table
+ *
  * @return the operation error code
  */
 static GearVertex *
@@ -114,13 +114,13 @@ vert(GearVertex *v, GLfloat x, GLfloat y, GLfloat z, GLfloat n[3])
 
 /**
  *  Create a gear wheel.
- * 
+ *
  *  @param inner_radius radius of hole at center
  *  @param outer_radius radius at center of teeth
  *  @param width width of gear
  *  @param teeth number of teeth
  *  @param tooth_depth depth of tooth
- *  
+ *
  *  @return pointer to the constructed struct gear
  */
 static struct gear *
@@ -264,11 +264,11 @@ create_gear(GLfloat inner_radius, GLfloat outer_radius, GLfloat width,
    return gear;
 }
 
-/** 
+/**
  * Multiplies two 4x4 matrices.
- * 
+ *
  * The result is stored in matrix m.
- * 
+ *
  * @param m the first matrix to multiply
  * @param n the second matrix to multiply
  */
@@ -291,9 +291,9 @@ multiply(GLfloat *m, const GLfloat *n)
    memcpy(m, &tmp, sizeof tmp);
 }
 
-/** 
+/**
  * Rotates a 4x4 matrix.
- * 
+ *
  * @param[in,out] m the matrix to rotate
  * @param angle the angle to rotate
  * @param x the x component of the direction to rotate to
@@ -308,7 +308,7 @@ rotate(GLfloat *m, GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
    sincos(angle, &s, &c);
    GLfloat r[16] = {
       x * x * (1 - c) + c,     y * x * (1 - c) + z * s, x * z * (1 - c) - y * s, 0,
-      x * y * (1 - c) - z * s, y * y * (1 - c) + c,     y * z * (1 - c) + x * s, 0, 
+      x * y * (1 - c) - z * s, y * y * (1 - c) + c,     y * z * (1 - c) + x * s, 0,
       x * z * (1 - c) + y * s, y * z * (1 - c) - x * s, z * z * (1 - c) + c,     0,
       0, 0, 0, 1
    };
@@ -317,9 +317,9 @@ rotate(GLfloat *m, GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
 }
 
 
-/** 
+/**
  * Translates a 4x4 matrix.
- * 
+ *
  * @param[in,out] m the matrix to translate
  * @param x the x component of the direction to translate to
  * @param y the y component of the direction to translate to
@@ -333,9 +333,9 @@ translate(GLfloat *m, GLfloat x, GLfloat y, GLfloat z)
    multiply(m, t);
 }
 
-/** 
+/**
  * Creates an identity 4x4 matrix.
- * 
+ *
  * @param m the matrix make an identity matrix
  */
 static void
@@ -351,12 +351,12 @@ identity(GLfloat *m)
    memcpy(m, t, sizeof(t));
 }
 
-/** 
+/**
  * Transposes a 4x4 matrix.
  *
  * @param m the matrix to transpose
  */
-static void 
+static void
 transpose(GLfloat *m)
 {
    GLfloat t[16] = {
@@ -395,9 +395,9 @@ invert(GLfloat *m)
    multiply(m, t);
 }
 
-/** 
+/**
  * Calculate a perspective projection transformation.
- * 
+ *
  * @param m the matrix to save the transformation in
  * @param fovy the field of view in the y direction
  * @param aspect the view aspect ratio
@@ -460,7 +460,7 @@ draw_gear(struct gear *gear, GLfloat *transform,
    glUniformMatrix4fv(ModelViewProjectionMatrix_location, 1, GL_FALSE,
                       model_view_projection);
 
-   /* 
+   /*
     * Create and set the NormalMatrix. It's the inverse transpose of the
     * ModelView matrix.
     */
@@ -495,7 +495,7 @@ draw_gear(struct gear *gear, GLfloat *transform,
    glDisableVertexAttribArray(0);
 }
 
-/** 
+/**
  * Draws the gears.
  */
 static void
@@ -638,16 +638,16 @@ Initialize( Test   *test,
      DFBResult             ret;
      DFBSurfaceDescription dsc;
 
-     /* 
+     /*
       * Initialize DirectFB options
-      */ 
+      */
      ret = DirectFBInit( argc, argv );
      if (ret) {
           D_DERROR( ret, "DirectFBInit() failed!\n" );
           return ret;
      }
 
-     /* 
+     /*
       * Create the super interface
       */
      ret = DirectFBCreate( &test->dfb );
@@ -665,21 +665,21 @@ Initialize( Test   *test,
           return ret;
      }
 
-     /* 
+     /*
       * Create an event buffer for all devices with these caps
       */
-     ret = test->dfb->CreateInputEventBuffer( test->dfb, DICAPS_KEYS | DICAPS_AXES, DFB_FALSE, &test->events );
+     ret = test->dfb->CreateInputEventBuffer( test->dfb, DIDCAPS_KEYS | DIDCAPS_AXES, DFB_FALSE, &test->events );
      if (ret) {
-          D_DERROR( ret, "IDirectFB::CreateInputEventBuffer( DICAPS_KEYS | DICAPS_AXES ) failed!\n" );
+          D_DERROR( ret, "IDirectFB::CreateInputEventBuffer( DIDCAPS_KEYS | DIDCAPS_AXES ) failed!\n" );
           return ret;
      }
 
-     /* 
+     /*
       * Try to set our cooperative level to DFSCL_FULLSCREEN for exclusive access to the primary layer
       */
      test->dfb->SetCooperativeLevel( test->dfb, DFSCL_FULLSCREEN );
 
-     /* 
+     /*
       * Create the primary surface
       */
      dsc.flags = DSDESC_CAPS;
@@ -691,7 +691,7 @@ Initialize( Test   *test,
           return ret;
      }
 
-     /* 
+     /*
       * Get the size of the surface, clear and show it
       */
      test->primary->GetSize( test->primary, &test->size.w, &test->size.h );
@@ -700,7 +700,7 @@ Initialize( Test   *test,
      test->primary->Flip( test->primary, NULL, 0 );
 
 
-     /* 
+     /*
       * Create an OpenGL rendering context
       */
      ret = test->gl2->CreateContext( test->gl2, NULL, &test->gl2context );
@@ -736,7 +736,7 @@ InitGL( Test *test )
 {
      DFBResult ret;
 
-     /* 
+     /*
       * Bind the OpenGL rendering context to our primary surface
       */
      ret = test->gl2context->Bind( test->gl2context, test->primary, test->primary );
@@ -764,7 +764,7 @@ RenderGL( Test *test )
 {
      DFBResult ret;
 
-     /* 
+     /*
       * Bind the OpenGL rendering context to our primary surface
       */
      ret = test->gl2context->Bind( test->gl2context, test->primary, test->primary );

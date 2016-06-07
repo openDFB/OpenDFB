@@ -264,7 +264,7 @@ driver_open_device( CoreInputDevice      *device,
      info->desc.type   = DIDTF_KEYBOARD | DIDTF_MOUSE;
 
      /* set capabilities */
-     info->desc.caps   = DICAPS_ALL;
+     info->desc.caps   = DIDCAPS_ALL;
 
      /* allocate and fill private data */
      data = D_CALLOC( 1, sizeof(OSXInputData) );

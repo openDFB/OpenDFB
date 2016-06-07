@@ -189,8 +189,8 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = data docs include lib src lib/sawman lib/divine tools \
-	systems wm interfaces inputdrivers gfxdrivers proxy tests \
-	patches rules build-android
+	systems wm interfaces inputdrivers gfxdrivers tests patches \
+	rules build-android
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -471,14 +471,12 @@ ACLOCAL_AMFLAGS = -I m4
 @HAVE_LINUX_TRUE@LINUXONLY_DIRS = inputdrivers gfxdrivers
 @BUILD_TOOLS_TRUE@TOOLS_DIR = tools
 @BUILD_TESTS_TRUE@TESTS_DIR = tests
-@ENABLE_VOODOO_TRUE@PROXY_DIR = proxy
-@DIRECTFB_BUILD_PURE_VOODOO_FALSE@NON_PURE_VOODOO_SUBDIRS = \
-@DIRECTFB_BUILD_PURE_VOODOO_FALSE@	systems			\
-@DIRECTFB_BUILD_PURE_VOODOO_FALSE@	wm			\
-@DIRECTFB_BUILD_PURE_VOODOO_FALSE@	interfaces 		\
-@DIRECTFB_BUILD_PURE_VOODOO_FALSE@	$(LINUXONLY_DIRS)
+NON_PURE_VOODOO_SUBDIRS = \
+	systems			\
+	wm			\
+	interfaces 		\
+	$(LINUXONLY_DIRS)
 
-@DIRECTFB_BUILD_PURE_VOODOO_TRUE@NON_PURE_VOODOO_SUBDIRS = 
 @ENABLE_DIVINE_TRUE@DIVINE_DIR = lib/divine
 @ENABLE_SAWMAN_TRUE@SAWMAN_DIR = lib/sawman
 SUBDIRS = \

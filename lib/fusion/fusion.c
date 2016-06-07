@@ -1,11 +1,13 @@
 /*
-   (c) Copyright 2001-2012  The world wide DirectFB Open Source Community (directfb.org)
+   (c) Copyright 2012-2013  DirectFB integrated media GmbH
+   (c) Copyright 2001-2013  The world wide DirectFB Open Source Community (directfb.org)
    (c) Copyright 2000-2004  Convergence (integrated media) GmbH
 
    All rights reserved.
 
    Written by Denis Oliver Kropp <dok@directfb.org>,
-              Andreas Hundt <andi@fischlustig.de>,
+              Andreas Shimokawa <andi@directfb.org>,
+              Marek Pikarski <mass@directfb.org>,
               Sven Neumann <neo@directfb.org>,
               Ville Syrjälä <syrjala@sci.fi> and
               Claudio Ciccani <klan@users.sf.net>.
@@ -26,6 +28,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+
+
 //#define DIRECT_ENABLE_DEBUG
 
 #include <config.h>
@@ -45,6 +49,7 @@
 #include <direct/clock.h>
 #include <direct/debug.h>
 #include <direct/direct.h>
+#include <direct/map.h>
 #include <direct/mem.h>
 #include <direct/memcpy.h>
 #include <direct/messages.h>
@@ -53,9 +58,8 @@
 #include <direct/trace.h>
 #include <direct/util.h>
 
-#include <fusion/build.h>
 #include <fusion/conf.h>
-#include <fusion/types.h>
+#include <fusion/hash.h>
 
 #include "fusion_internal.h"
 
@@ -91,6 +95,29 @@ static pthread_mutex_t  fusion_worlds_lock = PTHREAD_MUTEX_INITIALIZER;
 static pthread_once_t   fusion_init_once   = PTHREAD_ONCE_INIT;
 
 /**********************************************************************************************************************/
+
+int
+fusion_fd( const FusionWorld *world )
+{
+     int                index;
+     FusionWorldShared *shared;
+
+     D_MAGIC_ASSERT( world, FusionWorld );
+
+     shared = world->shared;
+     D_MAGIC_ASSERT( shared, FusionWorldShared );
+
+     index = shared->world_index;
+
+     D_ASSERT( index >= 0 );
+     D_ASSERT( index < FUSION_MAX_WORLDS );
+
+     D_ASSERT( world == fusion_worlds[index] );
+
+     D_MAGIC_ASSERT( world, FusionWorld );
+
+     return world->fusion_fd;
+}
 
 int
 _fusion_fd( const FusionWorldShared *shared )
@@ -202,6 +229,94 @@ init_once( void )
 
 /**********************************************************************************************************************/
 
+static bool
+refs_map_compare( DirectMap    *map,
+                  const void   *_key,
+                  void         *object,
+                  void         *ctx )
+{
+     const FusionRefSlaveKey *key   = _key;
+     FusionRefSlaveEntry     *entry = object;
+
+     return key->fusion_id == entry->key.fusion_id && key->ref_id == entry->key.ref_id;
+}
+
+static unsigned int
+refs_map_hash( DirectMap    *map,
+               const void   *_key,
+               void         *ctx )
+{
+     const FusionRefSlaveKey *key = _key;
+
+     return key->ref_id * 131 + key->fusion_id;
+}
+
+
+static bool
+refs_map_slave_compare( DirectMap    *map,
+                        const void   *_key,
+                        void         *object,
+                        void         *ctx )
+{
+     const int *key   = _key;
+     FusionRef *entry = object;
+
+     return *key == entry->multi.id;
+}
+
+static unsigned int
+refs_map_slave_hash( DirectMap    *map,
+                     const void   *_key,
+                     void         *ctx )
+{
+     const int *key = _key;
+
+     return *key;
+}
+
+
+static FusionCallHandlerResult
+world_refs_call( int           caller,   /* fusion id of the caller */
+                 int           call_arg, /* optional call parameter */
+                 void         *call_ptr, /* optional call parameter */
+                 void         *ctx,      /* optional handler context */
+                 unsigned int  serial,
+                 int          *ret_val )
+{
+     FusionWorld         *world = ctx;
+     FusionRefSlaveKey    key;
+     FusionRefSlaveEntry *slave;
+
+     key.fusion_id = caller;
+     key.ref_id    = call_arg;
+
+     direct_mutex_lock( &world->refs_lock );
+     slave = direct_map_lookup( world->refs_map, &key );
+     direct_mutex_unlock( &world->refs_lock );
+
+     if (!slave) {
+          D_WARN( "slave (%d) ref (%d) not found", caller, call_arg );
+          return FCHR_RETURN;
+     }
+
+     fusion_ref_down( slave->ref, false );
+
+     direct_mutex_lock( &world->refs_lock );
+
+     if (!--slave->refs) {
+          direct_map_remove( world->refs_map, &key );
+
+          D_FREE( slave );
+     }
+
+     direct_mutex_unlock( &world->refs_lock );
+
+     return FCHR_RETURN;
+}
+
+/**********************************************************************************************************************/
+/**********************************************************************************************************************/
+
 #if FUSION_BUILD_KERNEL
 
 static void
@@ -224,7 +339,7 @@ fusion_world_fork( FusionWorld *world )
      snprintf( buf2, sizeof(buf2), "/dev/fusion/%d", shared->world_index );
 
      /* Open Fusion Kernel Device. */
-     fd = direct_try_open( buf1, buf2, O_RDWR | O_NONBLOCK, true );
+     fd = direct_try_open( buf1, buf2, O_RDWR /*| O_NONBLOCK*/, true );
      if (fd < 0) {
           D_PERROR( "Fusion/Main: Reopening fusion device (world %d) failed!\n", shared->world_index );
           raise(5);
@@ -400,13 +515,15 @@ map_shared_root( void               *shm_base,
                  bool                master,
                  FusionWorldShared **ret_shared )
 {
-     DirectResult ret = DR_OK;
-     int          fd;
-     void        *map;
-     char         tmpfs[FUSION_SHM_TMPFS_PATH_NAME_LEN];
-     char         root_file[FUSION_SHM_TMPFS_PATH_NAME_LEN+32];
-     int          flags = O_RDONLY;
-     int          prot  = PROT_READ;
+     DirectResult   ret = DR_OK;
+     int            fd;
+     void          *map;
+     char           tmpfs[FUSION_SHM_TMPFS_PATH_NAME_LEN];
+     char           root_file[FUSION_SHM_TMPFS_PATH_NAME_LEN+32];
+     int            flags = O_RDONLY;
+     int            prot  = PROT_READ;
+     unsigned long  size = direct_page_align(sizeof(FusionWorldShared));
+     unsigned long  base = (unsigned long) shm_base + (size + direct_pagesize()) * world_index;
 
      if (master || !fusion_config->secure_fusion) {
           prot  |= PROT_WRITE;
@@ -442,7 +559,7 @@ map_shared_root( void               *shm_base,
 
      if (master) {
           fchmod( fd, fusion_config->secure_fusion ? 0640 : 0660 );
-          if (ftruncate( fd, sizeof(FusionWorldShared))) {
+          if (ftruncate( fd, size )) {
                ret = errno2result(errno);
                D_PERROR( "Fusion/SHM: Could not truncate shared memory file '%s'!\n", root_file );
                goto out;
@@ -454,8 +571,10 @@ map_shared_root( void               *shm_base,
 
 
      /* Map shared area. */
-     map = mmap( shm_base + 0x10000 * world_index, sizeof(FusionWorldShared),
-                 prot, MAP_FIXED | MAP_SHARED, fd, 0 );
+     D_INFO( "Fusion/SHM: Shared root (%d) is %zu bytes [0x%lx @ 0x%lx]\n",
+             world_index, sizeof(FusionWorldShared), size, base );
+
+     map = mmap( (void*) base, size, prot, MAP_FIXED | MAP_SHARED, fd, 0 );
      if (map == MAP_FAILED) {
           ret = errno2result(errno);
           D_PERROR( "Fusion/Init: Mapping shared area failed!\n" );
@@ -529,7 +648,7 @@ fusion_enter( int               world_index,
                snprintf( buf2, sizeof(buf2), "/dev/fusion/%d", world_index );
 
                /* Open Fusion Kernel Device. */
-               fd = direct_try_open( buf1, buf2, O_RDWR | O_NONBLOCK | O_EXCL, false );
+               fd = direct_try_open( buf1, buf2, O_RDWR/*| O_NONBLOCK*/ | O_EXCL, false );
                if (fd < 0) {
                     if (errno != EBUSY)
                          D_PERROR( "Fusion/Init: Error opening '%s' and/or '%s'!\n", buf1, buf2 );
@@ -541,7 +660,7 @@ fusion_enter( int               world_index,
      else {
           world = fusion_worlds[world_index];
           if (!world) {
-               int flags = O_RDWR | O_NONBLOCK;
+               int flags = O_RDWR/*| O_NONBLOCK*/;
 
                snprintf( buf1, sizeof(buf1), "/dev/fusion%d", world_index );
                snprintf( buf2, sizeof(buf2), "/dev/fusion/%d", world_index );
@@ -726,18 +845,36 @@ fusion_enter( int               world_index,
 
      D_DEBUG_AT( Fusion_Main, "  -> initializing other parts...\n" );
 
+     direct_mutex_init( &world->refs_lock );
+
      /* Initialize other parts. */
      if (enter.fusion_id == FUSION_ID_MASTER) {
           fusion_skirmish_init2( &shared->reactor_globals, "Fusion Reactor Globals", world, fusion_config->secure_fusion );
           fusion_skirmish_init2( &shared->arenas_lock, "Fusion Arenas", world, fusion_config->secure_fusion );
+
+          if (!fusion_config->secure_fusion) {
+               fusion_skirmish_add_permissions( &shared->reactor_globals, 0,
+                                                FUSION_SKIRMISH_PERMIT_PREVAIL
+                                                | FUSION_SKIRMISH_PERMIT_DISMISS );
+               fusion_skirmish_add_permissions( &shared->arenas_lock, 0,
+                                                FUSION_SKIRMISH_PERMIT_PREVAIL
+                                                | FUSION_SKIRMISH_PERMIT_DISMISS );
+          }
 
           /* Create the main pool. */
           ret = fusion_shm_pool_create( world, "Fusion Main Pool", 0x1000000,
                                         fusion_config->debugshm, &shared->main_pool );
           if (ret)
                goto error3;
-     }
 
+          fusion_call_init( &shared->refs_call, world_refs_call, world, world );
+          fusion_call_set_name( &shared->refs_call, "world_refs" );
+          fusion_call_add_permissions( &shared->refs_call, 0, FUSION_CALL_PERMIT_EXECUTE );
+
+          direct_map_create( 37, refs_map_compare, refs_map_hash, world, &world->refs_map );
+     }
+     else
+          direct_map_create( 37, refs_map_slave_compare, refs_map_slave_hash, world, &world->refs_map );
 
      D_DEBUG_AT( Fusion_Main, "  -> starting dispatcher loop...\n" );
 
@@ -835,19 +972,34 @@ DirectResult
 fusion_stop_dispatcher( FusionWorld *world,
                         bool         emergency )
 {
+     D_DEBUG_AT( Fusion_Main_Dispatch, "%s( %semergency )\n", __FUNCTION__, emergency ? "" : "no " );
+
+     if (!world->dispatch_loop)
+          return DR_OK;
+
      if (!emergency) {
           fusion_sync( world );
 
+          D_DEBUG_AT( Fusion_Main_Dispatch, "  -> locking thread...\n" );
+
           direct_thread_lock( world->dispatch_loop );
      }
-          
+
+     D_DEBUG_AT( Fusion_Main_Dispatch, "  -> locked\n" );
+
      world->dispatch_stop = true;
 
      if (!emergency) {
+          D_DEBUG_AT( Fusion_Main_Dispatch, "  -> unlocking thread...\n" );
+
           direct_thread_unlock( world->dispatch_loop );
 
           fusion_sync( world );
      }
+
+     fcntl( world->fusion_fd, F_SETFL, O_NONBLOCK );
+
+     D_DEBUG_AT( Fusion_Main_Dispatch, "  -> finished stopping.\n" );
 
      return DR_OK;
 }
@@ -880,7 +1032,9 @@ fusion_exit( FusionWorld *world,
           return DR_OK;
      }
 
-     {
+     D_ASSUME( direct_thread_self() != world->dispatch_loop );
+
+     if (direct_thread_self() != world->dispatch_loop) {
           int               foo;
           FusionSendMessage msg;
 
@@ -899,18 +1053,18 @@ fusion_exit( FusionWorld *world,
                     break;
                }
           }
-     }
 
-     if (!emergency) {
           /* Wait for its termination. */
           direct_thread_join( world->dispatch_loop );
-
-          /* Wake up the deferred call thread. */
-          pthread_cond_signal( &world->deferred.queue );
-
-          /* Wait for its termination. */
-          direct_thread_join( world->deferred.thread );
      }
+
+     D_ASSUME( direct_thread_self() != world->deferred.thread );
+
+     /* Wake up the deferred call thread. */
+     pthread_cond_signal( &world->deferred.queue );
+
+     /* Wait for its termination. */
+     direct_thread_join( world->deferred.thread );
 
      direct_thread_destroy( world->dispatch_loop );
      direct_thread_destroy( world->deferred.thread );
@@ -918,8 +1072,13 @@ fusion_exit( FusionWorld *world,
      pthread_mutex_destroy( &world->deferred.lock );
      pthread_cond_destroy( &world->deferred.queue );
 
+     direct_mutex_deinit( &world->refs_lock );
+     direct_map_destroy( world->refs_map );
+
      /* Master has to deinitialize shared data. */
      if (fusion_master( world )) {
+          fusion_call_destroy( &shared->refs_call );
+
           shared->refs--;
           if (shared->refs == 0) {
                fusion_skirmish_destroy( &shared->reactor_globals );
@@ -1099,53 +1258,96 @@ handle_dispatch_cleanups( FusionWorld *world )
 {
      FusionDispatchCleanup *cleanup, *next;
 
+     D_DEBUG_AT( Fusion_Main_Dispatch, "%s( %p )\n", __FUNCTION__, world );
+
      direct_list_foreach_safe (cleanup, next, world->dispatch_cleanups) {
+#if D_DEBUG_ENABLED
+          if (direct_log_domain_check( &Fusion_Main_Dispatch )) // avoid call to direct_trace_lookup_symbol_at
+               D_DEBUG_AT( Fusion_Main_Dispatch, "  -> %s (%p)\n", direct_trace_lookup_symbol_at( cleanup->func ), cleanup->ctx );
+#endif
+
           cleanup->func( cleanup->ctx );
 
           D_FREE( cleanup );
      }
 
+     D_DEBUG_AT( Fusion_Main_Dispatch, "  -> cleanups done.\n" );
+
      world->dispatch_cleanups = NULL;
+}
+
+static DirectEnumerationResult
+refs_iterate( DirectMap    *map,
+              void         *object,
+              void         *ctx )
+{
+     FusionRefSlaveEntry *entry = object;
+
+     if (entry->key.fusion_id == *((FusionID*)ctx)) {
+          int i;
+
+          for (i=0; i<entry->refs; i++)
+               fusion_ref_down( entry->ref, false );
+
+          D_FREE( entry );
+
+          return DENUM_REMOVE;
+     }
+
+     return DENUM_OK;
 }
 
 static void *
 fusion_dispatch_loop( DirectThread *thread, void *arg )
 {
-     int          len = 0;
-     char        *buf = malloc(FUSION_MESSAGE_SIZE*4);     // FIXME: Use free()!
-     FusionWorld *world = arg;
+     ssize_t      len      = 0;
+     size_t       buf_size = FUSION_MESSAGE_SIZE * 4;
+     char        *buf      = malloc( buf_size );
+     FusionWorld *world    = arg;
 
      D_DEBUG_AT( Fusion_Main_Dispatch, "%s() running...\n", __FUNCTION__ );
+
+     direct_thread_lock( thread );
 
      while (true) {
           char *buf_p = buf;
 
           D_MAGIC_ASSERT( world, FusionWorld );
 
-          len = read( world->fusion_fd, buf, FUSION_MESSAGE_SIZE*4 );
-          if (len < 0) {
-               if (errno == EINTR)
-                    continue;
-
-               break;
-          }
-
-          D_DEBUG_AT( Fusion_Main_Dispatch, "  -> got %d bytes...\n", len );
-
-          direct_thread_lock( world->dispatch_loop );
-
           if (world->dispatch_stop) {
                D_DEBUG_AT( Fusion_Main_Dispatch, "  -> IGNORING (dispatch_stop!)\n" );
+
+               goto out;
           }
           else {
+               D_DEBUG_AT( Fusion_Main_Dispatch, "%s( world %p ) ==> read( %zu )...\n", __FUNCTION__, world, buf_size );
+
+               direct_thread_unlock( thread );
+
+               len = read( world->fusion_fd, buf, buf_size );
+
+               direct_thread_lock( thread );
+
+               if (len < 0) {
+                    if (errno == EINTR)
+                         continue;
+
+                    break;
+               }
+
+               D_DEBUG_AT( Fusion_Main_Dispatch, "%s( world %p ) ==> got %zu (of up to %zu)\n", __FUNCTION__, world, len, buf_size );
+
                while (buf_p < buf + len) {
                     FusionReadMessage *header = (FusionReadMessage*) buf_p;
                     void              *data   = buf_p + sizeof(FusionReadMessage);
 
-                    if (world->dispatch_stop) {
-                         D_DEBUG_AT( Fusion_Main_Dispatch, "  -> ABORTING (dispatch_stop!)\n" );
-                         break;
-                    }
+                    D_DEBUG_AT( Fusion_Main_Dispatch, "%s( world %p ) ==> %p [%ld]\n",
+                                __FUNCTION__, world, header, (long) buf_p - (long) buf );
+
+//                    if (world->dispatch_stop) {
+//                         D_DEBUG_AT( Fusion_Main_Dispatch, "  -> ABORTING (dispatch_stop!)\n" );
+//                         break;
+//                    }
 
                     D_MAGIC_ASSERT( world, FusionWorld );
                     D_ASSERT( (buf + len - buf_p) >= sizeof(FusionReadMessage) );
@@ -1189,6 +1391,12 @@ fusion_dispatch_loop( DirectThread *thread, void *arg )
                          case FMT_LEAVE:
                               D_DEBUG_AT( Fusion_Main_Dispatch, "  -> FMT_LEAVE...\n" );
 
+                              if (world->fusion_id == FUSION_ID_MASTER) {
+                                   direct_mutex_lock( &world->refs_lock );
+                                   direct_map_iterate( world->refs_map, refs_iterate, data );
+                                   direct_mutex_unlock( &world->refs_lock );
+                              }
+
                               if (world->leave_callback)
                                    world->leave_callback( world, *((FusionID*)data), world->leave_ctx );
                               break;
@@ -1198,26 +1406,161 @@ fusion_dispatch_loop( DirectThread *thread, void *arg )
                               break;
                     }
 
+                    D_DEBUG_AT( Fusion_Main_Dispatch, "  -> done.\n" );
+
                     buf_p = data + ((header->msg_size + 3) & ~3);
                }
           }
 
           handle_dispatch_cleanups( world );
 
-          direct_thread_unlock( world->dispatch_loop );
-
           if (!world->refs) {
                D_DEBUG_AT( Fusion_Main_Dispatch, "  -> good bye!\n" );
-               free( buf );
-               return NULL;
+               goto out;
+          }
+          else {
+//               direct_thread_unlock( thread );
+//               direct_thread_sleep( 5000000 );
+//               direct_thread_lock( thread );
           }
      }
 
      D_PERROR( "Fusion/Receiver: reading from fusion device failed!\n" );
 
+out:
+     direct_thread_unlock( thread );
+     free( buf );
+     return NULL;
+}
+
+DirectResult
+fusion_dispatch( FusionWorld *world,
+                 size_t       buf_size )
+{
+     ssize_t  len = 0;
+     char    *buf;
+     char    *buf_p;
+
+     D_DEBUG_AT( Fusion_Main_Dispatch, "%s( world %p, buf_size %zu )\n", __FUNCTION__, world, buf_size );
+
+     D_MAGIC_ASSERT( world, FusionWorld );
+
+     if (buf_size == 0)
+          buf_size = FUSION_MESSAGE_SIZE * 4;
+     else
+          D_ASSUME( buf_size >= FUSION_MESSAGE_SIZE );
+
+     buf = buf_p = malloc( buf_size );
+
+//     if (world->dispatch_stop) {
+//          D_DEBUG_AT( Fusion_Main_Dispatch, "  -> IGNORING (dispatch_stop!)\n" );
+//          return DR_SUSPENDED;
+//     }
+
+     D_DEBUG_AT( Fusion_Main_Dispatch, "  = = dispatch -> reading up to %zu bytes...\n", buf_size );
+
+     while (true) {
+          len = read( world->fusion_fd, buf, buf_size );
+          if (len < 0) {
+               if (errno == EINTR)
+                    continue;
+
+               if (errno != EAGAIN)
+                    D_PERROR( "Fusion/Receiver: reading from fusion device failed!\n" );
+
+               free( buf );
+               return DR_IO;
+          }
+
+          break;
+     }
+
+     D_DEBUG_AT( Fusion_Main_Dispatch, "  = = dispatch -> got %zu bytes (of up to %zu)\n", len, buf_size );
+
+     if (world->dispatch_loop)
+          direct_thread_lock( world->dispatch_loop );
+
+     while (buf_p < buf + len) {
+          FusionReadMessage *header = (FusionReadMessage*) buf_p;
+          void              *data   = buf_p + sizeof(FusionReadMessage);
+
+          D_DEBUG_AT( Fusion_Main_Dispatch, "  = = dispatch -> %p [%ld]\n", header, (long) buf_p - (long) buf );
+
+//          if (world->dispatch_stop) {
+//               D_DEBUG_AT( Fusion_Main_Dispatch, "  -> ABORTING (dispatch_stop!)\n" );
+//               break;
+//          }
+
+          D_MAGIC_ASSERT( world, FusionWorld );
+          D_ASSERT( (buf + len - buf_p) >= sizeof(FusionReadMessage) );
+
+          switch (header->msg_type) {
+               case FMT_SEND:
+                    D_DEBUG_AT( Fusion_Main_Dispatch, "  -> FMT_SEND!\n" );
+                    break; 
+               case FMT_CALL:
+                    D_DEBUG_AT( Fusion_Main_Dispatch, "  -> FMT_CALL...\n" );
+
+                    if (((FusionCallMessage*) data)->caller == 0)
+                         handle_dispatch_cleanups( world );
+
+                    /* If the call comes from kernel space it is most likely a destructor call, defer it */
+                    if (fusion_config->defer_destructors && ((FusionCallMessage*) data)->caller == 0) {
+                         defer_message( world, header, data );
+                    }
+                    else
+                         _fusion_call_process( world, header->msg_id, data,
+                                               (header->msg_size != sizeof(FusionCallMessage))
+                                               ?data + sizeof(FusionCallMessage) : NULL );
+                    break;
+               case FMT_REACTOR:
+                    D_DEBUG_AT( Fusion_Main_Dispatch, "  -> FMT_REACTOR...\n" );
+                    //defer_message( world, header, data );
+                    _fusion_reactor_process_message( world, header->msg_id, header->msg_channel, data );
+                    break;
+               case FMT_SHMPOOL:
+                    D_DEBUG_AT( Fusion_Main_Dispatch, "  -> FMT_SHMPOOL...\n" );
+                    //defer_message( world, header, data );
+                    _fusion_shmpool_process( world, header->msg_id, data );
+                    break;
+               case FMT_CALL3:
+                    D_DEBUG_AT( Fusion_Main_Dispatch, "  -> FMT_CALL3...\n" );
+                    //defer_message( world, header, data );
+                    _fusion_call_process3( world, header->msg_id, data,
+                                           (header->msg_size != sizeof(FusionCallMessage3))
+                                           ?data + sizeof(FusionCallMessage3) : NULL );
+                    break;
+               case FMT_LEAVE:
+                    D_DEBUG_AT( Fusion_Main_Dispatch, "  -> FMT_LEAVE...\n" );
+
+                    if (world->fusion_id == FUSION_ID_MASTER) {
+                         direct_mutex_lock( &world->refs_lock );
+                         direct_map_iterate( world->refs_map, refs_iterate, data );
+                         direct_mutex_unlock( &world->refs_lock );
+                    }
+
+                    if (world->leave_callback)
+                         world->leave_callback( world, *((FusionID*)data), world->leave_ctx );
+                    break;
+               default:
+                    D_DEBUG( "Fusion/Receiver: discarding message of unknown type '%d'\n",
+                             header->msg_type );
+                    break;
+          }
+
+          D_DEBUG_AT( Fusion_Main_Dispatch, "  -> done.\n" );
+
+          buf_p = data + ((header->msg_size + 3) & ~3);
+     }
+
+     handle_dispatch_cleanups( world );
+
+     if (world->dispatch_loop)
+          direct_thread_unlock( world->dispatch_loop );
+
      free( buf );
 
-     return NULL;
+     return DR_OK;
 }
 
 static void *
@@ -1389,6 +1732,36 @@ fusion_world_get_root( FusionWorld *world )
      D_ASSERT( world->shared != NULL );
 
      return world->shared->world_root;
+}
+
+/*
+ * Wait until all pending messages are processed.
+ */
+DirectResult
+fusion_sync( const FusionWorld *world )
+{
+     D_MAGIC_ASSERT( world, FusionWorld );
+
+     D_DEBUG_AT( Fusion_Main, "%s( %p )\n", __FUNCTION__, world );
+
+     D_DEBUG_AT( Fusion_Main, "  -> syncing with fusion device...\n" );
+
+     while (!world->dispatch_stop && ioctl( world->fusion_fd, FUSION_SYNC )) {
+          switch (errno) {
+               case EINTR:
+                    continue;
+               default:
+                    break;
+          }
+
+          D_PERROR( "Fusion/Main: FUSION_SYNC failed!\n" );
+
+          return DR_FAILURE;
+     }
+
+     D_DEBUG_AT( Fusion_Main, "  -> synced\n");
+
+     return DR_OK;
 }
 
 #else /* FUSION_BUILD_KERNEL */
@@ -1656,7 +2029,7 @@ _fusion_send_message( int                 fd,
                case EINTR:
                     continue;
                case ECONNREFUSED:
-                    return DR_FUSION;
+                    return DR_DESTROYED;
                default:
                     break;
           }
@@ -1684,7 +2057,7 @@ _fusion_recv_message( int                 fd,
                case EINTR:
                     continue;
                case ECONNREFUSED:
-                    return DR_FUSION;
+                    return DR_DESTROYED;
                default:
                     break;
           }
@@ -1873,6 +2246,7 @@ fusion_enter( int               world_index,
      struct sockaddr_un  addr;
      char                buf[128];
      int                 len, err;
+     int                 orig_index = world_index;
 
      D_DEBUG_AT( Fusion_Main, "%s( %d, %d, %p )\n", __FUNCTION__, world_index, abi_version, ret_world );
 
@@ -1889,10 +2263,20 @@ fusion_enter( int               world_index,
      pthread_once( &fusion_init_once, init_once );
 
      direct_initialize();
-     
+
+     pthread_mutex_lock( &fusion_worlds_lock );
+
+retry:
+     world_index = orig_index;
+     fd      = -1;
+     id      = -1;
+     world   = NULL;
+     shared  = MAP_FAILED;
+
      fd = socket( PF_LOCAL, SOCK_RAW, 0 );
      if (fd < 0) {
           D_PERROR( "Fusion/Init: Error creating local socket!\n" );
+          pthread_mutex_unlock( &fusion_worlds_lock );
           return DR_IO;
      }
           
@@ -1900,8 +2284,6 @@ fusion_enter( int               world_index,
      if (fcntl( fd, F_SETFD, FD_CLOEXEC ) < 0)
           D_PERROR( "Fusion/Init: Couldn't set close-on-exec flag!\n" );
 
-     pthread_mutex_lock( &fusion_worlds_lock );
-     
      addr.sun_family = AF_UNIX;
      
      if (world_index < 0) {
@@ -2068,8 +2450,11 @@ fusion_enter( int               world_index,
           fchmod( shared_fd, 0660 );
           ftruncate( shared_fd, sizeof(FusionWorldShared) );
           
+          unsigned long  size = direct_page_align(sizeof(FusionWorldShared));
+          unsigned long  base = (unsigned long) 0x20000000 + (size + direct_pagesize()) * world_index;
+
           /* Map shared area. */
-          shared = mmap( (void*) 0x20000000 + 0x2000 * world_index, sizeof(FusionWorldShared),
+          shared = mmap( (void*) base, size,
                          PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FIXED, shared_fd, 0 );
           if (shared == MAP_FAILED) {
                D_PERROR( "Fusion/Init: Mapping shared area failed!\n" );
@@ -2092,11 +2477,11 @@ fusion_enter( int               world_index,
           shared->world_index = world_index;
 
           /* Set pool allocation base/max. */
-          shared->pool_base = (void*)0x20000000 + 0x2000 * FUSION_MAX_WORLDS + 0x8000000 * world_index;
+          shared->pool_base = (void*)0x20000000 + (size + direct_pagesize()) * FUSION_MAX_WORLDS + 0x8000000 * world_index;
           shared->pool_max  = shared->pool_base + 0x8000000 - 1;
 
           /* Set start time of world clock. */
-          gettimeofday( &shared->start_time, NULL );
+          shared->start_time = direct_clock_get_time( DIRECT_CLOCK_SESSION );
 
           D_MAGIC_SET( shared, FusionWorldShared );
      }
@@ -2113,8 +2498,74 @@ fusion_enter( int               world_index,
           
           /* Send enter message (used to sync with the master) */
           ret = _fusion_send_message( fd, &enter, sizeof(FusionEnter), &addr );
+          if (ret == DR_DESTROYED) {
+               struct dirent *entry = NULL;
+               struct dirent  tmp;
+               DIR           *dir;
+
+               D_DEBUG_AT( Fusion_Main, "  -> master seems dead, cleaning up...\n" );
+
+               snprintf( addr.sun_path, sizeof(addr.sun_path),
+                         "/tmp/.fusion-%d", world_index );
+
+               dir = opendir( addr.sun_path );
+               if (!dir) {
+                    D_PERROR( "Fusion/Enter: ERROR opening directory '%s' for cleanup!\n", addr.sun_path );
+
+                    /* Unbind. */
+                    socklen_t len = sizeof(addr);
+                    if (getsockname( fd, (struct sockaddr*)&addr, &len ) == 0)
+                         unlink( addr.sun_path );
+
+                    close( fd );
+
+                    ret = DR_INIT;
+                    goto error;
+               }
+
+               while (readdir_r( dir, &tmp, &entry ) == 0 && entry) {
+                    if (!strcmp( entry->d_name, "." ) || !strcmp( entry->d_name, ".." ))
+                         continue;
+
+                    snprintf( addr.sun_path, sizeof(addr.sun_path),
+                              "/tmp/.fusion-%d/%s", world_index, entry->d_name );
+
+                    D_DEBUG_AT( Fusion_Main, "  -> removing '%s'\n", addr.sun_path );
+
+                    if (unlink( addr.sun_path ) < 0) {
+                         D_PERROR( "Fusion/Enter: ERROR deleting '%s' for cleanup!\n", addr.sun_path );
+                         closedir( dir );
+
+                         /* Unbind. */
+                         socklen_t len = sizeof(addr);
+                         if (getsockname( fd, (struct sockaddr*)&addr, &len ) == 0)
+                              unlink( addr.sun_path );
+
+                         close( fd );
+
+                         ret = DR_ACCESSDENIED;
+                         goto error;
+                    }
+               }
+
+               closedir( dir );
+
+               /* Unbind. */
+               socklen_t len = sizeof(addr);
+               if (getsockname( fd, (struct sockaddr*)&addr, &len ) == 0)
+                    unlink( addr.sun_path );
+
+               close( fd );
+
+               D_DEBUG_AT( Fusion_Main, "  -> retrying...\n" );
+               goto retry;
+          }
+          if (ret)
+               D_DERROR( ret, "Fusion/Enter: Send message failed!\n" );
           if (ret == DR_OK) {
                ret = _fusion_recv_message( fd, &enter, sizeof(FusionEnter), NULL );
+               if (ret)
+                    D_DERROR( ret, "Fusion/Enter: Receive message failed!\n" );
                if (ret == DR_OK && enter.type != FMT_ENTER) {
                     D_ERROR( "Fusion/Init: Expected message ENTER, got '%d'!\n", enter.type );
                     ret = DR_FUSION;
@@ -2137,8 +2588,11 @@ fusion_enter( int               world_index,
                goto error;
           }
           
+          unsigned long  size = direct_page_align(sizeof(FusionWorldShared));
+          unsigned long  base = (unsigned long) 0x20000000 + (size + direct_pagesize()) * world_index;
+
           /* Map shared area. */
-          shared = mmap( (void*) 0x20000000 + 0x2000 * world_index, sizeof(FusionWorldShared),
+          shared = mmap( (void*) base, size,
                          PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FIXED, shared_fd, 0 );
           if (shared == MAP_FAILED) {
                D_PERROR( "Fusion/Init: Mapping shared area failed!\n" );
@@ -2189,6 +2643,8 @@ fusion_enter( int               world_index,
 
      D_DEBUG_AT( Fusion_Main, "  -> initializing other parts...\n" );
 
+     direct_mutex_init( &world->refs_lock );
+
      /* Initialize other parts. */
      if (world->fusion_id == FUSION_ID_MASTER) {
           fusion_skirmish_init( &shared->arenas_lock, "Fusion Arenas", world );
@@ -2200,8 +2656,21 @@ fusion_enter( int               world_index,
                                         fusion_config->debugshm, &shared->main_pool );
           if (ret)
                goto error3;
+
+          fusion_hash_create( shared->main_pool, HASH_INT, HASH_PTR, 109, &shared->call_hash );
+
+          fusion_call_init( &shared->refs_call, world_refs_call, world, world );
+          fusion_call_set_name( &shared->refs_call, "world_refs" );
+          fusion_call_add_permissions( &shared->refs_call, 0, FUSION_CALL_PERMIT_EXECUTE );
+
+          direct_map_create( 37, refs_map_compare, refs_map_hash, world, &world->refs_map );
      }
-     
+     else {
+          direct_map_create( 37, refs_map_slave_compare, refs_map_slave_hash, world, &world->refs_map );
+
+//          fusion_hash_create( shared->main_pool, HASH_INT, HASH_PTR, 109, &shared->call_hash );
+     }
+
      /* Add ourselves to the list of fusionees. */
      ret = _fusion_add_fusionee( world, id );
      if (ret)
@@ -2283,6 +2752,9 @@ DirectResult
 fusion_stop_dispatcher( FusionWorld *world,
                         bool         emergency )
 {
+     if (!world->dispatch_loop)
+          return DR_OK;
+
      if (!emergency) {
           fusion_sync( world );
 
@@ -2363,8 +2835,15 @@ fusion_exit( FusionWorld *world,
           _fusion_send_message( world->fusion_fd, &leave, sizeof(FusionLeave), &addr );
      }
 
+     direct_mutex_deinit( &world->refs_lock );
+     direct_map_destroy( world->refs_map );
+
      /* Master has to deinitialize shared data. */
      if (fusion_master( world )) {
+          fusion_call_destroy( &shared->refs_call );
+
+          fusion_hash_destroy( shared->call_hash );
+
           shared->refs--;
           if (shared->refs == 0) {
                fusion_skirmish_destroy( &shared->reactor_globals );
@@ -2522,6 +3001,89 @@ fusion_kill( FusionWorld *world,
 
 /**********************************************************************************************************************/
 
+DirectResult
+fusion_world_activate( FusionWorld *world )
+{
+     return DR_OK;
+}
+
+DirectResult
+fusion_dispatch_cleanup_add( FusionWorld                  *world,
+                             FusionDispatchCleanupFunc     func,
+                             void                         *ctx,
+                             FusionDispatchCleanup       **ret_cleanup )
+{
+     FusionDispatchCleanup *cleanup;
+
+     cleanup = D_CALLOC( 1, sizeof(FusionDispatchCleanup) );
+     if (!cleanup)
+          return D_OOM();
+
+     cleanup->func = func;
+     cleanup->ctx  = ctx;
+
+     direct_list_append( &world->dispatch_cleanups, &cleanup->link );
+
+     *ret_cleanup = cleanup;
+
+     return DR_OK;
+}
+
+DirectResult
+fusion_dispatch_cleanup_remove( FusionWorld                  *world,
+                                FusionDispatchCleanup        *cleanup )
+{
+     direct_list_remove( &world->dispatch_cleanups, &cleanup->link );
+
+     D_FREE( cleanup );
+
+     return DR_OK;
+}
+
+static void
+handle_dispatch_cleanups( FusionWorld *world )
+{
+     FusionDispatchCleanup *cleanup, *next;
+
+     D_DEBUG_AT( Fusion_Main_Dispatch, "%s( %p )\n", __FUNCTION__, world );
+
+     direct_list_foreach_safe (cleanup, next, world->dispatch_cleanups) {
+#if D_DEBUG_ENABLED
+          if (direct_log_domain_check( &Fusion_Main_Dispatch )) // avoid call to direct_trace_lookup_symbol_at
+               D_DEBUG_AT( Fusion_Main_Dispatch, "  -> %s (%p)\n", direct_trace_lookup_symbol_at( cleanup->func ), cleanup->ctx );
+#endif
+
+          cleanup->func( cleanup->ctx );
+
+          D_FREE( cleanup );
+     }
+
+     D_DEBUG_AT( Fusion_Main_Dispatch, "  -> cleanups done.\n" );
+
+     world->dispatch_cleanups = NULL;
+}
+
+static DirectEnumerationResult
+refs_iterate( DirectMap    *map,
+              void         *object,
+              void         *ctx )
+{
+     FusionRefSlaveEntry *entry = object;
+
+     if (entry->key.fusion_id == *((FusionID*)ctx)) {
+          int i;
+
+          for (i=0; i<entry->refs; i++)
+               fusion_ref_down( entry->ref, false );
+
+          D_FREE( entry );
+
+          return DENUM_REMOVE;
+     }
+
+     return DENUM_OK;
+}
+
 static void *
 fusion_dispatch_loop( DirectThread *self, void *arg )
 {
@@ -2534,7 +3096,8 @@ fusion_dispatch_loop( DirectThread *self, void *arg )
      D_DEBUG_AT( Fusion_Main_Dispatch, "%s() running...\n", __FUNCTION__ );
 
      while (true) {
-          int result;
+          int     result;
+          ssize_t msg_size;
           
           D_MAGIC_ASSERT( world, FusionWorld );
 
@@ -2556,14 +3119,14 @@ fusion_dispatch_loop( DirectThread *self, void *arg )
           D_MAGIC_ASSERT( world, FusionWorld );
 
           if (FD_ISSET( world->fusion_fd, &set ) && 
-              recvfrom( world->fusion_fd, buf, sizeof(buf), 0, (struct sockaddr*)&addr, &addr_len ) > 0) {
+              (msg_size = recvfrom( world->fusion_fd, buf, sizeof(buf), 0, (struct sockaddr*)&addr, &addr_len )) > 0) {
                FusionMessage *msg = (FusionMessage*)buf;               
 
                pthread_setcancelstate( PTHREAD_CANCEL_DISABLE, NULL );
 
                D_DEBUG_AT( Fusion_Main_Dispatch, " -> message from '%s'...\n", addr.sun_path );
 
-               direct_thread_lock( world->dispatch_loop );
+               direct_thread_lock( self );
 
                if (world->dispatch_stop) {
                     D_DEBUG_AT( Fusion_Main_Dispatch, "  -> IGNORING (dispatch_stop!)\n" );
@@ -2594,6 +3157,11 @@ fusion_dispatch_loop( DirectThread *self, void *arg )
                                    D_ERROR( "Fusion/Dispatch: Got LEAVE request, but I'm not master!\n" );
                                    break;
                               }
+                              if (world->fusion_id == FUSION_ID_MASTER) {
+                                   direct_mutex_lock( &world->refs_lock );
+                                   direct_map_iterate( world->refs_map, refs_iterate, &msg->leave.fusion_id );
+                                   direct_mutex_unlock( &world->refs_lock );
+                              }
                               if (msg->leave.fusion_id == world->fusion_id) {
                                    D_ERROR( "Fusion/Dispatch: Received LEAVE request from myself!\n" );
                                    break;
@@ -2603,7 +3171,12 @@ fusion_dispatch_loop( DirectThread *self, void *arg )
 
                          case FMT_CALL:
                               D_DEBUG_AT( Fusion_Main_Dispatch, "  -> FMT_CALL...\n" );
-                              _fusion_call_process( world, msg->call.call_id, &msg->call );
+
+                              if (((FusionCallMessage*)msg)->caller == 0)    // FIXME: currently caller is set to non-zero even for ref_watch
+                                   handle_dispatch_cleanups( world );
+
+                              _fusion_call_process( world, msg->call.call_id, &msg->call,
+                                                    (msg_size != sizeof(FusionCallMessage)) ? (((FusionCallMessage*)msg) + 1) : NULL );
                               break;
 
                          case FMT_REACTOR:
@@ -2625,7 +3198,9 @@ fusion_dispatch_loop( DirectThread *self, void *arg )
                     }
                }
 
-               direct_thread_unlock( world->dispatch_loop );
+               handle_dispatch_cleanups( world );
+
+               direct_thread_unlock( self );
 
                if (!world->refs) {
                     D_DEBUG_AT( Fusion_Main_Dispatch, "  -> good bye!\n" );
@@ -2641,10 +3216,6 @@ fusion_dispatch_loop( DirectThread *self, void *arg )
      return NULL;
 }
 
-/**********************************************************************************************************************/
-
-#endif /* FUSION_BUILD_KERNEL */
-
 /*
  * Wait until all pending messages are processed.
  */
@@ -2657,23 +3228,71 @@ fusion_sync( const FusionWorld *world )
 
      D_DEBUG_AT( Fusion_Main, "  -> syncing with fusion device...\n" );
 
-     while (ioctl( world->fusion_fd, FUSION_SYNC )) {
-          switch (errno) {
-               case EINTR:
-                    continue;
-               default:
-                    break;
-          }
-
-          D_PERROR( "Fusion/Main: FUSION_SYNC failed!\n" );
-
-          return DR_FAILURE;
-     }
+     D_UNIMPLEMENTED();
 
      D_DEBUG_AT( Fusion_Main, "  -> synced\n");
 
      return DR_OK;
 }
+
+const char *
+fusion_get_tmpfs( FusionWorld *world )
+{
+     D_MAGIC_ASSERT( world, FusionWorld );
+     D_MAGIC_ASSERT( world->shared, FusionWorldShared );
+
+     return "/tmp";
+}
+
+DirectResult
+fusion_get_fusionee_path( const FusionWorld *world,
+                          FusionID           fusion_id,
+                          char              *buf,
+                          size_t             buf_size,
+                          size_t            *ret_size )
+{
+     D_UNIMPLEMENTED();
+
+     return DR_UNIMPLEMENTED;
+}
+
+DirectResult
+fusion_get_fusionee_pid( const FusionWorld *world,
+                         FusionID           fusion_id,
+                         pid_t             *ret_pid )
+{
+     D_UNIMPLEMENTED();
+
+     return DR_UNIMPLEMENTED;
+}
+
+DirectResult
+fusion_world_set_root( FusionWorld *world,
+                       void        *root )
+{
+     D_ASSERT( world != NULL );
+     D_ASSERT( world->shared != NULL );
+
+     if (world->fusion_id != FUSION_ID_MASTER)
+          return DR_ACCESSDENIED;
+
+     world->shared->world_root = root;
+
+     return DR_OK;
+}
+
+void *
+fusion_world_get_root( FusionWorld *world )
+{
+     D_ASSERT( world != NULL );
+     D_ASSERT( world->shared != NULL );
+
+     return world->shared->world_root;
+}
+
+/**********************************************************************************************************************/
+
+#endif /* FUSION_BUILD_KERNEL */
 
 /*
  * Sets the fork() action of the calling Fusionee within the world.
@@ -2771,7 +3390,10 @@ fusion_dispatcher_tid( const FusionWorld *world )
 {
      D_MAGIC_ASSERT( world, FusionWorld );
 
-     return direct_thread_get_tid( world->dispatch_loop );
+     if (world->dispatch_loop)
+          return direct_thread_get_tid( world->dispatch_loop );
+
+     return 0;
 }
 
 /*
@@ -2893,7 +3515,7 @@ event_dispatcher_loop( DirectThread *thread, void *arg )
           FusionEventDispatcherCall *msg = (FusionEventDispatcherCall*)&buf->buffer[buf->read_pos];
 //D_INFO("event_dispatcher_loop: processing buf %p free %d read %d write %d sync %d pending %d (msg %p)\n", buf, buf->can_free, buf->read_pos, buf->write_pos, buf->sync_calls, buf->pending, msg);
 
-          D_DEBUG_AT( Fusion_Main_Dispatch, "\n" );
+          D_DEBUG_AT( Fusion_Main_Dispatch, "%s() got msg %p <- arg %d, reaction %d\n", __FUNCTION__, msg, msg->call_arg, msg->reaction );
 
           buf->read_pos += call_size;
           if (msg->flags & FCEF_ONEWAY)
@@ -3308,6 +3930,15 @@ fusion_stop_dispatcher( FusionWorld *world,
      return DR_OK;
 }
 
+DirectResult
+fusion_dispatch( FusionWorld *world,
+                 size_t       buf_size )
+{
+     D_UNIMPLEMENTED();
+
+     return DR_OK;
+}
+
 /*
  * Exits the fusion world.
  *
@@ -3463,8 +4094,7 @@ fusion_dispatcher_tid( const FusionWorld *world )
 {
      D_MAGIC_ASSERT( world, FusionWorld );
 
-     // must return 0 here to not let the dispatcher thread sleep in CoreDFB_CallMode()
-     return 0;
+     return direct_thread_get_tid( world->event_dispatcher_thread );
 }
 
 /*

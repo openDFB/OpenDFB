@@ -250,7 +250,7 @@ ILayerContextReal_CreateWindow(ILayerContext *thiz,
         if (ret)
             return ret;
 
-        if (parent->object.owner && parent->object.owner != Core_GetIdentity()) {
+        if (fusion_object_check_owner( &parent->object, Core_GetIdentity(), false )) {
              dfb_window_unref( parent );
              return DFB_ACCESSDENIED;
         }
@@ -265,7 +265,7 @@ ILayerContextReal_CreateWindow(ILayerContext *thiz,
         if (ret)
             return ret;
 
-        if (toplevel->object.owner && toplevel->object.owner != Core_GetIdentity()) {
+        if (fusion_object_check_owner( &toplevel->object, Core_GetIdentity(), false )) {
              dfb_window_unref( toplevel );
              return DFB_ACCESSDENIED;
         }
@@ -283,14 +283,25 @@ ILayerContextReal_FindWindow(ILayerContext *thiz,
 )
 {
     CoreWindow *window;
+    FusionID    caller;
 
-    D_DEBUG_AT( DirectFB_CoreLayerContext, "ILayerContextReal_%s()\n", __FUNCTION__ );
+    D_DEBUG_AT( DirectFB_CoreLayerContext, "ILayerContext_Real::%s()\n", __FUNCTION__ );
 
     D_ASSERT( ret_window != NULL );
 
     window = dfb_layer_context_find_window( thiz->obj, window_id );
     if (!window)
          return DFB_IDNOTFOUND;
+
+    caller = Core_GetIdentity();
+
+    if (caller != FUSION_ID_MASTER &&
+        window->object.identity != caller &&
+        fusion_object_check_owner( &window->object, caller, false ))
+    {
+         dfb_window_unref( window );
+         return DFB_ACCESSDENIED;
+    }
 
     *ret_window = window;
 

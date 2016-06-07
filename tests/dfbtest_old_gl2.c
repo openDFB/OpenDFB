@@ -658,9 +658,9 @@ Initialize( Test   *test,
      /*
       * Create an event buffer for all devices with these caps
       */
-     ret = test->dfb->CreateInputEventBuffer( test->dfb, DICAPS_KEYS | DICAPS_AXES, DFB_FALSE, &test->events );
+     ret = test->dfb->CreateInputEventBuffer( test->dfb, DIDCAPS_KEYS | DIDCAPS_AXES, DFB_FALSE, &test->events );
      if (ret) {
-          D_DERROR( ret, "IDirectFB::CreateInputEventBuffer( DICAPS_KEYS | DICAPS_AXES ) failed!\n" );
+          D_DERROR( ret, "IDirectFB::CreateInputEventBuffer( DIDCAPS_KEYS | DIDCAPS_AXES ) failed!\n" );
           return ret;
      }
 

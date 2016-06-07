@@ -108,7 +108,6 @@ bin_PROGRAMS = \
 	dfbtest_sync	\
 	dfbtest_video	\
 	dfbtest_waitserial	\
-	dfbtest_water	\
 	dfbtest_window	\
 	dfbtest_window_cursor	\
 	dfbtest_window_flip	\
@@ -215,9 +214,6 @@ dfbtest_video_LDADD   = $(DFB_BASE_LIBS)
 
 dfbtest_waitserial_SOURCES = dfbtest_waitserial.c
 dfbtest_waitserial_LDADD   = $(DFB_BASE_LIBS)
-
-dfbtest_water_SOURCES = dfbtest_water.c
-dfbtest_water_LDADD   = $(DFB_BASE_LIBS)
 
 dfbtest_window_SOURCES = dfbtest_window.c
 dfbtest_window_LDADD   = $(DFB_BASE_LIBS)

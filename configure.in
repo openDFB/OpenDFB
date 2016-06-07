@@ -2167,11 +2167,6 @@ lib/fusion/shm/Makefile
 lib/One/Makefile
 lib/One/one.pc
 
-lib/voodoo/Makefile
-lib/voodoo/build.h
-lib/voodoo/unix/Makefile
-lib/voodoo/voodoo.pc
-
 lib/sawman/Makefile
 lib/sawman/sawman.pc
 
@@ -2188,9 +2183,6 @@ lib/divine/Makefile
 lib/divine/divine.pc
 patches/Makefile
 
-proxy/Makefile
-proxy/dispatcher/Makefile
-proxy/requestor/Makefile
 
 rules/Makefile
 
@@ -2278,18 +2270,14 @@ inputdrivers/ucb1x00_ts/Makefile
 inputdrivers/wm97xx_ts/Makefile
 
 interfaces/Makefile
-interfaces/ICoreResourceManager/Makefile
 interfaces/IDirectFBFont/Makefile
 interfaces/IDirectFBImageProvider/Makefile
 interfaces/IDirectFBImageProvider/mpeg2/Makefile
-interfaces/IDirectFBVideoProvider/Makefile
 interfaces/IDirectFBWindows/Makefile
-interfaces/IWater/Makefile
 
 data/Makefile
 
 tests/Makefile
-tests/voodoo/Makefile
 tools/Makefile
 examples/fusiondale/Makefile
 docs/Makefile
@@ -2326,8 +2314,6 @@ Misc options:
   Fusion message size       $with_message_size
   Fluxed args size          $with_args_size
   One (IPC)                 $enable_one
-  Voodoo (network support)  $enable_voodoo
-  Pure Voodoo (net only)    $enable_pure_voodoo
   DiVine (virtual input)    $enable_divine
   FusionDale                $enable_fusiondale
   Debug supported           $enable_debug_support
@@ -2374,14 +2360,6 @@ Building Image Provider Modules:
   BMP                       $bmp
   JPEG2000                  $jpeg2000             $JASPER_LIBS
   MPEG2                     $mpeg2
-
-
-Building Video Provider Modules:
-  GIF                       $enable_gif
-  Video4Linux               $V4L (v2: $V4L2)
-  MNG                       $MNG                 $LIBMNG_CFLAGS $LIBMNG_LIBS
-  Gstreamer                 $gstreamer (v1: $HAVE_GSTREAMER_1_0)       $GSTREAMER_INCL $GSTREAMER_LIBS
-    with FusionSound        $have_fusionsound
 
 Building Font Modules:
   FreeType2                 $FREETYPE                 $FREETYPE_CFLAGS $FREETYPE_LIBS

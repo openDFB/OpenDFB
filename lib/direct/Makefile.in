@@ -135,7 +135,7 @@ am__libdirect_la_SOURCES_DIST = ppcasm_memcpy.S \
 	init.c interface.c list.c log.c log_domain.c map.c mem.c \
 	memcpy.c messages.c modules.c print.c processor.c result.c \
 	serial.c signals.c stream.c system.c trace.c tree.c thread.c \
-	utf8.c util.c oopc.c uuid.c
+	utf8.c util.c uuid.c
 @BUILDPPCASM_TRUE@@HAVE_LINUX_FALSE@am__objects_1 = ppcasm_memcpy.lo
 @BUILDPPCASM_TRUE@@HAVE_LINUX_TRUE@am__objects_1 = ppcasm_memcpy.lo \
 @BUILDPPCASM_TRUE@@HAVE_LINUX_TRUE@	ppcasm_memcpy_cachable.lo
@@ -145,8 +145,7 @@ am_libdirect_la_OBJECTS = $(am__objects_1) $(am__objects_2) clock.lo \
 	flz.lo hash.lo init.lo interface.lo list.lo log.lo \
 	log_domain.lo map.lo mem.lo memcpy.lo messages.lo modules.lo \
 	print.lo processor.lo result.lo serial.lo signals.lo stream.lo \
-	system.lo trace.lo tree.lo thread.lo utf8.lo util.lo oopc.lo \
-	uuid.lo
+	system.lo trace.lo tree.lo thread.lo utf8.lo util.lo uuid.lo
 libdirect_la_OBJECTS = $(am_libdirect_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -221,7 +220,7 @@ am__include_HEADERS_DIST = ppcasm_memcpy.h ppc_asm.h atomic.h build.h \
 	interface_implementation.h list.h log.h log_domain.h map.h \
 	mem.h memcpy.h messages.h modules.h print.h processor.h \
 	result.h serial.h signals.h stream.h system.h thread.h trace.h \
-	tree.h types.h utf8.h util.h oopc.h uuid.h
+	tree.h types.h utf8.h util.h uuid.h
 HEADERS = $(include_HEADERS)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
@@ -577,7 +576,6 @@ include_HEADERS = \
 	types.h				\
 	utf8.h				\
 	util.h				\
-	oopc.h				\
 	uuid.h
 
 lib_LTLIBRARIES = libdirect.la
@@ -615,7 +613,6 @@ libdirect_la_SOURCES = \
 	thread.c		\
 	utf8.c			\
 	util.c			\
-	oopc.c			\
 	uuid.c
 
 libdirect_la_LIBADD = \
@@ -732,7 +729,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/memcpy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/messages.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/modules.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/oopc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ppcasm_memcpy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ppcasm_memcpy_cachable.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/print.Plo@am__quote@

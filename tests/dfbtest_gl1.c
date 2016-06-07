@@ -52,16 +52,16 @@ Initialize( Test   *test,
      DFBResult             ret;
      DFBSurfaceDescription dsc;
 
-     /* 
+     /*
       * Initialize DirectFB options
-      */ 
+      */
      ret = DirectFBInit( argc, argv );
      if (ret) {
           D_DERROR( ret, "DirectFBInit() failed!\n" );
           return ret;
      }
 
-     /* 
+     /*
       * Create the super interface
       */
      ret = DirectFBCreate( &test->dfb );
@@ -79,21 +79,21 @@ Initialize( Test   *test,
           return ret;
      }
 
-     /* 
+     /*
       * Create an event buffer for all devices with these caps
       */
-     ret = test->dfb->CreateInputEventBuffer( test->dfb, DICAPS_KEYS | DICAPS_AXES, DFB_FALSE, &test->events );
+     ret = test->dfb->CreateInputEventBuffer( test->dfb, DIDCAPS_KEYS | DIDCAPS_AXES, DFB_FALSE, &test->events );
      if (ret) {
-          D_DERROR( ret, "IDirectFB::CreateInputEventBuffer( DICAPS_KEYS | DICAPS_AXES ) failed!\n" );
+          D_DERROR( ret, "IDirectFB::CreateInputEventBuffer( DIDCAPS_KEYS | DIDCAPS_AXES ) failed!\n" );
           return ret;
      }
 
-     /* 
+     /*
       * Try to set our cooperative level to DFSCL_FULLSCREEN for exclusive access to the primary layer
       */
      test->dfb->SetCooperativeLevel( test->dfb, DFSCL_FULLSCREEN );
 
-     /* 
+     /*
       * Create the primary surface
       */
      dsc.flags = DSDESC_CAPS;
@@ -105,7 +105,7 @@ Initialize( Test   *test,
           return ret;
      }
 
-     /* 
+     /*
       * Get the size of the surface, clear and show it
       */
      test->primary->GetSize( test->primary, &test->size.w, &test->size.h );
@@ -114,7 +114,7 @@ Initialize( Test   *test,
      test->primary->Flip( test->primary, NULL, 0 );
 
 
-     /* 
+     /*
       * Create an OpenGL rendering context
       */
      ret = test->gl2->CreateContext( test->gl2, NULL, &test->gl2context );
@@ -150,7 +150,7 @@ InitGL( Test *test )
 {
      DFBResult ret;
 
-     /* 
+     /*
       * Bind the OpenGL rendering context to our primary surface
       */
      ret = test->gl2context->Bind( test->gl2context, test->primary, test->primary );
@@ -176,7 +176,7 @@ RenderGL( Test *test )
 {
      DFBResult ret;
 
-     /* 
+     /*
       * Bind the OpenGL rendering context to our primary surface
       */
      ret = test->gl2context->Bind( test->gl2context, test->primary, test->primary );

@@ -145,9 +145,9 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = dbox2remote dreamboxremote dynapro elo gunze h3600_ts \
-	input_hub joystick keyboard linux_input lirc mutouch zytronic \
-	penmount ps2mouse serialmouse sonypi tslib ucb1x00_ts \
+DIST_SUBDIRS = dbox2remote divine dreamboxremote dynapro elo gunze \
+	h3600_ts input_hub joystick keyboard linux_input lirc mutouch \
+	zytronic penmount ps2mouse serialmouse sonypi tslib ucb1x00_ts \
 	wm97xx_ts
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
@@ -410,6 +410,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 @DBOX2REMOTE_TRUE@DBOX2REMOTE_DIR = dbox2remote
+@ENABLE_DIVINE_TRUE@DIVINE_DIR = divine
 @DREAMBOXREMOTE_TRUE@DREAMBOXREMOTE_DIR = dreamboxremote
 @DYNAPRO_INPUT_TRUE@DYNAPRO_INPUT_DIR = dynapro
 @ELO_INPUT_TRUE@ELO_INPUT_DIR = elo
@@ -431,6 +432,7 @@ top_srcdir = @top_srcdir@
 @WM97XX_TS_TRUE@WM97XX_TS_DIR = wm97xx_ts
 SUBDIRS = \
 	$(DBOX2REMOTE_DIR)	\
+	$(DIVINE_DIR)		\
 	$(DREAMBOXREMOTE_DIR)	\
 	$(DYNAPRO_INPUT_DIR)	\
 	$(ELO_INPUT_DIR)	\

@@ -1,11 +1,13 @@
 /*
-   (c) Copyright 2001-2009  The world wide DirectFB Open Source Community (directfb.org)
+   (c) Copyright 2012-2013  DirectFB integrated media GmbH
+   (c) Copyright 2001-2013  The world wide DirectFB Open Source Community (directfb.org)
    (c) Copyright 2000-2004  Convergence (integrated media) GmbH
 
    All rights reserved.
 
    Written by Denis Oliver Kropp <dok@directfb.org>,
-              Andreas Hundt <andi@fischlustig.de>,
+              Andreas Shimokawa <andi@directfb.org>,
+              Marek Pikarski <mass@directfb.org>,
               Sven Neumann <neo@directfb.org>,
               Ville Syrjälä <syrjala@sci.fi> and
               Claudio Ciccani <klan@users.sf.net>.
@@ -26,6 +28,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+
+
 #ifndef __FUSION__FUSION_INTERNAL_H__
 #define __FUSION__FUSION_INTERNAL_H__
 
@@ -34,6 +38,7 @@
 
 #include <string.h>
 
+#include <direct/hash.h>
 #include <direct/list.h>
 
 #include <fusion/build.h>
@@ -51,7 +56,7 @@
 # endif
 #endif
 
-#define FUSION_MAX_WORLDS     8
+#define FUSION_MAX_WORLDS     32
 
 #define EXECUTE3_BIN_FLUSH_MILLIS    16
 
@@ -94,20 +99,24 @@ struct __Fusion_FusionWorldShared {
      void                *world_root;
      
      FusionWorld         *world;
+
+     FusionCall           refs_call;
+
+     FusionHash          *call_hash;
 };
 
 #if !FUSION_BUILD_MULTI
 
 #include "reactor.h"
 
-#define EVENT_DISPATCHER_BUFFER_LENGTH (64 * 1024)
+#define EVENT_DISPATCHER_BUFFER_LENGTH  (FUSION_CALL_MAX_LENGTH)
 
 typedef struct {
      DirectLink link;
 
      int magic;
 
-     char       buffer[EVENT_DISPATCHER_BUFFER_LENGTH];
+     char       buffer[FUSION_CALL_MAX_LENGTH];
      int        read_pos;
      int        write_pos;
      int        can_free;
@@ -177,6 +186,9 @@ struct __Fusion_FusionWorld {
 
      DirectLink          *dispatch_cleanups;
 
+     DirectMutex          refs_lock;
+     DirectMap           *refs_map;
+
 #if !FUSION_BUILD_MULTI
      DirectThread        *event_dispatcher_thread;
      DirectMutex          event_dispatcher_mutex;
@@ -200,6 +212,28 @@ typedef struct {
 } DeferredCall;
 # endif
 #endif
+
+
+typedef struct {
+     FusionID          fusion_id;
+     int               ref_id;
+} FusionRefSlaveKey;
+
+typedef struct {
+     FusionRefSlaveKey key;
+
+     int               refs;
+
+     FusionRef        *ref;
+} FusionRefSlaveEntry;
+
+
+typedef struct {
+     int               ref_id;
+
+     int               refs_catch;
+     int               refs_local;
+} FusionRefSlaveSlaveEntry;
 
 /*******************************************
  *  Fusion internal function declarations  *
@@ -264,12 +298,14 @@ void _fusion_call_process ( FusionWorld        *world,
                             int                 call_id,
                             FusionCallMessage  *call,
                             void               *ptr );
+
+#if FUSION_BUILD_KERNEL
+
 void _fusion_call_process3( FusionWorld        *world,
                             int                 call_id,
                             FusionCallMessage3 *msg,
                             void               *ptr );
 
-#if FUSION_BUILD_KERNEL
 /*
  * from shm.c
  */

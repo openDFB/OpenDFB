@@ -396,17 +396,15 @@ target_vendor = @target_vendor@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-DISTCLEANFILES = directfb_keynames.h directfb_strings.h directfb_water_strings.h
+DISTCLEANFILES = directfb_keynames.h directfb_strings.h
 include_HEADERS = \
 	directfb.h		\
 	directfb_build.h	\
 	directfb_keyboard.h	\
 	directfb_keynames.h	\
 	directfb_strings.h	\
-	directfb_water_strings.h\
 	directfb_util.h		\
 	directfb_version.h	\
-	directfb_water.h	\
 	directfb_windows.h	\
 	directfbgl.h		\
 	directfbgl2.h		\
@@ -791,18 +789,6 @@ directfb_strings.h: directfb.h $(MKNAMES) Makefile
 
 	@$(MKNAMES) DFBAccelerationMask DFXL NONE AccelerationMask mask $(INCP)/directfb.h \
 	   | grep -v DFXL_ALL >> $@
-
-	@echo '' >> $@
-	@echo '#endif' >> $@
-
-directfb_water_strings.h: directfb.h $(MKNAMES) Makefile
-	@echo '#ifndef __DIRECTFB_WATER_STRINGS_H__' > $@
-	@echo '#define __DIRECTFB_WATER_STRINGS_H__' >> $@
-	@echo '#include <directfb.h>' >> $@
-	@echo '#include <directfb_water.h>' >> $@
-
-	@$(MKNAMES) WaterElementType WET UNKNOWN WaterElementType type $(INCP)/directfb_water.h \
-	   | grep -v WET_ALL >> $@
 
 	@echo '' >> $@
 	@echo '#endif' >> $@
