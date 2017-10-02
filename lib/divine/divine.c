@@ -73,10 +73,8 @@ DiVineInit( int *argc, char *(*argv[]) )
 DFBResult
 DiVineCreate( IDiVine **interface_ptr )
 {
-#if !DIRECTFB_BUILD_PURE_VOODOO
      DFBResult  ret;
      IDiVine   *divine;
-#endif
 
      if (!dfb_config) {
           /*  don't use D_ERROR() here, it uses dfb_config  */
@@ -89,7 +87,6 @@ DiVineCreate( IDiVine **interface_ptr )
 
      direct_initialize();
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
      if (dfb_config->remote.host)
           return CreateRemote( dfb_config->remote.host, dfb_config->remote.port, interface_ptr );
 
@@ -102,9 +99,6 @@ DiVineCreate( IDiVine **interface_ptr )
      *interface_ptr = divine;
 
      return DFB_OK;
-#else
-     return CreateRemote( dfb_config->remote.host, dfb_config->remote.port, interface_ptr );
-#endif
 }
 
 /**********************************************************************************************************************/
@@ -136,7 +130,6 @@ CreateRemote( const char *host, int port, IDiVine **ret_interface )
 }
 
 /**********************************************************************************************************************/
-#if !DIRECTFB_BUILD_PURE_VOODOO
 
 struct _DiVine {
      int fd; /* The file descriptor of the connection (pipe) */
@@ -365,6 +358,4 @@ divine_close( DiVine *divine )
      /* Free connection object */
      free( divine );
 }
-
-#endif
 

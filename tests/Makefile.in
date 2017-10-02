@@ -92,13 +92,11 @@ bin_PROGRAMS = $(am__EXEEXT_2) $(am__EXEEXT_3) dfbtest_blit$(EXEEXT) \
 	dfbtest_surface_compositor_threads$(EXEEXT) \
 	dfbtest_surface_updates$(EXEEXT) dfbtest_sync$(EXEEXT) \
 	dfbtest_video$(EXEEXT) dfbtest_waitserial$(EXEEXT) \
-	dfbtest_window$(EXEEXT) \
-	dfbtest_window_cursor$(EXEEXT) dfbtest_window_flip$(EXEEXT) \
-	dfbtest_window_flip_once$(EXEEXT) \
+	dfbtest_window$(EXEEXT) dfbtest_window_cursor$(EXEEXT) \
+	dfbtest_window_flip$(EXEEXT) dfbtest_window_flip_once$(EXEEXT) \
 	dfbtest_window_surface$(EXEEXT) \
 	dfbtest_windows_watcher$(EXEEXT) direct_stream$(EXEEXT) \
-	direct_test$(EXEEXT) $(am__EXEEXT_4) $(am__EXEEXT_5) \
-	$(am__EXEEXT_6) $(am__EXEEXT_7) $(am__EXEEXT_8)
+	direct_test$(EXEEXT) $(am__EXEEXT_4) $(am__EXEEXT_5)
 DIST_COMMON = $(top_srcdir)/rules/libs_deps.make $(srcdir)/Makefile.in \
 	$(srcdir)/Makefile.am $(top_srcdir)/depcomp
 subdir = tests
@@ -114,7 +112,7 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__EXEEXT_1 = dfbtest_gl1$(EXEEXT) dfbtest_gl2$(EXEEXT) \
-	dfbtest_gl3$(EXEEXT) dfbtest_old_gl2$(EXEEXT)
+	dfbtest_gl3$(EXEEXT)
 @GFX_GLES2_FALSE@@GFX_GL_TRUE@am__EXEEXT_2 = $(am__EXEEXT_1)
 @GFX_GLES2_TRUE@am__EXEEXT_2 = $(am__EXEEXT_1)
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@am__EXEEXT_3 =  \
@@ -125,38 +123,22 @@ am__EXEEXT_1 = dfbtest_gl1$(EXEEXT) dfbtest_gl2$(EXEEXT) \
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	fusion_reactor$(EXEEXT) \
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	fusion_skirmish$(EXEEXT) \
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	fusion_stream$(EXEEXT)
-@DIRECTFB_BUILD_ONE_TRUE@am__EXEEXT_4 = OneBench$(EXEEXT) \
-@DIRECTFB_BUILD_ONE_TRUE@	OneTest$(EXEEXT)
-@DIRECTFB_BUILD_VOODOO_TRUE@am__EXEEXT_5 = voodoo_bench$(EXEEXT) \
-@DIRECTFB_BUILD_VOODOO_TRUE@	voodoo_bench_client$(EXEEXT) \
-@DIRECTFB_BUILD_VOODOO_TRUE@	voodoo_bench_server$(EXEEXT) \
-@DIRECTFB_BUILD_VOODOO_TRUE@	voodoo_bench_client_unix$(EXEEXT) \
-@DIRECTFB_BUILD_VOODOO_TRUE@	voodoo_bench_server_unix$(EXEEXT)
-@ENABLE_SAWMAN_TRUE@am__EXEEXT_6 = testrun$(EXEEXT) testman$(EXEEXT)
-@ENABLE_DIVINE_TRUE@am__EXEEXT_7 = divine_test$(EXEEXT)
-@ENABLE_FUSIONDALE_TRUE@am__EXEEXT_8 = fdtest_bench$(EXEEXT) \
-@ENABLE_FUSIONDALE_TRUE@	fdtest_coma$(EXEEXT) \
-@ENABLE_FUSIONDALE_TRUE@	fdtest_init$(EXEEXT)
+@ENABLE_SAWMAN_TRUE@am__EXEEXT_4 = testrun$(EXEEXT) testman$(EXEEXT)
+@ENABLE_DIVINE_TRUE@am__EXEEXT_5 = divine_test$(EXEEXT)
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_OneBench_OBJECTS = OneBench.$(OBJEXT)
-OneBench_OBJECTS = $(am_OneBench_OBJECTS)
+am_coretest_blit2_OBJECTS = coretest_blit2.$(OBJEXT)
+coretest_blit2_OBJECTS = $(am_coretest_blit2_OBJECTS)
 @DIRECTFB_BUILD_ONE_TRUE@am__DEPENDENCIES_1 =  \
 @DIRECTFB_BUILD_ONE_TRUE@	$(top_builddir)/lib/One/libone.la
 @DIRECTFB_BUILD_VOODOO_TRUE@am__DEPENDENCIES_2 = $(top_builddir)/lib/voodoo/libvoodoo.la
 am__DEPENDENCIES_3 = $(libdirectfb) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_2) $(libfusion) $(libdirect)
-OneBench_DEPENDENCIES = $(am__DEPENDENCIES_3)
+coretest_blit2_DEPENDENCIES = $(am__DEPENDENCIES_3)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-am_OneTest_OBJECTS = OneTest.$(OBJEXT)
-OneTest_OBJECTS = $(am_OneTest_OBJECTS)
-OneTest_DEPENDENCIES = $(am__DEPENDENCIES_3)
-am_coretest_blit2_OBJECTS = coretest_blit2.$(OBJEXT)
-coretest_blit2_OBJECTS = $(am_coretest_blit2_OBJECTS)
-coretest_blit2_DEPENDENCIES = $(am__DEPENDENCIES_3)
 am_dfbtest_blit_OBJECTS = dfbtest_blit.$(OBJEXT)
 dfbtest_blit_OBJECTS = $(am_dfbtest_blit_OBJECTS)
 dfbtest_blit_DEPENDENCIES = $(am__DEPENDENCIES_3)
@@ -213,16 +195,6 @@ dfbtest_input_DEPENDENCIES = $(am__DEPENDENCIES_3)
 am_dfbtest_mirror_OBJECTS = dfbtest_mirror.$(OBJEXT)
 dfbtest_mirror_OBJECTS = $(am_dfbtest_mirror_OBJECTS)
 dfbtest_mirror_DEPENDENCIES = $(am__DEPENDENCIES_3)
-am_dfbtest_old_gl2_OBJECTS =  \
-	dfbtest_old_gl2-dfbtest_old_gl2.$(OBJEXT)
-dfbtest_old_gl2_OBJECTS = $(am_dfbtest_old_gl2_OBJECTS)
-dfbtest_old_gl2_DEPENDENCIES = $(am__DEPENDENCIES_3) \
-	$(am__DEPENDENCIES_5) $(am__DEPENDENCIES_5) \
-	$(am__DEPENDENCIES_4)
-dfbtest_old_gl2_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(dfbtest_old_gl2_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
-	-o $@
 am_dfbtest_prealloc_OBJECTS = dfbtest_prealloc.$(OBJEXT)
 dfbtest_prealloc_OBJECTS = $(am_dfbtest_prealloc_OBJECTS)
 dfbtest_prealloc_DEPENDENCIES = $(am__DEPENDENCIES_3)
@@ -297,15 +269,6 @@ direct_test_DEPENDENCIES = $(libdirect)
 am_divine_test_OBJECTS = divine_test.$(OBJEXT)
 divine_test_OBJECTS = $(am_divine_test_OBJECTS)
 divine_test_DEPENDENCIES = $(am__DEPENDENCIES_3) $(libdivine)
-fdtest_bench_SOURCES = fdtest_bench.c
-fdtest_bench_OBJECTS = fdtest_bench.$(OBJEXT)
-fdtest_bench_LDADD = $(LDADD)
-fdtest_coma_SOURCES = fdtest_coma.c
-fdtest_coma_OBJECTS = fdtest_coma.$(OBJEXT)
-fdtest_coma_LDADD = $(LDADD)
-fdtest_init_SOURCES = fdtest_init.c
-fdtest_init_OBJECTS = fdtest_init.$(OBJEXT)
-fdtest_init_LDADD = $(LDADD)
 am_fusion_call_OBJECTS = fusion_call.$(OBJEXT)
 fusion_call_OBJECTS = $(am_fusion_call_OBJECTS)
 fusion_call_DEPENDENCIES = $(am__DEPENDENCIES_3)
@@ -330,25 +293,6 @@ testman_DEPENDENCIES = $(am__DEPENDENCIES_3) $(libsawman)
 am_testrun_OBJECTS = testrun.$(OBJEXT)
 testrun_OBJECTS = $(am_testrun_OBJECTS)
 testrun_DEPENDENCIES = $(am__DEPENDENCIES_3) $(libsawman)
-am_voodoo_bench_OBJECTS = voodoo_bench.$(OBJEXT)
-voodoo_bench_OBJECTS = $(am_voodoo_bench_OBJECTS)
-voodoo_bench_DEPENDENCIES = $(am__DEPENDENCIES_3)
-am_voodoo_bench_client_OBJECTS = voodoo_bench_client.$(OBJEXT)
-voodoo_bench_client_OBJECTS = $(am_voodoo_bench_client_OBJECTS)
-voodoo_bench_client_DEPENDENCIES = $(am__DEPENDENCIES_3)
-am_voodoo_bench_client_unix_OBJECTS =  \
-	voodoo_bench_client_unix.$(OBJEXT)
-voodoo_bench_client_unix_OBJECTS =  \
-	$(am_voodoo_bench_client_unix_OBJECTS)
-voodoo_bench_client_unix_DEPENDENCIES = $(am__DEPENDENCIES_3)
-am_voodoo_bench_server_OBJECTS = voodoo_bench_server.$(OBJEXT)
-voodoo_bench_server_OBJECTS = $(am_voodoo_bench_server_OBJECTS)
-voodoo_bench_server_DEPENDENCIES = $(am__DEPENDENCIES_3)
-am_voodoo_bench_server_unix_OBJECTS =  \
-	voodoo_bench_server_unix.$(OBJEXT)
-voodoo_bench_server_unix_OBJECTS =  \
-	$(am_voodoo_bench_server_unix_OBJECTS)
-voodoo_bench_server_unix_DEPENDENCIES = $(am__DEPENDENCIES_3)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -383,87 +327,61 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(OneBench_SOURCES) $(OneTest_SOURCES) \
-	$(coretest_blit2_SOURCES) $(dfbtest_blit_SOURCES) \
+SOURCES = $(coretest_blit2_SOURCES) $(dfbtest_blit_SOURCES) \
 	$(dfbtest_blit2_SOURCES) $(dfbtest_blit_multi_SOURCES) \
 	$(dfbtest_blit_threads_SOURCES) $(dfbtest_clipboard_SOURCES) \
 	$(dfbtest_fillrect_SOURCES) $(dfbtest_flip_SOURCES) \
 	$(dfbtest_font_SOURCES) $(dfbtest_gl1_SOURCES) \
 	$(dfbtest_gl2_SOURCES) $(dfbtest_gl3_SOURCES) \
 	$(dfbtest_init_SOURCES) $(dfbtest_input_SOURCES) \
-	$(dfbtest_mirror_SOURCES) $(dfbtest_old_gl2_SOURCES) \
-	$(dfbtest_prealloc_SOURCES) $(dfbtest_reinit_SOURCES) \
-	$(dfbtest_resize_SOURCES) $(dfbtest_scale_SOURCES) \
-	$(dfbtest_scale_nv21_SOURCES) $(dfbtest_stereo_window_SOURCES) \
+	$(dfbtest_mirror_SOURCES) $(dfbtest_prealloc_SOURCES) \
+	$(dfbtest_reinit_SOURCES) $(dfbtest_resize_SOURCES) \
+	$(dfbtest_scale_SOURCES) $(dfbtest_scale_nv21_SOURCES) \
+	$(dfbtest_stereo_window_SOURCES) \
 	$(dfbtest_surface_compositor_SOURCES) \
 	$(dfbtest_surface_compositor_threads_SOURCES) \
 	$(dfbtest_surface_updates_SOURCES) $(dfbtest_sync_SOURCES) \
 	$(dfbtest_video_SOURCES) $(dfbtest_waitserial_SOURCES) \
-	$(dfbtest_window_cursor_SOURCES) \
+	$(dfbtest_window_SOURCES) $(dfbtest_window_cursor_SOURCES) \
 	$(dfbtest_window_flip_SOURCES) \
 	$(dfbtest_window_flip_once_SOURCES) \
 	$(dfbtest_window_surface_SOURCES) \
 	$(dfbtest_windows_watcher_SOURCES) $(direct_stream_SOURCES) \
-	$(direct_test_SOURCES) $(divine_test_SOURCES) fdtest_bench.c \
-	fdtest_coma.c fdtest_init.c $(fusion_call_SOURCES) \
-	$(fusion_call_bench_SOURCES) $(fusion_fork_SOURCES) \
-	$(fusion_reactor_SOURCES) $(fusion_skirmish_SOURCES) \
-	$(fusion_stream_SOURCES) $(testman_SOURCES) $(testrun_SOURCES) \
-	$(voodoo_bench_SOURCES) $(voodoo_bench_client_SOURCES) \
-	$(voodoo_bench_client_unix_SOURCES) \
-	$(voodoo_bench_server_SOURCES) \
-	$(voodoo_bench_server_unix_SOURCES)
-DIST_SOURCES = $(OneBench_SOURCES) $(OneTest_SOURCES) \
-	$(coretest_blit2_SOURCES) $(dfbtest_blit_SOURCES) \
+	$(direct_test_SOURCES) $(divine_test_SOURCES) \
+	$(fusion_call_SOURCES) $(fusion_call_bench_SOURCES) \
+	$(fusion_fork_SOURCES) $(fusion_reactor_SOURCES) \
+	$(fusion_skirmish_SOURCES) $(fusion_stream_SOURCES) \
+	$(testman_SOURCES) $(testrun_SOURCES)
+DIST_SOURCES = $(coretest_blit2_SOURCES) $(dfbtest_blit_SOURCES) \
 	$(dfbtest_blit2_SOURCES) $(dfbtest_blit_multi_SOURCES) \
 	$(dfbtest_blit_threads_SOURCES) $(dfbtest_clipboard_SOURCES) \
 	$(dfbtest_fillrect_SOURCES) $(dfbtest_flip_SOURCES) \
 	$(dfbtest_font_SOURCES) $(dfbtest_gl1_SOURCES) \
 	$(dfbtest_gl2_SOURCES) $(dfbtest_gl3_SOURCES) \
 	$(dfbtest_init_SOURCES) $(dfbtest_input_SOURCES) \
-	$(dfbtest_mirror_SOURCES) $(dfbtest_old_gl2_SOURCES) \
-	$(dfbtest_prealloc_SOURCES) $(dfbtest_reinit_SOURCES) \
-	$(dfbtest_resize_SOURCES) $(dfbtest_scale_SOURCES) \
-	$(dfbtest_scale_nv21_SOURCES) $(dfbtest_stereo_window_SOURCES) \
+	$(dfbtest_mirror_SOURCES) $(dfbtest_prealloc_SOURCES) \
+	$(dfbtest_reinit_SOURCES) $(dfbtest_resize_SOURCES) \
+	$(dfbtest_scale_SOURCES) $(dfbtest_scale_nv21_SOURCES) \
+	$(dfbtest_stereo_window_SOURCES) \
 	$(dfbtest_surface_compositor_SOURCES) \
 	$(dfbtest_surface_compositor_threads_SOURCES) \
 	$(dfbtest_surface_updates_SOURCES) $(dfbtest_sync_SOURCES) \
 	$(dfbtest_video_SOURCES) $(dfbtest_waitserial_SOURCES) \
-	$(dfbtest_window_cursor_SOURCES) \
+	$(dfbtest_window_SOURCES) $(dfbtest_window_cursor_SOURCES) \
 	$(dfbtest_window_flip_SOURCES) \
 	$(dfbtest_window_flip_once_SOURCES) \
 	$(dfbtest_window_surface_SOURCES) \
 	$(dfbtest_windows_watcher_SOURCES) $(direct_stream_SOURCES) \
-	$(direct_test_SOURCES) $(divine_test_SOURCES) fdtest_bench.c \
-	fdtest_coma.c fdtest_init.c $(fusion_call_SOURCES) \
-	$(fusion_call_bench_SOURCES) $(fusion_fork_SOURCES) \
-	$(fusion_reactor_SOURCES) $(fusion_skirmish_SOURCES) \
-	$(fusion_stream_SOURCES) $(testman_SOURCES) $(testrun_SOURCES) \
-	$(voodoo_bench_SOURCES) $(voodoo_bench_client_SOURCES) \
-	$(voodoo_bench_client_unix_SOURCES) \
-	$(voodoo_bench_server_SOURCES) \
-	$(voodoo_bench_server_unix_SOURCES)
-RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
-	ctags-recursive dvi-recursive html-recursive info-recursive \
-	install-data-recursive install-dvi-recursive \
-	install-exec-recursive install-html-recursive \
-	install-info-recursive install-pdf-recursive \
-	install-ps-recursive install-recursive installcheck-recursive \
-	installdirs-recursive pdf-recursive ps-recursive \
-	tags-recursive uninstall-recursive
+	$(direct_test_SOURCES) $(divine_test_SOURCES) \
+	$(fusion_call_SOURCES) $(fusion_call_bench_SOURCES) \
+	$(fusion_fork_SOURCES) $(fusion_reactor_SOURCES) \
+	$(fusion_skirmish_SOURCES) $(fusion_stream_SOURCES) \
+	$(testman_SOURCES) $(testrun_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
-  distclean-recursive maintainer-clean-recursive
-am__recursive_targets = \
-  $(RECURSIVE_TARGETS) \
-  $(RECURSIVE_CLEAN_TARGETS) \
-  $(am__extra_recursive_targets)
-AM_RECURSIVE_TARGETS = $(am__recursive_targets:-recursive=) TAGS CTAGS \
-	distdir
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -483,33 +401,7 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = voodoo
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-am__relativize = \
-  dir0=`pwd`; \
-  sed_first='s,^\([^/]*\)/.*$$,\1,'; \
-  sed_rest='s,^[^/]*/*,,'; \
-  sed_last='s,^.*/\([^/]*\)$$,\1,'; \
-  sed_butlast='s,/*[^/]*$$,,'; \
-  while test -n "$$dir1"; do \
-    first=`echo "$$dir1" | sed -e "$$sed_first"`; \
-    if test "$$first" != "."; then \
-      if test "$$first" = ".."; then \
-        dir2=`echo "$$dir0" | sed -e "$$sed_last"`/"$$dir2"; \
-        dir0=`echo "$$dir0" | sed -e "$$sed_butlast"`; \
-      else \
-        first2=`echo "$$dir2" | sed -e "$$sed_first"`; \
-        if test "$$first2" = "$$first"; then \
-          dir2=`echo "$$dir2" | sed -e "$$sed_rest"`; \
-        else \
-          dir2="../$$dir2"; \
-        fi; \
-        dir0="$$dir0"/"$$first"; \
-      fi; \
-    fi; \
-    dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
-  done; \
-  reldir="$$dir2"
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
@@ -747,29 +639,12 @@ top_srcdir = @top_srcdir@
 AM_CPPFLAGS = \
 	-DDATADIR=\"${RUNTIME_SYSROOT}@DATADIR@\"
 
-@DIRECTFB_BUILD_ONE_TRUE@ONE_PROGS = \
-@DIRECTFB_BUILD_ONE_TRUE@	OneBench	\
-@DIRECTFB_BUILD_ONE_TRUE@	OneTest
-
-@DIRECTFB_BUILD_VOODOO_TRUE@SUBDIRS = voodoo
-@DIRECTFB_BUILD_VOODOO_TRUE@VOODOO_PROGS = \
-@DIRECTFB_BUILD_VOODOO_TRUE@	voodoo_bench	\
-@DIRECTFB_BUILD_VOODOO_TRUE@	voodoo_bench_client		\
-@DIRECTFB_BUILD_VOODOO_TRUE@	voodoo_bench_server		\
-@DIRECTFB_BUILD_VOODOO_TRUE@	voodoo_bench_client_unix	\
-@DIRECTFB_BUILD_VOODOO_TRUE@	voodoo_bench_server_unix
-
 @ENABLE_SAWMAN_TRUE@SAWMAN_PROGS = \
 @ENABLE_SAWMAN_TRUE@	testrun	\
 @ENABLE_SAWMAN_TRUE@	testman
 
 @ENABLE_DIVINE_TRUE@DIVINE_PROGS = \
 @ENABLE_DIVINE_TRUE@	divine_test
-
-@ENABLE_FUSIONDALE_TRUE@FUSIONDALE_PROGS = \
-@ENABLE_FUSIONDALE_TRUE@	fdtest_bench \
-@ENABLE_FUSIONDALE_TRUE@	fdtest_coma \
-@ENABLE_FUSIONDALE_TRUE@	fdtest_init
 
 INCLUDES = \
 	-I$(top_builddir)/include \
@@ -781,9 +656,7 @@ INCLUDES = \
 	-I$(top_builddir)/src	\
 	-I$(top_srcdir)/include	\
 	-I$(top_srcdir)/lib	\
-	-I$(top_srcdir)/lib/One	\
 	-I$(top_srcdir)/lib/divine	\
-	-I$(top_srcdir)/lib/fusiondale	\
 	-I$(top_srcdir)/lib/sawman	\
 	-I$(top_srcdir)/src	\
 	-DLINUX_2_6
@@ -791,8 +664,7 @@ INCLUDES = \
 GL_PROGS_ = \
 	dfbtest_gl1	\
 	dfbtest_gl2	\
-	dfbtest_gl3	\
-	dfbtest_old_gl2
+	dfbtest_gl3
 
 @GFX_GLES2_TRUE@GL_PROGS = $(GL_PROGS_)
 @GFX_GL_TRUE@GL_PROGS = $(GL_PROGS_)
@@ -854,9 +726,6 @@ dfbtest_gl2_LDADD = $(DFB_BASE_LIBS) $(GL_DFB_BASE_LIBS) $(GLES2_DFB_BASE_LIBS) 
 dfbtest_gl3_SOURCES = dfbtest_gl3.c
 dfbtest_gl3_CFLAGS = $(GLES2_CFLAGS)
 dfbtest_gl3_LDADD = $(DFB_BASE_LIBS) $(GL_DFB_BASE_LIBS) $(GLES2_DFB_BASE_LIBS) $(LIBM)
-dfbtest_old_gl2_SOURCES = dfbtest_old_gl2.c
-dfbtest_old_gl2_CFLAGS = $(GLES2_CFLAGS)
-dfbtest_old_gl2_LDADD = $(DFB_BASE_LIBS) $(GL_DFB_BASE_LIBS) $(GLES2_DFB_BASE_LIBS) $(LIBM)
 dfbtest_mirror_SOURCES = dfbtest_mirror.c
 dfbtest_mirror_LDADD = $(DFB_BASE_LIBS)
 dfbtest_prealloc_SOURCES = dfbtest_prealloc.c
@@ -911,27 +780,13 @@ fusion_skirmish_SOURCES = fusion_skirmish.c
 fusion_skirmish_LDADD = $(DFB_BASE_LIBS)
 fusion_stream_SOURCES = fusion_stream.c
 fusion_stream_LDADD = $(DFB_BASE_LIBS)
-OneBench_SOURCES = OneBench.c
-OneBench_LDADD = $(DFB_BASE_LIBS)
-OneTest_SOURCES = OneTest.c
-OneTest_LDADD = $(DFB_BASE_LIBS)
-voodoo_bench_SOURCES = voodoo_bench.c
-voodoo_bench_LDADD = $(DFB_BASE_LIBS)
-voodoo_bench_client_SOURCES = voodoo_bench_client.c
-voodoo_bench_client_LDADD = $(DFB_BASE_LIBS)
-voodoo_bench_server_SOURCES = voodoo_bench_server.c
-voodoo_bench_server_LDADD = $(DFB_BASE_LIBS)
-voodoo_bench_client_unix_SOURCES = voodoo_bench_client_unix.c
-voodoo_bench_client_unix_LDADD = $(DFB_BASE_LIBS)
-voodoo_bench_server_unix_SOURCES = voodoo_bench_server_unix.c
-voodoo_bench_server_unix_LDADD = $(DFB_BASE_LIBS)
 testman_SOURCES = testman.c
 testman_LDADD = $(DFB_BASE_LIBS) $(libsawman)
 testrun_SOURCES = testrun.c
 testrun_LDADD = $(DFB_BASE_LIBS) $(libsawman)
 divine_test_SOURCES = divine_test.c
 divine_test_LDADD = $(DFB_BASE_LIBS) $(libdivine)
-all: all-recursive
+all: all-am
 
 .SUFFIXES:
 .SUFFIXES: .c .lo .o .obj
@@ -1016,14 +871,6 @@ clean-binPROGRAMS:
 	echo " rm -f" $$list; \
 	rm -f $$list
 
-OneBench$(EXEEXT): $(OneBench_OBJECTS) $(OneBench_DEPENDENCIES) $(EXTRA_OneBench_DEPENDENCIES) 
-	@rm -f OneBench$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(OneBench_OBJECTS) $(OneBench_LDADD) $(LIBS)
-
-OneTest$(EXEEXT): $(OneTest_OBJECTS) $(OneTest_DEPENDENCIES) $(EXTRA_OneTest_DEPENDENCIES) 
-	@rm -f OneTest$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(OneTest_OBJECTS) $(OneTest_LDADD) $(LIBS)
-
 coretest_blit2$(EXEEXT): $(coretest_blit2_OBJECTS) $(coretest_blit2_DEPENDENCIES) $(EXTRA_coretest_blit2_DEPENDENCIES) 
 	@rm -f coretest_blit2$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(coretest_blit2_OBJECTS) $(coretest_blit2_LDADD) $(LIBS)
@@ -1083,10 +930,6 @@ dfbtest_input$(EXEEXT): $(dfbtest_input_OBJECTS) $(dfbtest_input_DEPENDENCIES) $
 dfbtest_mirror$(EXEEXT): $(dfbtest_mirror_OBJECTS) $(dfbtest_mirror_DEPENDENCIES) $(EXTRA_dfbtest_mirror_DEPENDENCIES) 
 	@rm -f dfbtest_mirror$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(dfbtest_mirror_OBJECTS) $(dfbtest_mirror_LDADD) $(LIBS)
-
-dfbtest_old_gl2$(EXEEXT): $(dfbtest_old_gl2_OBJECTS) $(dfbtest_old_gl2_DEPENDENCIES) $(EXTRA_dfbtest_old_gl2_DEPENDENCIES) 
-	@rm -f dfbtest_old_gl2$(EXEEXT)
-	$(AM_V_CCLD)$(dfbtest_old_gl2_LINK) $(dfbtest_old_gl2_OBJECTS) $(dfbtest_old_gl2_LDADD) $(LIBS)
 
 dfbtest_prealloc$(EXEEXT): $(dfbtest_prealloc_OBJECTS) $(dfbtest_prealloc_DEPENDENCIES) $(EXTRA_dfbtest_prealloc_DEPENDENCIES) 
 	@rm -f dfbtest_prealloc$(EXEEXT)
@@ -1172,18 +1015,6 @@ divine_test$(EXEEXT): $(divine_test_OBJECTS) $(divine_test_DEPENDENCIES) $(EXTRA
 	@rm -f divine_test$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(divine_test_OBJECTS) $(divine_test_LDADD) $(LIBS)
 
-fdtest_bench$(EXEEXT): $(fdtest_bench_OBJECTS) $(fdtest_bench_DEPENDENCIES) $(EXTRA_fdtest_bench_DEPENDENCIES) 
-	@rm -f fdtest_bench$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(fdtest_bench_OBJECTS) $(fdtest_bench_LDADD) $(LIBS)
-
-fdtest_coma$(EXEEXT): $(fdtest_coma_OBJECTS) $(fdtest_coma_DEPENDENCIES) $(EXTRA_fdtest_coma_DEPENDENCIES) 
-	@rm -f fdtest_coma$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(fdtest_coma_OBJECTS) $(fdtest_coma_LDADD) $(LIBS)
-
-fdtest_init$(EXEEXT): $(fdtest_init_OBJECTS) $(fdtest_init_DEPENDENCIES) $(EXTRA_fdtest_init_DEPENDENCIES) 
-	@rm -f fdtest_init$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(fdtest_init_OBJECTS) $(fdtest_init_LDADD) $(LIBS)
-
 fusion_call$(EXEEXT): $(fusion_call_OBJECTS) $(fusion_call_DEPENDENCIES) $(EXTRA_fusion_call_DEPENDENCIES) 
 	@rm -f fusion_call$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(fusion_call_OBJECTS) $(fusion_call_LDADD) $(LIBS)
@@ -1216,34 +1047,12 @@ testrun$(EXEEXT): $(testrun_OBJECTS) $(testrun_DEPENDENCIES) $(EXTRA_testrun_DEP
 	@rm -f testrun$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testrun_OBJECTS) $(testrun_LDADD) $(LIBS)
 
-voodoo_bench$(EXEEXT): $(voodoo_bench_OBJECTS) $(voodoo_bench_DEPENDENCIES) $(EXTRA_voodoo_bench_DEPENDENCIES) 
-	@rm -f voodoo_bench$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(voodoo_bench_OBJECTS) $(voodoo_bench_LDADD) $(LIBS)
-
-voodoo_bench_client$(EXEEXT): $(voodoo_bench_client_OBJECTS) $(voodoo_bench_client_DEPENDENCIES) $(EXTRA_voodoo_bench_client_DEPENDENCIES) 
-	@rm -f voodoo_bench_client$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(voodoo_bench_client_OBJECTS) $(voodoo_bench_client_LDADD) $(LIBS)
-
-voodoo_bench_client_unix$(EXEEXT): $(voodoo_bench_client_unix_OBJECTS) $(voodoo_bench_client_unix_DEPENDENCIES) $(EXTRA_voodoo_bench_client_unix_DEPENDENCIES) 
-	@rm -f voodoo_bench_client_unix$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(voodoo_bench_client_unix_OBJECTS) $(voodoo_bench_client_unix_LDADD) $(LIBS)
-
-voodoo_bench_server$(EXEEXT): $(voodoo_bench_server_OBJECTS) $(voodoo_bench_server_DEPENDENCIES) $(EXTRA_voodoo_bench_server_DEPENDENCIES) 
-	@rm -f voodoo_bench_server$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(voodoo_bench_server_OBJECTS) $(voodoo_bench_server_LDADD) $(LIBS)
-
-voodoo_bench_server_unix$(EXEEXT): $(voodoo_bench_server_unix_OBJECTS) $(voodoo_bench_server_unix_DEPENDENCIES) $(EXTRA_voodoo_bench_server_unix_DEPENDENCIES) 
-	@rm -f voodoo_bench_server_unix$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(voodoo_bench_server_unix_OBJECTS) $(voodoo_bench_server_unix_LDADD) $(LIBS)
-
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/OneBench.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/OneTest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/coretest_blit2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_blit.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_blit2.Po@am__quote@
@@ -1259,7 +1068,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_init.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_input.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_mirror.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_old_gl2-dfbtest_old_gl2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_prealloc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_reinit.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_resize.Po@am__quote@
@@ -1281,9 +1089,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direct_stream.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direct_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/divine_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fdtest_bench.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fdtest_coma.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fdtest_init.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fusion_call.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fusion_call_bench.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fusion_fork.Po@am__quote@
@@ -1292,11 +1097,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fusion_stream.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testman.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testrun.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/voodoo_bench.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/voodoo_bench_client.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/voodoo_bench_client_unix.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/voodoo_bench_server.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/voodoo_bench_server_unix.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -1361,81 +1161,20 @@ dfbtest_gl3-dfbtest_gl3.obj: dfbtest_gl3.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(dfbtest_gl3_CFLAGS) $(CFLAGS) -c -o dfbtest_gl3-dfbtest_gl3.obj `if test -f 'dfbtest_gl3.c'; then $(CYGPATH_W) 'dfbtest_gl3.c'; else $(CYGPATH_W) '$(srcdir)/dfbtest_gl3.c'; fi`
 
-dfbtest_old_gl2-dfbtest_old_gl2.o: dfbtest_old_gl2.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(dfbtest_old_gl2_CFLAGS) $(CFLAGS) -MT dfbtest_old_gl2-dfbtest_old_gl2.o -MD -MP -MF $(DEPDIR)/dfbtest_old_gl2-dfbtest_old_gl2.Tpo -c -o dfbtest_old_gl2-dfbtest_old_gl2.o `test -f 'dfbtest_old_gl2.c' || echo '$(srcdir)/'`dfbtest_old_gl2.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/dfbtest_old_gl2-dfbtest_old_gl2.Tpo $(DEPDIR)/dfbtest_old_gl2-dfbtest_old_gl2.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='dfbtest_old_gl2.c' object='dfbtest_old_gl2-dfbtest_old_gl2.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(dfbtest_old_gl2_CFLAGS) $(CFLAGS) -c -o dfbtest_old_gl2-dfbtest_old_gl2.o `test -f 'dfbtest_old_gl2.c' || echo '$(srcdir)/'`dfbtest_old_gl2.c
-
-dfbtest_old_gl2-dfbtest_old_gl2.obj: dfbtest_old_gl2.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(dfbtest_old_gl2_CFLAGS) $(CFLAGS) -MT dfbtest_old_gl2-dfbtest_old_gl2.obj -MD -MP -MF $(DEPDIR)/dfbtest_old_gl2-dfbtest_old_gl2.Tpo -c -o dfbtest_old_gl2-dfbtest_old_gl2.obj `if test -f 'dfbtest_old_gl2.c'; then $(CYGPATH_W) 'dfbtest_old_gl2.c'; else $(CYGPATH_W) '$(srcdir)/dfbtest_old_gl2.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/dfbtest_old_gl2-dfbtest_old_gl2.Tpo $(DEPDIR)/dfbtest_old_gl2-dfbtest_old_gl2.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='dfbtest_old_gl2.c' object='dfbtest_old_gl2-dfbtest_old_gl2.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(dfbtest_old_gl2_CFLAGS) $(CFLAGS) -c -o dfbtest_old_gl2-dfbtest_old_gl2.obj `if test -f 'dfbtest_old_gl2.c'; then $(CYGPATH_W) 'dfbtest_old_gl2.c'; else $(CYGPATH_W) '$(srcdir)/dfbtest_old_gl2.c'; fi`
-
 mostlyclean-libtool:
 	-rm -f *.lo
 
 clean-libtool:
 	-rm -rf .libs _libs
 
-# This directory's subdirectories are mostly independent; you can cd
-# into them and run 'make' without going through this Makefile.
-# To change the values of 'make' variables: instead of editing Makefiles,
-# (1) if the variable is set in 'config.status', edit 'config.status'
-#     (which will cause the Makefiles to be regenerated when you run 'make');
-# (2) otherwise, pass the desired values on the 'make' command line.
-$(am__recursive_targets):
-	@fail=; \
-	if $(am__make_keepgoing); then \
-	  failcom='fail=yes'; \
-	else \
-	  failcom='exit 1'; \
-	fi; \
-	dot_seen=no; \
-	target=`echo $@ | sed s/-recursive//`; \
-	case "$@" in \
-	  distclean-* | maintainer-clean-*) list='$(DIST_SUBDIRS)' ;; \
-	  *) list='$(SUBDIRS)' ;; \
-	esac; \
-	for subdir in $$list; do \
-	  echo "Making $$target in $$subdir"; \
-	  if test "$$subdir" = "."; then \
-	    dot_seen=yes; \
-	    local_target="$$target-am"; \
-	  else \
-	    local_target="$$target"; \
-	  fi; \
-	  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
-	  || eval $$failcom; \
-	done; \
-	if test "$$dot_seen" = "no"; then \
-	  $(MAKE) $(AM_MAKEFLAGS) "$$target-am" || exit 1; \
-	fi; test -z "$$fail"
-
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
-tags: tags-recursive
+tags: tags-am
 TAGS: tags
 
 tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	set x; \
 	here=`pwd`; \
-	if ($(ETAGS) --etags-include --version) >/dev/null 2>&1; then \
-	  include_option=--etags-include; \
-	  empty_fix=.; \
-	else \
-	  include_option=--include; \
-	  empty_fix=; \
-	fi; \
-	list='$(SUBDIRS)'; for subdir in $$list; do \
-	  if test "$$subdir" = .; then :; else \
-	    test ! -f $$subdir/TAGS || \
-	      set "$$@" "$$include_option=$$here/$$subdir/TAGS"; \
-	  fi; \
-	done; \
 	$(am__define_uniq_tagged_files); \
 	shift; \
 	if test -z "$(ETAGS_ARGS)$$*$$unique"; then :; else \
@@ -1448,7 +1187,7 @@ tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	      $$unique; \
 	  fi; \
 	fi
-ctags: ctags-recursive
+ctags: ctags-am
 
 CTAGS: ctags
 ctags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
@@ -1461,7 +1200,7 @@ GTAGS:
 	here=`$(am__cd) $(top_builddir) && pwd` \
 	  && $(am__cd) $(top_srcdir) \
 	  && gtags -i $(GTAGS_ARGS) "$$here"
-cscopelist: cscopelist-recursive
+cscopelist: cscopelist-am
 
 cscopelist-am: $(am__tagged_files)
 	list='$(am__tagged_files)'; \
@@ -1510,48 +1249,22 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
-	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
-	  if test "$$subdir" = .; then :; else \
-	    $(am__make_dryrun) \
-	      || test -d "$(distdir)/$$subdir" \
-	      || $(MKDIR_P) "$(distdir)/$$subdir" \
-	      || exit 1; \
-	    dir1=$$subdir; dir2="$(distdir)/$$subdir"; \
-	    $(am__relativize); \
-	    new_distdir=$$reldir; \
-	    dir1=$$subdir; dir2="$(top_distdir)"; \
-	    $(am__relativize); \
-	    new_top_distdir=$$reldir; \
-	    echo " (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir="$$new_top_distdir" distdir="$$new_distdir" \\"; \
-	    echo "     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)"; \
-	    ($(am__cd) $$subdir && \
-	      $(MAKE) $(AM_MAKEFLAGS) \
-	        top_distdir="$$new_top_distdir" \
-	        distdir="$$new_distdir" \
-		am__remove_distdir=: \
-		am__skip_length_check=: \
-		am__skip_mode_fix=: \
-	        distdir) \
-	      || exit 1; \
-	  fi; \
-	done
 check-am: all-am
-check: check-recursive
+check: check-am
 all-am: Makefile $(PROGRAMS)
-installdirs: installdirs-recursive
-installdirs-am:
+installdirs:
 	for dir in "$(DESTDIR)$(bindir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-recursive
-install-exec: install-exec-recursive
-install-data: install-data-recursive
-uninstall: uninstall-recursive
+install: install-am
+install-exec: install-exec-am
+install-data: install-data-am
+uninstall: uninstall-am
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 
-installcheck: installcheck-recursive
+installcheck: installcheck-am
 install-strip:
 	if test -z '$(STRIP)'; then \
 	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
@@ -1573,92 +1286,91 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-recursive
+clean: clean-am
 
 clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 
-distclean: distclean-recursive
+distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
 
-dvi: dvi-recursive
+dvi: dvi-am
 
 dvi-am:
 
-html: html-recursive
+html: html-am
 
 html-am:
 
-info: info-recursive
+info: info-am
 
 info-am:
 
 install-data-am:
 
-install-dvi: install-dvi-recursive
+install-dvi: install-dvi-am
 
 install-dvi-am:
 
 install-exec-am: install-binPROGRAMS
 
-install-html: install-html-recursive
+install-html: install-html-am
 
 install-html-am:
 
-install-info: install-info-recursive
+install-info: install-info-am
 
 install-info-am:
 
 install-man:
 
-install-pdf: install-pdf-recursive
+install-pdf: install-pdf-am
 
 install-pdf-am:
 
-install-ps: install-ps-recursive
+install-ps: install-ps-am
 
 install-ps-am:
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-recursive
+maintainer-clean: maintainer-clean-am
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-recursive
+mostlyclean: mostlyclean-am
 
 mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool
 
-pdf: pdf-recursive
+pdf: pdf-am
 
 pdf-am:
 
-ps: ps-recursive
+ps: ps-am
 
 ps-am:
 
 uninstall-am: uninstall-binPROGRAMS
 
-.MAKE: $(am__recursive_targets) install-am install-strip
+.MAKE: install-am install-strip
 
-.PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am check \
-	check-am clean clean-binPROGRAMS clean-generic clean-libtool \
-	cscopelist-am ctags ctags-am distclean distclean-compile \
-	distclean-generic distclean-libtool distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-binPROGRAMS install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-binPROGRAMS
+.PHONY: CTAGS GTAGS TAGS all all-am check check-am clean \
+	clean-binPROGRAMS clean-generic clean-libtool cscopelist-am \
+	ctags ctags-am distclean distclean-compile distclean-generic \
+	distclean-libtool distclean-tags distdir dvi dvi-am html \
+	html-am info info-am install install-am install-binPROGRAMS \
+	install-data install-data-am install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-am uninstall-binPROGRAMS
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

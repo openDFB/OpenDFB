@@ -204,7 +204,6 @@ DIRECTFB_SOURCES = \
 	$(DFB_SOURCE)/src/core/gfxcard.c				\
 	$(DFB_SOURCE)/src/core/graphics_state.c			\
 	$(DFB_SOURCE)/src/core/input.c				\
-	$(DFB_SOURCE)/src/core/input_hub.c				\
 	$(DFB_SOURCE)/src/core/layer_context.c			\
 	$(DFB_SOURCE)/src/core/layer_control.c			\
 	$(DFB_SOURCE)/src/core/layer_region.c			\

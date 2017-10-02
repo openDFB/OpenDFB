@@ -298,7 +298,7 @@ __SaWManProcessDispatch__Dispatch( SaWManProcess *obj,
         }
 
         case SaWManProcessCall_RegisterManager: {
-    SaWManManager *manager = NULL;
+            SaWManManager *manager = NULL;
             D_UNUSED
             SaWManProcessRegisterManager       *args        = (SaWManProcessRegisterManager *) ptr;
             SaWManProcessRegisterManagerReturn *return_args = (SaWManProcessRegisterManagerReturn *) ret_ptr;

@@ -4166,30 +4166,6 @@ D_DEFINE_INTERFACE(   IDirectFBSurface,
           const DFBRectangle       *destination_rect
      );
 
-     /*
-      * Preliminary texture mapping support.
-      *
-      * Maps a <b>texture</b> onto triangles being built
-      * from <b>vertices</b> according to the chosen <b>formation</b>.
-      *
-      * Optional <b>indices</b> can be used to avoid rearrangement of vertex lists,
-      * otherwise the vertex list is processed consecutively, i.e. as if <b>indices</b>
-      * are ascending numbers starting at zero.
-      *
-      * Either the number of <b>indices</b> (if non NULL) or the number of <b>vertices</b> is
-      * specified by <b>num</b> and has to be three at least. If the chosen <b>formation</b>
-      * is DTTF_LIST it also has to be a multiple of three.
-      */
-     DFBResult (*TextureTriangles) (
-          IDirectFBSurface         *thiz,
-          IDirectFBSurface         *texture,
-          const DFBVertex          *vertices,
-          const int                *indices,
-          int                       num,
-          DFBTriangleFormation      formation
-     );
-
-
    /** Drawing functions **/
 
      /*
@@ -4247,19 +4223,6 @@ D_DEFINE_INTERFACE(   IDirectFBSurface,
      );
 
      /*
-      * Fill a non-textured triangle.
-      */
-     DFBResult (*FillTriangle) (
-          IDirectFBSurface         *thiz,
-          int                       x1,
-          int                       y1,
-          int                       x2,
-          int                       y2,
-          int                       x3,
-          int                       y3
-     );
-
-     /*
       * Fill a bunch of rectangles with a single call.
       *
       * Fill <b>num</b> rectangles with the current color following the
@@ -4270,32 +4233,6 @@ D_DEFINE_INTERFACE(   IDirectFBSurface,
           const DFBRectangle       *rects,
           unsigned int              num
      );
-
-     /*
-      * Fill spans specified by x and width.
-      *
-      * Fill <b>num</b> spans with the given color following the
-      * drawing flags. Each span is specified by a DFBSpan.
-      */
-     DFBResult (*FillSpans) (
-          IDirectFBSurface         *thiz,
-          int                       y,
-          const DFBSpan            *spans,
-          unsigned int              num
-     );
-
-     /*
-      * Fill a bunch of triangles with a single call.
-      *
-      * Fill <b>num</b> triangles with the current color following the
-      * drawing flags. Each triangle specified by a DFBTriangle.
-      */
-     DFBResult (*FillTriangles) (
-          IDirectFBSurface         *thiz,
-          const DFBTriangle        *tris,
-          unsigned int              num
-     );
-
 
    /** Text functions **/
 
@@ -4625,20 +4562,6 @@ D_DEFINE_INTERFACE(   IDirectFBSurface,
      DFBResult (*GetPhysicalAddress) (
           IDirectFBSurface *thiz,
           unsigned long    *addr
-     );
-
-   /** Drawing functions **/
-
-     /*
-      * Fill a bunch of trapezoids with a single call.
-      *
-      * Fill <b>num</b> trapezoids with the current color following the
-      * drawing flags. Each trapezoid specified by a DFBTrapezoid.
-      */
-     DFBResult (*FillTrapezoids) (
-          IDirectFBSurface         *thiz,
-          const DFBTrapezoid       *traps,
-          unsigned int              num
      );
 
 

@@ -27,18 +27,12 @@
 */
 
 #include <config.h>
-
-#include <stdarg.h>
-
-#include <dlfcn.h>
-
-#include <directfbgl.h>
-
-#include <direct/debug.h>
-
 #include <core/surface.h>
-
+#include <dlfcn.h>
+#include <directfbgl.h>
+#include <direct/debug.h>
 #include <display/idirectfbsurface.h>
+#include <stdarg.h>
 
 D_DEBUG_DOMAIN( IDFBGL_GLX, "IDirectFBGL/GLX", "IDirectFBGL GLX Implementation" );
 

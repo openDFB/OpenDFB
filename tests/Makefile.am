@@ -32,8 +32,7 @@ INCLUDES = \
 GL_PROGS_ = \
 	dfbtest_gl1	\
 	dfbtest_gl2	\
-	dfbtest_gl3	\
-	dfbtest_old_gl2
+	dfbtest_gl3
 
 if GFX_GL
 GL_PROGS = $(GL_PROGS_)
@@ -142,10 +141,6 @@ dfbtest_gl2_LDADD   = $(DFB_BASE_LIBS) $(GL_DFB_BASE_LIBS) $(GLES2_DFB_BASE_LIBS
 dfbtest_gl3_SOURCES = dfbtest_gl3.c
 dfbtest_gl3_CFLAGS  = $(GLES2_CFLAGS)
 dfbtest_gl3_LDADD   = $(DFB_BASE_LIBS) $(GL_DFB_BASE_LIBS) $(GLES2_DFB_BASE_LIBS) $(LIBM)
-
-dfbtest_old_gl2_SOURCES = dfbtest_old_gl2.c
-dfbtest_old_gl2_CFLAGS  = $(GLES2_CFLAGS)
-dfbtest_old_gl2_LDADD   = $(DFB_BASE_LIBS) $(GL_DFB_BASE_LIBS) $(GLES2_DFB_BASE_LIBS) $(LIBM)
 
 dfbtest_mirror_SOURCES = dfbtest_mirror.c
 dfbtest_mirror_LDADD   = $(DFB_BASE_LIBS)

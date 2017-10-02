@@ -200,6 +200,11 @@ static DFBResult primarySetPowerMode( CoreScreen           *screen,
                                       void                 *screen_data,
                                       DFBScreenPowerMode    mode );
 
+static DFBResult primaryWaitFence   ( CoreScreen           *screen,
+                                      void                 *driver_data,
+                                      void                 *layer_data );
+
+
 static DFBResult primaryWaitVSync   ( CoreScreen           *screen,
                                       void                 *driver_data,
                                       void                 *layer_data );
@@ -219,6 +224,7 @@ static ScreenFuncs primaryScreenFuncs = {
      .InitScreen    = primaryInitScreen,
      .SetPowerMode  = primarySetPowerMode,
      .WaitVSync     = primaryWaitVSync,
+     .WaitFence     = primaryWaitFence,
      .GetScreenSize = primaryGetScreenSize,
      .GetVSyncCount = primaryGetVSyncCount,
 };
@@ -1054,6 +1060,16 @@ primarySetPowerMode( CoreScreen         *screen,
 
      return dfb_fbdev_blank( level );
 }
+
+static DFBResult
+primaryWaitFence( CoreScreen *screen,
+                  void       *driver_data,
+                  void       *screen_data )
+{
+
+     return DFB_OK;
+}
+
 
 static DFBResult
 primaryWaitVSync( CoreScreen *screen,

@@ -65,8 +65,6 @@
 #include "isawman.h"
 
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
-
 D_DEBUG_DOMAIN( SaWMan_Auto,     "SaWMan/Auto",     "SaWMan auto configuration" );
 D_DEBUG_DOMAIN( SaWMan_Update,   "SaWMan/Update",   "SaWMan window manager updates" );
 D_DEBUG_DOMAIN( SaWMan_Geometry, "SaWMan/Geometry", "SaWMan window manager geometry" );
@@ -109,8 +107,6 @@ static DirectResult            add_tier            ( SaWMan                *sawm
                                                      DFBDisplayLayerID      layer_id,
                                                      SaWManStackingClasses  classes );
 
-#endif // !DIRECTFB_BUILD_PURE_VOODOO
-
 /**********************************************************************************************************************/
 
 static DFBResult CreateRemote( const char *host, int session, ISaWMan **ret_sawman );
@@ -121,27 +117,20 @@ DirectResult
 SaWManInit( int    *argc,
             char ***argv )
 {
-#if !DIRECTFB_BUILD_PURE_VOODOO
      return sawman_config_init( argc, argv );
-#else
-     return DR_OK;
-#endif
 }
 
 DirectResult
 SaWManCreate( ISaWMan **ret_sawman )
 {
-#if !DIRECTFB_BUILD_PURE_VOODOO
      DirectResult  ret;
      ISaWMan      *sawman;
-#endif
 
      if (!ret_sawman)
           return DFB_INVARG;
 
      direct_initialize();
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
      if (dfb_config->remote.host)
           return CreateRemote( dfb_config->remote.host, dfb_config->remote.port, ret_sawman );
 
@@ -162,9 +151,6 @@ SaWManCreate( ISaWMan **ret_sawman )
      *ret_sawman = sawman;
 
      return DFB_OK;
-#else
-     return CreateRemote( dfb_config->remote.host ?: "", dfb_config->remote.port, ret_sawman );
-#endif
 }
 
 /**********************************************************************************************************************/
@@ -197,8 +183,6 @@ CreateRemote( const char *host, int port, ISaWMan **ret_sawman )
 }
 
 /**********************************************************************************************************************/
-#if !DIRECTFB_BUILD_PURE_VOODOO
-
 DirectResult
 sawman_initialize( SaWMan         *sawman,
                    FusionWorld    *world,
@@ -1051,5 +1035,4 @@ add_tier( SaWMan                *sawman,
 
      return DFB_OK;
 }
-#endif
 
