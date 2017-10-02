@@ -108,7 +108,7 @@ am_libdirectfb_core_la_OBJECTS = CoreDFB.lo CoreDFB_real.lo \
 	CoreSurfaceClient_real.lo CoreWindow.lo CoreWindow_real.lo \
 	CoreWindowStack.lo CoreWindowStack_real.lo clipboard.lo \
 	colorhash.lo core.lo core_parts.lo fonts.lo gfxcard.lo \
-	graphics_state.lo input.lo input_hub.lo layer_context.lo \
+	graphics_state.lo input.lo layer_context.lo \
 	layer_control.lo layer_region.lo layers.lo \
 	local_surface_pool.lo palette.lo prealloc_surface_pool.lo \
 	prealloc_surface_pool_bridge.lo screen.lo screens.lo \
@@ -505,7 +505,6 @@ internalinclude_HEADERS = \
 	graphics_state.h	\
 	input.h			\
 	input_driver.h		\
-	input_hub.h		\
 	layer_context.h		\
 	layer_control.h		\
 	layer_region.h		\
@@ -567,7 +566,6 @@ libdirectfb_core_la_SOURCES = \
 	gfxcard.c		\
 	graphics_state.c	\
 	input.c			\
-	input_hub.c		\
 	layer_context.c		\
 	layer_control.c		\
 	layer_region.c		\
@@ -684,7 +682,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gfxcard.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/graphics_state.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/input.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/input_hub.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/layer_context.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/layer_control.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/layer_region.Plo@am__quote@

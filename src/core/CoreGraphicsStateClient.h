@@ -84,19 +84,6 @@ DFBResult CoreGraphicsStateClient_FillRectangles  ( CoreGraphicsStateClient *cli
                                                     const DFBRectangle      *rects,
                                                     unsigned int             num );
 
-DFBResult CoreGraphicsStateClient_FillTriangles   ( CoreGraphicsStateClient *client,
-                                                    const DFBTriangle       *triangles,
-                                                    unsigned int             num );
-
-DFBResult CoreGraphicsStateClient_FillTrapezoids  ( CoreGraphicsStateClient *client,
-                                                    const DFBTrapezoid      *trapezoids,
-                                                    unsigned int             num );
-
-DFBResult CoreGraphicsStateClient_FillSpans       ( CoreGraphicsStateClient *client,
-                                                    int                      y,
-                                                    const DFBSpan           *spans,
-                                                    unsigned int             num );
-
 DFBResult CoreGraphicsStateClient_Blit            ( CoreGraphicsStateClient *client,
                                                     const DFBRectangle      *rects,
                                                     const DFBPoint          *points,
@@ -118,11 +105,6 @@ DFBResult CoreGraphicsStateClient_TileBlit        ( CoreGraphicsStateClient *cli
                                                     const DFBPoint          *points1,
                                                     const DFBPoint          *points2,
                                                     unsigned int             num );
-
-DFBResult CoreGraphicsStateClient_TextureTriangles( CoreGraphicsStateClient *client,
-                                                    const DFBVertex         *vertices,
-                                                    int                      num,
-                                                    DFBTriangleFormation     formation );
 
 #endif
 

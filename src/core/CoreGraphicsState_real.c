@@ -795,73 +795,6 @@ IGraphicsStateReal_FillRectangles(IGraphicsState *thiz,
 
 
 DFBResult
-IGraphicsStateReal_FillTriangles(IGraphicsState *thiz,
-                    const DFBTriangle                         *triangles,
-                    u32                                        num
-)
-{
-    D_DEBUG_AT( DirectFB_CoreGraphicsState, "IGraphicsStateReal_%s()\n", __FUNCTION__ );
-
-    if (!thiz->obj->state.destination)
-         return DFB_NOCONTEXT;
-
-    if (dfb_config->accel1) {
-         D_UNIMPLEMENTED();
-    }
-    else {
-         dfb_gfxcard_filltriangles( triangles, num, &thiz->obj->state );
-    }
-
-    return DFB_OK;
-}
-
-
-DFBResult
-IGraphicsStateReal_FillTrapezoids(IGraphicsState *thiz,
-                    const DFBTrapezoid                        *trapezoids,
-                    u32                                        num
-)
-{
-    D_DEBUG_AT( DirectFB_CoreGraphicsState, "IGraphicsStateReal_%s()\n", __FUNCTION__ );
-
-    if (!thiz->obj->state.destination)
-         return DFB_NOCONTEXT;
-
-    if (dfb_config->accel1) {
-         D_UNIMPLEMENTED();
-    }
-    else {
-         dfb_gfxcard_filltrapezoids( trapezoids, num, &thiz->obj->state );
-    }
-
-    return DFB_OK;
-}
-
-
-DFBResult
-IGraphicsStateReal_FillSpans(IGraphicsState *thiz,
-                    s32                                        y,
-                    const DFBSpan                             *spans,
-                    u32                                        num
-)
-{
-    D_DEBUG_AT( DirectFB_CoreGraphicsState, "IGraphicsStateReal_%s()\n", __FUNCTION__ );
-
-    if (!thiz->obj->state.destination)
-         return DFB_NOCONTEXT;
-
-    if (dfb_config->accel1) {
-         D_UNIMPLEMENTED();
-    }
-    else {
-         dfb_gfxcard_fillspans( y, (DFBSpan*) spans, num, &thiz->obj->state );
-    }
-
-    return DFB_OK;
-}
-
-
-DFBResult
 IGraphicsStateReal_Blit(IGraphicsState *thiz,
                     const DFBRectangle                        *rects,
                     const DFBPoint                            *points,
@@ -1047,35 +980,6 @@ IGraphicsStateReal_TileBlit(IGraphicsState *thiz,
 }
 
 
-DFBResult
-IGraphicsStateReal_TextureTriangles(IGraphicsState *thiz,
-                    const DFBVertex                           *vertices,
-                    u32                                        num,
-                    DFBTriangleFormation                       formation
-)
-{
-    D_DEBUG_AT( DirectFB_CoreGraphicsState, "IGraphicsStateReal_%s()\n", __FUNCTION__ );
-
-    if (!thiz->obj->state.destination || !thiz->obj->state.source)
-         return DFB_NOCONTEXT;
-
-    if ((thiz->obj->state.blittingflags & (DSBLIT_SRC_MASK_ALPHA | DSBLIT_SRC_MASK_COLOR)) && !thiz->obj->state.source_mask)
-         return DFB_NOCONTEXT;
-
-    D_ASSERT( vertices != NULL );
-
-    if (dfb_config->accel1) {
-         D_UNIMPLEMENTED();
-    }
-    else {
-         // FIXME: remove casts
-         dfb_gfxcard_texture_triangles( (DFBVertex*) vertices, num, formation, &thiz->obj->state );
-    }
-
-    return DFB_OK;
-}
-
-
 /**********************************************************************************************************************
  * Flush
  */
@@ -1129,43 +1033,41 @@ IGraphicsStateReal_SetSrcConvolution(IGraphicsState *thiz,
 
 void IGraphicsStateRealInit(IGraphicsStateReal *thiz, CoreDFB *core, CoreGraphicsState *obj)
 {
-	thiz->base.core = core;
-	thiz->base.obj = obj;
+    thiz->base.core = core;
+    thiz->base.obj = obj;
 
-	thiz->base.SetDrawingFlags = IGraphicsStateReal_SetDrawingFlags;
-	thiz->base.SetBlittingFlags =IGraphicsStateReal_SetBlittingFlags;
-	thiz->base.SetClip = IGraphicsStateReal_SetClip;
-	thiz->base.SetColor = IGraphicsStateReal_SetColor;
-	thiz->base.SetColorAndIndex = IGraphicsStateReal_SetColorAndIndex;
-	thiz->base.SetSrcBlend = IGraphicsStateReal_SetSrcBlend;
-	thiz->base.SetDstBlend = IGraphicsStateReal_SetDstBlend;
-	thiz->base.SetSrcColorKey = IGraphicsStateReal_SetSrcColorKey;
-	thiz->base.SetDstColorKey = IGraphicsStateReal_SetDstColorKey;
-	thiz->base.SetDestination = IGraphicsStateReal_SetDestination;
-	thiz->base.SetSource = IGraphicsStateReal_SetSource;
-	thiz->base.SetSourceMask = IGraphicsStateReal_SetSourceMask;
-	thiz->base.SetSourceMaskVals = IGraphicsStateReal_SetSourceMaskVals;
-	thiz->base.SetIndexTranslation = IGraphicsStateReal_SetIndexTranslation;
-	thiz->base.SetColorKey = IGraphicsStateReal_SetColorKey;
-	thiz->base.SetRenderOptions = IGraphicsStateReal_SetRenderOptions;
-	thiz->base.SetMatrix = IGraphicsStateReal_SetMatrix;
-	thiz->base.SetSource2 = IGraphicsStateReal_SetSource2;
-	thiz->base.SetFrom = IGraphicsStateReal_SetFrom;
-	thiz->base.SetTo = IGraphicsStateReal_SetTo;
-	thiz->base.DrawRectangles = IGraphicsStateReal_DrawRectangles;
-	thiz->base.DrawLines = IGraphicsStateReal_DrawLines;
-	thiz->base.FillRectangles = IGraphicsStateReal_FillRectangles;
-	thiz->base.FillTriangles = IGraphicsStateReal_FillTriangles;
-	thiz->base.FillTrapezoids = IGraphicsStateReal_FillTrapezoids;
-	thiz->base.FillSpans = IGraphicsStateReal_FillSpans;
-	thiz->base.Blit = IGraphicsStateReal_Blit;
-	thiz->base.Blit2 = IGraphicsStateReal_Blit2;
-	thiz->base.StretchBlit = IGraphicsStateReal_StretchBlit;
-	thiz->base.TileBlit = IGraphicsStateReal_TileBlit;
-	thiz->base.TextureTriangles = IGraphicsStateReal_TextureTriangles;
-	thiz->base.Flush = IGraphicsStateReal_Flush;
-	thiz->base.ReleaseSource = IGraphicsStateReal_ReleaseSource;
-	thiz->base.SetSrcConvolution = IGraphicsStateReal_SetSrcConvolution;
+    thiz->base.SetDrawingFlags = IGraphicsStateReal_SetDrawingFlags;
+    thiz->base.SetBlittingFlags =IGraphicsStateReal_SetBlittingFlags;
+    thiz->base.SetClip = IGraphicsStateReal_SetClip;
+    thiz->base.SetColor = IGraphicsStateReal_SetColor;
+    thiz->base.SetColorAndIndex = IGraphicsStateReal_SetColorAndIndex;
+    thiz->base.SetSrcBlend = IGraphicsStateReal_SetSrcBlend;
+    thiz->base.SetDstBlend = IGraphicsStateReal_SetDstBlend;
+    thiz->base.SetSrcColorKey = IGraphicsStateReal_SetSrcColorKey;
+    thiz->base.SetDstColorKey = IGraphicsStateReal_SetDstColorKey;
+    thiz->base.SetDestination = IGraphicsStateReal_SetDestination;
+    thiz->base.SetSource = IGraphicsStateReal_SetSource;
+    thiz->base.SetSourceMask = IGraphicsStateReal_SetSourceMask;
+    thiz->base.SetSourceMaskVals = IGraphicsStateReal_SetSourceMaskVals;
+    thiz->base.SetIndexTranslation = IGraphicsStateReal_SetIndexTranslation;
+    thiz->base.SetColorKey = IGraphicsStateReal_SetColorKey;
+    thiz->base.SetRenderOptions = IGraphicsStateReal_SetRenderOptions;
+    thiz->base.SetMatrix = IGraphicsStateReal_SetMatrix;
+    thiz->base.SetSource2 = IGraphicsStateReal_SetSource2;
+    thiz->base.SetFrom = IGraphicsStateReal_SetFrom;
+    thiz->base.SetTo = IGraphicsStateReal_SetTo;
+    thiz->base.DrawRectangles = IGraphicsStateReal_DrawRectangles;
+    thiz->base.DrawLines = IGraphicsStateReal_DrawLines;
+    thiz->base.FillRectangles = IGraphicsStateReal_FillRectangles;
+
+    thiz->base.Blit = IGraphicsStateReal_Blit;
+    thiz->base.Blit2 = IGraphicsStateReal_Blit2;
+    thiz->base.StretchBlit = IGraphicsStateReal_StretchBlit;
+    thiz->base.TileBlit = IGraphicsStateReal_TileBlit;
+
+    thiz->base.Flush = IGraphicsStateReal_Flush;
+    thiz->base.ReleaseSource = IGraphicsStateReal_ReleaseSource;
+    thiz->base.SetSrcConvolution = IGraphicsStateReal_SetSrcConvolution;
 
 }
 

@@ -29,14 +29,6 @@ LINUXONLY_TOOLS =	\
 	raw32toraw24
 endif
 
-if ENABLE_VOODOO
-VOODOO_PROGS = \
-	dfbproxy			\
-	voodooplay			\
-	voodooplay_client		\
-	voodooplay_server
-endif
-
 if PNG_PROVIDER
 PNG_PROGS = mkdfiff mkdgifft
 endif
@@ -45,16 +37,10 @@ if FREETYPE_PROVIDER
 FREETYPE_PROGS = mkdgiff
 endif
 
-
-
-if DIRECTFB_BUILD_PURE_VOODOO
-NON_PURE_VOODOO_bin_PROGS = 
-else
 NON_PURE_VOODOO_bin_PROGS = \
 	dfbdump			\
 	dfbdumpinput		\
 	dfbinput
-endif
 
 bin_PROGRAMS = \
 	$(NON_PURE_VOODOO_bin_PROGS)	\
@@ -68,8 +54,7 @@ bin_PROGRAMS = \
 	dfbscreen			\
 	dfbpenmount			\
 	$(PNG_PROGS)			\
-	$(FREETYPE_PROGS)		\
-	$(VOODOO_PROGS)
+	$(FREETYPE_PROGS)
 
 
 if DIRECTFB_BUILD_PURE_VOODOO
@@ -81,8 +66,6 @@ endif
 
 noinst_PROGRAMS = \
 	$(NON_PURE_VOODOO_noinst_PROGS)
-
-
 
 libdirectfb = ../src/libdirectfb.la
 libfusion = ../lib/fusion/libfusion.la
@@ -158,16 +141,6 @@ raw15toraw24_SOURCES = raw15toraw24.c
 raw16toraw24_SOURCES = raw16toraw24.c
 
 raw32toraw24_SOURCES = raw32toraw24.c
-
-voodooplay_SOURCES = voodooplay.c
-voodooplay_LDADD   = $(libdirectfb) $(libvoodoo) $(libone) $(libfusion) $(libdirect)
-
-voodooplay_client_SOURCES = voodooplay_client.c
-voodooplay_client_LDADD   = $(libdirectfb) $(libvoodoo) $(libone) $(libfusion) $(libdirect)
-
-voodooplay_server_SOURCES = voodooplay_server.c
-voodooplay_server_LDADD   = $(libdirectfb) $(libvoodoo) $(libone) $(libfusion) $(libdirect)
-
 
 EXTRA_DIST = \
 	README			\

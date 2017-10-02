@@ -275,8 +275,6 @@ typedef struct
 
      char         *resource_manager;
 
-     u32           input_hub_qid;
-
      unsigned long font_resource_id;
 
      unsigned int  flip_notify_max_latency;
@@ -292,8 +290,6 @@ typedef struct
      bool                 layers_clear;
 
      FusionCallExecFlags  call_nodirect;
-
-     u32           input_hub_service_qid;
 
      bool          cursor_videoonly;
      u64           cursor_resource_id;

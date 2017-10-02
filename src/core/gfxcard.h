@@ -389,23 +389,6 @@ void dfb_gfxcard_drawlines              ( DFBRegion            *lines,
                                           int                   num_lines,
                                           CardState            *state );
 
-void dfb_gfxcard_fillspans              ( int                   y,
-                                          DFBSpan              *spans,
-                                          int                   num_spans,
-                                          CardState            *state );
-
-void dfb_gfxcard_filltriangles          ( const DFBTriangle    *tris,
-                                          int                   num,
-                                          CardState            *state );
-
-void dfb_gfxcard_fillquadrangles        ( DFBPoint             *points,
-                                          int                   num,
-                                          CardState            *state );
-
-void dfb_gfxcard_filltrapezoids         ( const DFBTrapezoid   *traps,
-                                          int                   num,
-                                          CardState            *state );
-
 void dfb_gfxcard_draw_mono_glyphs       ( const void                   *glyph[],
                                           const DFBMonoGlyphAttributes *attributes,
                                           const DFBPoint               *points,
@@ -443,16 +426,6 @@ void dfb_gfxcard_batchstretchblit       ( DFBRectangle         *srects,
                                           DFBRectangle         *drects,
                                           unsigned int          num,
                                           CardState            *state );
-
-void dfb_gfxcard_texture_triangles      ( DFBVertex            *vertices,
-                                          int                   num,
-                                          DFBTriangleFormation  formation,
-                                          CardState            *state );
-
-
-
-
-
 
 void dfb_gfxcard_drawstring             ( const u8             *text,
                                           int                   bytes,

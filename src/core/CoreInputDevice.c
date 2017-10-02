@@ -58,9 +58,9 @@ CoreInputDevice_SetKeymapEntry(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IInputDeviceReal real;
-			IInputDevice *super = (IInputDevice *)&real;
-			IInputDeviceRealInit( &real, core_dfb, obj );
+            IInputDeviceReal real;
+            IInputDevice *super = (IInputDevice *)&real;
+            IInputDeviceRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetKeymapEntry( super, key_code, entry );
@@ -69,9 +69,9 @@ CoreInputDevice_SetKeymapEntry(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IInputDeviceRequestor requestor;
-			IInputDevice *super = (IInputDevice *)&requestor;
-			IInputDeviceRequestorInit( &requestor, core_dfb, obj );
+            IInputDeviceRequestor requestor;
+            IInputDevice *super = (IInputDevice *)&requestor;
+            IInputDeviceRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetKeymapEntry( super, key_code, entry );
@@ -94,9 +94,9 @@ CoreInputDevice_ReloadKeymap(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IInputDeviceReal real;
-			IInputDevice *super = (IInputDevice *)&real;
-			IInputDeviceRealInit( &real, core_dfb, obj );
+            IInputDeviceReal real;
+            IInputDevice *super = (IInputDevice *)&real;
+            IInputDeviceRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->ReloadKeymap( super );
@@ -105,9 +105,9 @@ CoreInputDevice_ReloadKeymap(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IInputDeviceRequestor requestor;
-			IInputDevice *super = (IInputDevice *)&requestor;
-			IInputDeviceRequestorInit( &requestor, core_dfb, obj );
+            IInputDeviceRequestor requestor;
+            IInputDevice *super = (IInputDevice *)&requestor;
+            IInputDeviceRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->ReloadKeymap( super );
@@ -131,9 +131,9 @@ CoreInputDevice_SetConfiguration(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IInputDeviceReal real;
-			IInputDevice *super = (IInputDevice *)&real;
-			IInputDeviceRealInit( &real, core_dfb, obj );
+            IInputDeviceReal real;
+            IInputDevice *super = (IInputDevice *)&real;
+            IInputDeviceRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetConfiguration( super, config );
@@ -142,9 +142,9 @@ CoreInputDevice_SetConfiguration(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IInputDeviceRequestor requestor;
-			IInputDevice *super = (IInputDevice *)&requestor;
-			IInputDeviceRequestorInit( &requestor, core_dfb, obj );
+            IInputDeviceRequestor requestor;
+            IInputDevice *super = (IInputDevice *)&requestor;
+            IInputDeviceRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetConfiguration( super, config );
@@ -351,12 +351,12 @@ out:
 
 void IInputDeviceRequestorInit(IInputDeviceRequestor *thiz, CoreDFB *core, CoreInputDevice *obj)
 {
-	thiz->base.core = core;
-	thiz->base.obj = obj;
+    thiz->base.core = core;
+    thiz->base.obj = obj;
 
-	thiz->base.SetKeymapEntry = IInputDeviceRequestor_SetKeymapEntry;
-	thiz->base.ReloadKeymap = IInputDeviceRequestor_ReloadKeymap;
-	thiz->base.SetConfiguration = IInputDeviceRequestor_SetConfiguration;
+    thiz->base.SetKeymapEntry = IInputDeviceRequestor_SetKeymapEntry;
+    thiz->base.ReloadKeymap = IInputDeviceRequestor_ReloadKeymap;
+    thiz->base.SetConfiguration = IInputDeviceRequestor_SetConfiguration;
 }
 
 /*********************************************************************************************************************/
@@ -374,9 +374,9 @@ __CoreInputDeviceDispatch__Dispatch( CoreInputDevice *obj,
     D_UNUSED
     DFBResult ret;
 
-	IInputDeviceReal real;
-	IInputDevice *super = (IInputDevice *)&real;
-	IInputDeviceRealInit( &real, core_dfb, obj );
+    IInputDeviceReal real;
+    IInputDevice *super = (IInputDevice *)&real;
+    IInputDeviceRealInit( &real, core_dfb, obj );
 
 
     switch (method) {

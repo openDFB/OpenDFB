@@ -49,10 +49,7 @@
 #include <media/idirectfbfont.h>
 #include <media/idirectfbimageprovider.h>
 #include <media/idirectfbvideoprovider.h>
-
-#if !DIRECTFB_BUILD_PURE_VOODOO
 #include <media/DataBuffer.h>
-#endif
 
 
 void
@@ -63,10 +60,8 @@ IDirectFBDataBuffer_Destruct( IDirectFBDataBuffer *thiz )
      if (data->filename)
           D_FREE( data->filename );
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
      if (fusion_config->secure_fusion && core_dfb)
           DataBuffer_Deinit_Dispatch( &data->call );
-#endif
 
      DIRECT_DEALLOCATE_INTERFACE( thiz );
 }
@@ -184,12 +179,7 @@ IDirectFBDataBuffer_CreateImageProvider( IDirectFBDataBuffer     *thiz,
      if (!interface_ptr)
           return DFB_INVARG;
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
      return IDirectFBImageProvider_CreateFromBuffer( thiz, data->core, data->idirectfb, interface_ptr );
-#else
-     D_BUG( "%s in pure Voodoo build", __FUNCTION__ );
-     return DFB_BUG;
-#endif
 }
 
 static DFBResult
@@ -202,12 +192,7 @@ IDirectFBDataBuffer_CreateVideoProvider( IDirectFBDataBuffer     *thiz,
      if (!interface_ptr)
           return DFB_INVARG;
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
      return IDirectFBVideoProvider_CreateFromBuffer( thiz, data->core, interface_ptr );
-#else
-     D_BUG( "%s in pure Voodoo build", __FUNCTION__ );
-     return DFB_BUG;
-#endif
 }
 
 static DFBResult
@@ -221,12 +206,7 @@ IDirectFBDataBuffer_CreateFont( IDirectFBDataBuffer       *thiz,
      if (!interface_ptr || !desc)
           return DFB_INVARG;
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
      return IDirectFBFont_CreateFromBuffer( thiz, data->core, desc, interface_ptr );
-#else
-     D_BUG( "%s in pure Voodoo build", __FUNCTION__ );
-     return DFB_BUG;
-#endif
 }
 
 DFBResult
@@ -244,10 +224,8 @@ IDirectFBDataBuffer_Construct( IDirectFBDataBuffer *thiz,
      if (filename)
           data->filename = D_STRDUP( filename );
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
      if (fusion_config->secure_fusion && core)
           DataBuffer_Init_Dispatch( core, thiz, &data->call );
-#endif
 
      thiz->AddRef                 = IDirectFBDataBuffer_AddRef;
      thiz->Release                = IDirectFBDataBuffer_Release;

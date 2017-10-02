@@ -1158,21 +1158,21 @@ out:
 
 void ICoreRequestorInit(ICoreRequestor *thiz, CoreDFB *core, CoreDFB *obj)
 {
-	thiz->base.core = core;
-	thiz->base.obj = obj;
+    thiz->base.core = core;
+    thiz->base.obj = obj;
 
-	thiz->base.Initialize = ICoreRequestor_Initialize;
-	thiz->base.Register = ICoreRequestor_Register;
-	thiz->base.CreateSurface = ICoreRequestor_CreateSurface;
-	thiz->base.CreatePalette = ICoreRequestor_CreatePalette;
-	thiz->base.CreateState = ICoreRequestor_CreateState;
-	thiz->base.WaitIdle = ICoreRequestor_WaitIdle;
-	thiz->base.CreateImageProvider = ICoreRequestor_CreateImageProvider;
-	thiz->base.AllowSurface = ICoreRequestor_AllowSurface;
-	thiz->base.GetSurface = ICoreRequestor_GetSurface;
-	thiz->base.ClipboardSet = ICoreRequestor_ClipboardSet;
-	thiz->base.ClipboardGet = ICoreRequestor_ClipboardGet;
-	thiz->base.ClipboardGetTimestamp = ICoreRequestor_ClipboardGetTimestamp;
+    thiz->base.Initialize = ICoreRequestor_Initialize;
+    thiz->base.Register = ICoreRequestor_Register;
+    thiz->base.CreateSurface = ICoreRequestor_CreateSurface;
+    thiz->base.CreatePalette = ICoreRequestor_CreatePalette;
+    thiz->base.CreateState = ICoreRequestor_CreateState;
+    thiz->base.WaitIdle = ICoreRequestor_WaitIdle;
+    thiz->base.CreateImageProvider = ICoreRequestor_CreateImageProvider;
+    thiz->base.AllowSurface = ICoreRequestor_AllowSurface;
+    thiz->base.GetSurface = ICoreRequestor_GetSurface;
+    thiz->base.ClipboardSet = ICoreRequestor_ClipboardSet;
+    thiz->base.ClipboardGet = ICoreRequestor_ClipboardGet;
+    thiz->base.ClipboardGetTimestamp = ICoreRequestor_ClipboardGetTimestamp;
 }
 
 /*********************************************************************************************************************/
@@ -1190,9 +1190,9 @@ __CoreDFBDispatch__Dispatch( CoreDFB *obj,
     D_UNUSED
     DFBResult ret;
 
-	ICoreReal real;
-	ICore *super = (ICore *)&real;
-	ICoreRealInit( &real, core_dfb, obj );
+    ICoreReal real;
+    ICore *super = (ICore *)&real;
+    ICoreRealInit( &real, core_dfb, obj );
 
 
     switch (method) {
@@ -1229,8 +1229,8 @@ __CoreDFBDispatch__Dispatch( CoreDFB *obj,
         }
 
         case CoreDFBCall_CreateSurface: {
-		    CorePalette *palette = NULL;
-		    CoreSurface *surface = NULL;
+            CorePalette *palette = NULL;
+            CoreSurface *surface = NULL;
             D_UNUSED
             CoreDFBCreateSurface       *args        = (CoreDFBCreateSurface *) ptr;
             CoreDFBCreateSurfaceReturn *return_args = (CoreDFBCreateSurfaceReturn *) ret_ptr;
@@ -1261,7 +1261,7 @@ __CoreDFBDispatch__Dispatch( CoreDFB *obj,
         }
 
         case CoreDFBCall_CreatePalette: {
-		    CorePalette *palette = NULL;
+            CorePalette *palette = NULL;
             D_UNUSED
             CoreDFBCreatePalette       *args        = (CoreDFBCreatePalette *) ptr;
             CoreDFBCreatePaletteReturn *return_args = (CoreDFBCreatePaletteReturn *) ret_ptr;
@@ -1280,7 +1280,7 @@ __CoreDFBDispatch__Dispatch( CoreDFB *obj,
         }
 
         case CoreDFBCall_CreateState: {
-		    CoreGraphicsState *state = NULL;
+            CoreGraphicsState *state = NULL;
             D_UNUSED
             CoreDFBCreateState       *args        = (CoreDFBCreateState *) ptr;
             CoreDFBCreateStateReturn *return_args = (CoreDFBCreateStateReturn *) ret_ptr;
@@ -1331,7 +1331,7 @@ __CoreDFBDispatch__Dispatch( CoreDFB *obj,
         }
 
         case CoreDFBCall_AllowSurface: {
-		    CoreSurface *surface = NULL;
+            CoreSurface *surface = NULL;
             D_UNUSED
             CoreDFBAllowSurface       *args        = (CoreDFBAllowSurface *) ptr;
             CoreDFBAllowSurfaceReturn *return_args = (CoreDFBAllowSurfaceReturn *) ret_ptr;
@@ -1358,7 +1358,7 @@ __CoreDFBDispatch__Dispatch( CoreDFB *obj,
         }
 
         case CoreDFBCall_GetSurface: {
-		    CoreSurface *surface = NULL;
+            CoreSurface *surface = NULL;
             D_UNUSED
             CoreDFBGetSurface       *args        = (CoreDFBGetSurface *) ptr;
             CoreDFBGetSurfaceReturn *return_args = (CoreDFBGetSurfaceReturn *) ret_ptr;
@@ -1393,7 +1393,7 @@ __CoreDFBDispatch__Dispatch( CoreDFB *obj,
         }
 
         case CoreDFBCall_ClipboardGet: {
-		    char  tmp_data[MAX_CLIPBOARD_DATA_SIZE];
+            char  tmp_data[MAX_CLIPBOARD_DATA_SIZE];
             D_UNUSED
             CoreDFBClipboardGet       *args        = (CoreDFBClipboardGet *) ptr;
             CoreDFBClipboardGetReturn *return_args = (CoreDFBClipboardGetReturn *) ret_ptr;

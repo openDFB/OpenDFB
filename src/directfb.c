@@ -45,9 +45,7 @@
 
 #include <misc/conf.h>
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
 #include <unistd.h>
-
 #include <direct/thread.h>
 
 #include <core/core.h>
@@ -65,10 +63,7 @@
 #include <core/windowstack.h>
 
 #include <gfx/convert.h>
-
 #include <display/idirectfbsurface.h>
-#endif
-
 #include <idirectfb.h>
 
 
@@ -159,11 +154,9 @@ DirectFBSetOption( const char *name, const char *value )
 DFBResult
 DirectFBCreate( IDirectFB **interface_ptr )
 {
-#if !DIRECTFB_BUILD_PURE_VOODOO
      DFBResult  ret;
      IDirectFB *dfb;
      CoreDFB   *core_dfb;
-#endif
 
      if (!dfb_config) {
           /*  don't use D_ERROR() here, it uses dfb_config  */
@@ -197,7 +190,6 @@ DirectFBCreate( IDirectFB **interface_ptr )
                              "\n" );
      }
 
-#if !DIRECTFB_BUILD_PURE_VOODOO
      if (dfb_config->remote.host)
           return CreateRemote( dfb_config->remote.host, dfb_config->remote.port, interface_ptr );
 
@@ -245,9 +237,6 @@ DirectFBCreate( IDirectFB **interface_ptr )
      *interface_ptr = dfb;
 
      return DFB_OK;
-#else
-     return CreateRemote( dfb_config->remote.host ? dfb_config->remote.host : "", dfb_config->remote.port, interface_ptr );
-#endif
 }
 
 DFBResult

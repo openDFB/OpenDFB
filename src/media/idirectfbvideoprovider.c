@@ -236,7 +236,7 @@ IDirectFBVideoProvider_GetVolume( IDirectFBVideoProvider *thiz,
 
 static DFBResult
 IDirectFBVideoProvider_SetStreamAttributes(IDirectFBVideoProvider   *thiz,
-          				    DFBStreamAttributes       attr)
+                                            DFBStreamAttributes       attr)
 {
      return DFB_UNIMPLEMENTED;
 }

@@ -44,6 +44,8 @@ DFBResult dfb_screen_resume          ( CoreScreen                  *screen );
 DFBResult dfb_screen_set_powermode   ( CoreScreen                  *screen,
                                        DFBScreenPowerMode           mode );
 
+DFBResult dfb_screen_wait_fence      ( CoreScreen                  *screen );
+
 DFBResult dfb_screen_wait_vsync      ( CoreScreen                  *screen );
 DFBResult dfb_screen_get_vsync_count ( CoreScreen                  *screen,
                                        unsigned long               *ret_count );

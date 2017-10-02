@@ -95,6 +95,24 @@ dfb_screen_set_powermode( CoreScreen         *screen,
 }
 
 DFBResult
+dfb_screen_wait_fence( CoreScreen *screen )
+{
+     const ScreenFuncs *funcs;
+
+     D_ASSERT( screen != NULL );
+     D_ASSERT( screen->funcs != NULL );
+
+     funcs = screen->funcs;
+
+     if (funcs->WaitFence)
+          return funcs->WaitFence( screen,
+                                   screen->driver_data, screen->screen_data );
+
+     return DFB_UNSUPPORTED;
+}
+
+
+DFBResult
 dfb_screen_wait_vsync( CoreScreen *screen )
 {
      const ScreenFuncs *funcs;

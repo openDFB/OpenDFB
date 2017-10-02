@@ -499,86 +499,6 @@ CoreGraphicsStateClient_FillRectangles( CoreGraphicsStateClient *client,
 }
 
 DFBResult
-CoreGraphicsStateClient_FillTriangles( CoreGraphicsStateClient *client,
-                                       const DFBTriangle       *triangles,
-                                       unsigned int             num )
-{
-     D_DEBUG_AT( Core_GraphicsStateClient, "%s( client %p )\n", __FUNCTION__, client );
-
-     D_MAGIC_ASSERT( client, CoreGraphicsStateClient );
-     D_ASSERT( triangles != NULL );
-
-     if (!dfb_config->call_nodirect && (dfb_core_is_master( client->core ) || !fusion_config->secure_fusion)) {
-          dfb_gfxcard_filltriangles( triangles, num, client->state );
-     }
-     else {
-          DFBResult ret;
-
-          CoreGraphicsStateClient_Update( client, DFXL_FILLTRIANGLE, client->state );
-
-          ret = CoreGraphicsState_FillTriangles( client->gfx_state, triangles, num );
-          if (ret)
-               return ret;
-     }
-
-     return DFB_OK;
-}
-
-DFBResult
-CoreGraphicsStateClient_FillTrapezoids( CoreGraphicsStateClient *client,
-                                        const DFBTrapezoid      *trapezoids,
-                                        unsigned int             num )
-{
-     D_DEBUG_AT( Core_GraphicsStateClient, "%s( client %p )\n", __FUNCTION__, client );
-
-     D_MAGIC_ASSERT( client, CoreGraphicsStateClient );
-     D_ASSERT( trapezoids != NULL );
-
-     if (!dfb_config->call_nodirect && (dfb_core_is_master( client->core ) || !fusion_config->secure_fusion)) {
-          dfb_gfxcard_filltrapezoids( trapezoids, num, client->state );
-     }
-     else {
-          DFBResult ret;
-
-          CoreGraphicsStateClient_Update( client, DFXL_FILLTRAPEZOID, client->state );
-
-          ret = CoreGraphicsState_FillTrapezoids( client->gfx_state, trapezoids, num );
-          if (ret)
-               return ret;
-     }
-
-     return DFB_OK;
-}
-
-DFBResult
-CoreGraphicsStateClient_FillSpans( CoreGraphicsStateClient *client,
-                                   int                      y,
-                                   const DFBSpan           *spans,
-                                   unsigned int             num )
-{
-     D_DEBUG_AT( Core_GraphicsStateClient, "%s( client %p )\n", __FUNCTION__, client );
-
-     D_MAGIC_ASSERT( client, CoreGraphicsStateClient );
-     D_ASSERT( spans != NULL );
-
-     if (!dfb_config->call_nodirect && (dfb_core_is_master( client->core ) || !fusion_config->secure_fusion)) {
-          // FIXME: may overwrite spans
-          dfb_gfxcard_fillspans( y, (DFBSpan*) spans, num, client->state );
-     }
-     else {
-          DFBResult ret;
-
-          CoreGraphicsStateClient_Update( client, DFXL_FILLRECTANGLE, client->state );
-
-          ret = CoreGraphicsState_FillSpans( client->gfx_state, y, spans, num );
-          if (ret)
-               return ret;
-     }
-
-     return DFB_OK;
-}
-
-DFBResult
 CoreGraphicsStateClient_Blit( CoreGraphicsStateClient *client,
                               const DFBRectangle      *rects,
                               const DFBPoint          *points,
@@ -718,34 +638,6 @@ CoreGraphicsStateClient_TileBlit( CoreGraphicsStateClient *client,
           CoreGraphicsStateClient_Update( client, DFXL_BLIT, client->state );
 
           ret = CoreGraphicsState_TileBlit( client->gfx_state, rects, points1, points2, num );
-          if (ret)
-               return ret;
-     }
-
-     return DFB_OK;
-}
-
-DFBResult
-CoreGraphicsStateClient_TextureTriangles( CoreGraphicsStateClient *client,
-                                          const DFBVertex         *vertices,
-                                          int                      num,
-                                          DFBTriangleFormation     formation )
-{
-     D_DEBUG_AT( Core_GraphicsStateClient, "%s( client %p )\n", __FUNCTION__, client );
-
-     D_MAGIC_ASSERT( client, CoreGraphicsStateClient );
-     D_ASSERT( vertices != NULL );
-
-     if (!dfb_config->call_nodirect && (dfb_core_is_master( client->core ) || !fusion_config->secure_fusion)) {
-          // FIXME: may overwrite vertices
-          dfb_gfxcard_texture_triangles( (DFBVertex*) vertices, num, formation, client->state );
-     }
-     else {
-          DFBResult ret;
-
-          CoreGraphicsStateClient_Update( client, DFXL_TEXTRIANGLES, client->state );
-
-          ret = CoreGraphicsState_TextureTriangles( client->gfx_state, vertices, num, formation );
           if (ret)
                return ret;
      }

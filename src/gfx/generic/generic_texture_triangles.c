@@ -460,35 +460,6 @@ Genefx_TextureTriangleAffine( GenefxState        *gfxs,
      }
 }
 
-/**********************************************************************************************************************/
-
-void
-Genefx_TextureTriangles( CardState            *state,
-                         DFBVertex            *vertices,
-                         int                   num,
-                         DFBTriangleFormation  formation,
-                         const DFBRegion      *clip )
-{
-     int i;
-
-     /*
-      * Convert vertices
-      */
-     GenefxVertexAffine genefx_vertices[num];
-
-     for (i=0; i<num; i++) {
-          genefx_vertices[i].x = vertices[i].x;
-          genefx_vertices[i].y = vertices[i].y;
-          genefx_vertices[i].s = vertices[i].s * state->source->config.size.w * 0x10000;
-          genefx_vertices[i].t = vertices[i].t * state->source->config.size.h * 0x10000;
-     }
-
-     // FIXME: Implement perspective correct mapping
-     Genefx_TextureTrianglesAffine( state, genefx_vertices, num, formation, clip );
-}
-
-/**********************************************************************************************************************/
-
 void
 Genefx_TextureTrianglesAffine( CardState            *state,
                                GenefxVertexAffine   *vertices,

@@ -124,6 +124,12 @@ typedef struct {
 
 
    /** Synchronization **/
+     /*
+      * Wait for layer buffer fence.
+      */
+     DFBResult (*WaitFence)      ( CoreScreen             *screen,
+                                   void                   *driver_data,
+                                   void                   *screen_data );
 
      /*
       * Wait for the vertical retrace.

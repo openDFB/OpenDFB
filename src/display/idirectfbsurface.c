@@ -1595,93 +1595,6 @@ IDirectFBSurface_DrawRectangle( IDirectFBSurface *thiz,
 }
 
 static DFBResult
-IDirectFBSurface_FillTriangle( IDirectFBSurface *thiz,
-                               int x1, int y1,
-                               int x2, int y2,
-                               int x3, int y3 )
-{
-     DFBTriangle tri = { x1, y1, x2, y2, x3, y3 };
-
-     DIRECT_INTERFACE_GET_DATA(IDirectFBSurface)
-
-     D_DEBUG_AT( Surface, "%s( %p )\n", __FUNCTION__, thiz );
-     D_DEBUG_AT( Surface, "  -> [%2d] %4d,%4d-%4d,%4d-%4d,%4d\n", 0, x1, y1, x2, y2, x3, y3 );
-
-     if (!data->surface)
-          return DFB_DESTROYED;
-
-
-     if (!data->area.current.w || !data->area.current.h)
-          return DFB_INVAREA;
-
-     if (data->locked)
-          return DFB_LOCKED;
-
-     tri.x1 += data->area.wanted.x;
-     tri.y1 += data->area.wanted.y;
-     tri.x2 += data->area.wanted.x;
-     tri.y2 += data->area.wanted.y;
-     tri.x3 += data->area.wanted.x;
-     tri.y3 += data->area.wanted.y;
-
-     CoreGraphicsStateClient_FillTriangles( &data->state_client, &tri, 1 );
-
-     return DFB_OK;
-}
-
-static DFBResult
-IDirectFBSurface_FillTrapezoids( IDirectFBSurface   *thiz,
-                                 const DFBTrapezoid *traps,
-                                 unsigned int        num_traps )
-{
-     DIRECT_INTERFACE_GET_DATA(IDirectFBSurface)
-
-     D_DEBUG_AT( Surface, "%s( %p )\n", __FUNCTION__, thiz );
-
-     if (!data->surface)
-          return DFB_DESTROYED;
-
-
-     if (!data->area.current.w || !data->area.current.h)
-          return DFB_INVAREA;
-
-     if (data->locked)
-          return DFB_LOCKED;
-
-     if (!traps || !num_traps)
-          return DFB_INVARG;
-
-     if (data->area.wanted.x || data->area.wanted.y) {
-          unsigned int  i;
-          DFBTrapezoid  *local_traps;
-          bool           malloced = (num_traps > 170);
-
-          if (malloced)
-               local_traps = D_MALLOC( sizeof(DFBTrapezoid) * num_traps );
-          else
-               local_traps = alloca( sizeof(DFBTrapezoid) * num_traps );
-
-          for (i=0; i<num_traps; i++) {
-               local_traps[i].x1 = traps[i].x1 + data->area.wanted.x;
-               local_traps[i].y1 = traps[i].y1 + data->area.wanted.y;
-               local_traps[i].w1 = traps[i].w1;
-               local_traps[i].x2 = traps[i].x2 + data->area.wanted.x;
-               local_traps[i].y2 = traps[i].y2 + data->area.wanted.y;
-               local_traps[i].w2 = traps[i].w2;
-          }
-
-          CoreGraphicsStateClient_FillTrapezoids( &data->state_client, local_traps, num_traps );
-
-          if (malloced)
-               D_FREE( local_traps );
-     }
-     else
-          CoreGraphicsStateClient_FillTrapezoids( &data->state_client, traps, num_traps );
-
-     return DFB_OK;
-}
-
-static DFBResult
 IDirectFBSurface_FillRectangles( IDirectFBSurface   *thiz,
                                  const DFBRectangle *rects,
                                  unsigned int        num_rects )
@@ -1743,99 +1656,6 @@ IDirectFBSurface_FillRectangles( IDirectFBSurface   *thiz,
      return DFB_OK;
 }
 
-static DFBResult
-IDirectFBSurface_FillSpans( IDirectFBSurface *thiz,
-                            int               y,
-                            const DFBSpan    *spans,
-                            unsigned int      num_spans )
-{
-     DFBSpan *local_spans = alloca(sizeof(DFBSpan) * num_spans);
-
-     DIRECT_INTERFACE_GET_DATA(IDirectFBSurface)
-
-     D_DEBUG_AT( Surface, "%s( %p )\n", __FUNCTION__, thiz );
-
-     if (!data->surface)
-          return DFB_DESTROYED;
-
-
-     if (!data->area.current.w || !data->area.current.h)
-          return DFB_INVAREA;
-
-     if (data->locked)
-          return DFB_LOCKED;
-
-     if (!spans || !num_spans)
-          return DFB_INVARG;
-
-     if (data->area.wanted.x || data->area.wanted.y) {
-          unsigned int i;
-
-          for (i=0; i<num_spans; i++) {
-               local_spans[i].x = spans[i].x + data->area.wanted.x;
-               local_spans[i].w = spans[i].w;
-          }
-     }
-     else
-          /* clipping may modify spans, so we copy them */
-          direct_memcpy( local_spans, spans, sizeof(DFBSpan) * num_spans );
-
-     CoreGraphicsStateClient_FillSpans( &data->state_client, y + data->area.wanted.y, local_spans, num_spans );
-
-     return DFB_OK;
-}
-
-static DFBResult
-IDirectFBSurface_FillTriangles( IDirectFBSurface  *thiz,
-                                const DFBTriangle *tris,
-                                unsigned int       num_tris )
-{
-     DIRECT_INTERFACE_GET_DATA(IDirectFBSurface)
-
-     D_DEBUG_AT( Surface, "%s( %p )\n", __FUNCTION__, thiz );
-
-     if (!data->surface)
-          return DFB_DESTROYED;
-
-
-     if (!data->area.current.w || !data->area.current.h)
-          return DFB_INVAREA;
-
-     if (data->locked)
-          return DFB_LOCKED;
-
-     if (!tris || !num_tris)
-          return DFB_INVARG;
-
-     if (data->area.wanted.x || data->area.wanted.y) {
-          unsigned int  i;
-          DFBTriangle  *local_tris;
-          bool          malloced = (num_tris > 170);
-
-          if (malloced)
-               local_tris = D_MALLOC( sizeof(DFBTriangle) * num_tris );
-          else
-               local_tris = alloca( sizeof(DFBTriangle) * num_tris );
-
-          for (i=0; i<num_tris; i++) {
-               local_tris[i].x1 = tris[i].x1 + data->area.wanted.x;
-               local_tris[i].y1 = tris[i].y1 + data->area.wanted.y;
-               local_tris[i].x2 = tris[i].x2 + data->area.wanted.x;
-               local_tris[i].y2 = tris[i].y2 + data->area.wanted.y;
-               local_tris[i].x3 = tris[i].x3 + data->area.wanted.x;
-               local_tris[i].y3 = tris[i].y3 + data->area.wanted.y;
-          }
-
-          CoreGraphicsStateClient_FillTriangles( &data->state_client, local_tris, num_tris );
-
-          if (malloced)
-               D_FREE( local_tris );
-     }
-     else
-          CoreGraphicsStateClient_FillTriangles( &data->state_client, tris, num_tris );
-
-     return DFB_OK;
-}
 
 static DFBResult
 IDirectFBSurface_SetBlittingFlags( IDirectFBSurface        *thiz,
@@ -2353,115 +2173,6 @@ IDirectFBSurface_StretchBlit( IDirectFBSurface   *thiz,
           (v)->t = T;              \
      } while (0)
 
-static DFBResult
-IDirectFBSurface_TextureTriangles( IDirectFBSurface     *thiz,
-                                   IDirectFBSurface     *source,
-                                   const DFBVertex      *vertices,
-                                   const int            *indices,
-                                   int                   num,
-                                   DFBTriangleFormation  formation )
-{
-     int                    i;
-     DFBVertex             *translated;
-     IDirectFBSurface_data *src_data;
-     bool                   src_sub;
-     float                  x0 = 0;
-     float                  y0 = 0;
-
-     DIRECT_INTERFACE_GET_DATA(IDirectFBSurface)
-
-     D_DEBUG_AT( Surface, "%s( %p )\n", __FUNCTION__, thiz );
-
-     if (!data->surface)
-          return DFB_DESTROYED;
-
-
-     if (!data->area.current.w || !data->area.current.h)
-          return DFB_INVAREA;
-
-     if (data->locked)
-          return DFB_LOCKED;
-
-     if (!source || !vertices || num < 3)
-          return DFB_INVARG;
-
-     src_data = (IDirectFBSurface_data*)source->priv;
-
-     if ((src_sub = (src_data->caps & DSCAPS_SUBSURFACE))) {
-          D_ONCE( "sub surface texture not fully working with 'repeated' mapping" );
-
-          x0 = data->area.wanted.x;
-          y0 = data->area.wanted.y;
-     }
-
-     switch (formation) {
-          case DTTF_LIST:
-               if (num % 3)
-                    return DFB_INVARG;
-               break;
-
-          case DTTF_STRIP:
-          case DTTF_FAN:
-               break;
-
-          default:
-               return DFB_INVARG;
-     }
-
-     translated = alloca( num * sizeof(DFBVertex) );
-     if (!translated)
-          return DFB_NOSYSTEMMEMORY;
-
-     /* TODO: pass indices through to driver */
-     if (src_sub) {
-          float oowidth  = 1.0f / src_data->surface->config.size.w;
-          float ooheight = 1.0f / src_data->surface->config.size.h;
-
-          float s0 = src_data->area.wanted.x * oowidth;
-          float t0 = src_data->area.wanted.y * ooheight;
-
-          float fs = src_data->area.wanted.w * oowidth;
-          float ft = src_data->area.wanted.h * ooheight;
-
-          for (i=0; i<num; i++) {
-               const DFBVertex *in  = &vertices[ indices ? indices[i] : i ];
-               DFBVertex       *out = &translated[i];
-
-               SET_VERTEX( out, x0 + in->x, y0 + in->y, in->z, in->w,
-                           s0 + fs * in->s, t0 + ft * in->t );
-          }
-     }
-     else {
-          if (indices) {
-               for (i=0; i<num; i++) {
-                    const DFBVertex *in  = &vertices[ indices[i] ];
-                    DFBVertex       *out = &translated[i];
-
-                    SET_VERTEX( out, x0 + in->x, y0 + in->y, in->z, in->w, in->s, in->t );
-               }
-          }
-          else {
-               direct_memcpy( translated, vertices, num * sizeof(DFBVertex) );
-
-               for (i=0; i<num; i++) {
-                    translated[i].x += x0;
-                    translated[i].y += y0;
-               }
-          }
-     }
-
-     dfb_state_set_source( &data->state, src_data->surface );
-
-     dfb_state_set_from( &data->state, CSBR_FRONT, src_data->src_eye );
-
-     /* fetch the source color key from the source if necessary */
-     if (data->state.blittingflags & DSBLIT_SRC_COLORKEY)
-          dfb_state_set_src_colorkey( &data->state, src_data->src_key.value );
-
-     CoreGraphicsStateClient_TextureTriangles( &data->state_client, translated, num, formation );
-
-     return DFB_OK;
-}
 
 static DFBResult
 IDirectFBSurface_DrawString( IDirectFBSurface *thiz,
@@ -3547,19 +3258,12 @@ DFBResult IDirectFBSurface_Construct( IDirectFBSurface       *thiz,
      thiz->BatchBlit2 = IDirectFBSurface_BatchBlit2;
      thiz->StretchBlit = IDirectFBSurface_StretchBlit;
      thiz->BatchStretchBlit = IDirectFBSurface_BatchStretchBlit;
-     thiz->TextureTriangles = IDirectFBSurface_TextureTriangles;
-
      thiz->SetDrawingFlags = IDirectFBSurface_SetDrawingFlags;
      thiz->FillRectangle = IDirectFBSurface_FillRectangle;
      thiz->DrawLine = IDirectFBSurface_DrawLine;
      thiz->DrawLines = IDirectFBSurface_DrawLines;
      thiz->DrawRectangle = IDirectFBSurface_DrawRectangle;
-     thiz->FillTriangle = IDirectFBSurface_FillTriangle;
      thiz->FillRectangles = IDirectFBSurface_FillRectangles;
-     thiz->FillSpans = IDirectFBSurface_FillSpans;
-     thiz->FillTriangles = IDirectFBSurface_FillTriangles;
-     thiz->FillTrapezoids = IDirectFBSurface_FillTrapezoids;
-
      thiz->SetFont = IDirectFBSurface_SetFont;
      thiz->GetFont = IDirectFBSurface_GetFont;
      thiz->DrawString = IDirectFBSurface_DrawString;

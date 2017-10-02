@@ -64,6 +64,16 @@ IScreenReal_WaitVSync(IScreen *thiz
     return dfb_screen_wait_vsync( thiz->obj );
 }
 
+DFBResult
+IScreenReal_WaitFence(IScreen *thiz
+
+)
+{
+    D_DEBUG_AT( DirectFB_CoreScreen, "IScreen_Real::%s()\n", __FUNCTION__ );
+
+    return dfb_screen_wait_fence( thiz->obj );
+}
+
 
 DFBResult
 IScreenReal_GetVSyncCount(IScreen *thiz,
@@ -201,19 +211,20 @@ IScreenReal_GetLayerDimension(IScreen *thiz,
 
 void IScreenRealInit(IScreenReal *thiz, CoreDFB *core, CoreScreen *obj)
 {
-	thiz->base.core = core;
-	thiz->base.obj = obj;
+    thiz->base.core = core;
+    thiz->base.obj = obj;
 
-	thiz->base.SetPowerMode = IScreenReal_SetPowerMode;
-	thiz->base.WaitVSync = IScreenReal_WaitVSync;
-	thiz->base.GetVSyncCount = IScreenReal_GetVSyncCount;
-	thiz->base.TestMixerConfig = IScreenReal_TestMixerConfig;
-	thiz->base.SetMixerConfig = IScreenReal_SetMixerConfig;
-	thiz->base.TestEncoderConfig = IScreenReal_TestEncoderConfig;
-	thiz->base.SetEncoderConfig = IScreenReal_SetEncoderConfig;
-	thiz->base.TestOutputConfig = IScreenReal_TestOutputConfig;
-	thiz->base.SetOutputConfig = IScreenReal_SetOutputConfig;
-	thiz->base.GetScreenSize = IScreenReal_GetScreenSize;
-	thiz->base.GetLayerDimension = IScreenReal_GetLayerDimension;
+    thiz->base.SetPowerMode = IScreenReal_SetPowerMode;
+    thiz->base.WaitVSync = IScreenReal_WaitVSync;
+    thiz->base.WaitFence = IScreenReal_WaitFence;
+    thiz->base.GetVSyncCount = IScreenReal_GetVSyncCount;
+    thiz->base.TestMixerConfig = IScreenReal_TestMixerConfig;
+    thiz->base.SetMixerConfig = IScreenReal_SetMixerConfig;
+    thiz->base.TestEncoderConfig = IScreenReal_TestEncoderConfig;
+    thiz->base.SetEncoderConfig = IScreenReal_SetEncoderConfig;
+    thiz->base.TestOutputConfig = IScreenReal_TestOutputConfig;
+    thiz->base.SetOutputConfig = IScreenReal_SetOutputConfig;
+    thiz->base.GetScreenSize = IScreenReal_GetScreenSize;
+    thiz->base.GetLayerDimension = IScreenReal_GetLayerDimension;
 }
 

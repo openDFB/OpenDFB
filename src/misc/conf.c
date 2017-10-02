@@ -45,14 +45,7 @@
 
 #include <fusion/conf.h>
 #include <fusion/vector.h>
-
-#if DIRECTFB_BUILD_VOODOO
-#include <voodoo/conf.h>
-#endif
-
-#if !DIRECTFB_BUILD_PURE_VOODOO
 #include <core/surface.h>
-#endif
 
 #include <misc/conf.h>
 
@@ -1163,9 +1156,8 @@ DFBResult dfb_config_set( const char *name, const char *value )
      } else
      if (strcmp (name, "no-graphics-vt" ) == 0) {
           dfb_config->kd_graphics = false;
-     } else
-#if !DIRECTFB_BUILD_PURE_VOODOO
-     if (strcmp (name, "window-surface-policy" ) == 0) {
+     } 
+	 else if (strcmp (name, "window-surface-policy" ) == 0) {
           if (value) {
                if (strcmp( value, "auto" ) == 0) {
                     dfb_config->window_policy = -1;
@@ -1193,9 +1185,8 @@ DFBResult dfb_config_set( const char *name, const char *value )
                         "No window surface policy specified!\n" );
                return DFB_INVARG;
           }
-     } else
-#endif
-     if (strcmp (name, "init-layer" ) == 0) {
+     } 
+	 else if (strcmp (name, "init-layer" ) == 0) {
           if (value) {
                int id;
 
@@ -1582,44 +1573,6 @@ DFBResult dfb_config_set( const char *name, const char *value )
      } else
      if (strcmp (name, "no-layers-clear" ) == 0) {
           dfb_config->layers_clear = false;
-     } else
-     if (strcmp (name, "input-hub" ) == 0) {
-          if (value) {
-               char *error;
-               unsigned long qid;
-
-               qid = strtoul( value, &error, 10 );
-
-               if (*error) {
-                    D_ERROR( "DirectFB/Config '%s': Error in value '%s'!\n", name, error );
-                    return DFB_INVARG;
-               }
-
-               dfb_config->input_hub_qid = qid;
-          }
-          else {
-               D_ERROR( "DirectFB/Config '%s': No value specified!\n", name );
-               return DFB_INVARG;
-          }
-     } else
-     if (strcmp (name, "input-hub-service" ) == 0) {
-          if (value) {
-               char *error;
-               unsigned long qid;
-
-               qid = strtoul( value, &error, 10 );
-
-               if (*error) {
-                    D_ERROR( "DirectFB/Config '%s': Error in value '%s'!\n", name, error );
-                    return DFB_INVARG;
-               }
-
-               dfb_config->input_hub_service_qid = qid;
-          }
-          else {
-               D_ERROR( "DirectFB/Config '%s': No value specified!\n", name );
-               return DFB_INVARG;
-          }
      } else
      if (strcmp (name, "video-phys" ) == 0) {
           if (value) {
@@ -2041,11 +1994,7 @@ DFBResult dfb_config_set( const char *name, const char *value )
                return DFB_INVARG;
           }
      } else
-     if (
-#if DIRECTFB_BUILD_VOODOO
-         voodoo_config_set( name, value ) &&
-#endif
-         fusion_config_set( name, value ) && direct_config_set( name, value ))
+     if ( fusion_config_set( name, value ) && direct_config_set( name, value ))
           return DFB_UNSUPPORTED;
 
      return DFB_OK;

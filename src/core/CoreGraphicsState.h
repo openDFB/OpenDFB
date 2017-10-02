@@ -136,22 +136,6 @@ DFBResult CoreGraphicsState_FillRectangles(
                     const DFBRectangle                        *rects,
                     u32                                        num);
 
-DFBResult CoreGraphicsState_FillTriangles(
-                    CoreGraphicsState                         *obj,
-                    const DFBTriangle                         *triangles,
-                    u32                                        num);
-
-DFBResult CoreGraphicsState_FillTrapezoids(
-                    CoreGraphicsState                         *obj,
-                    const DFBTrapezoid                        *trapezoids,
-                    u32                                        num);
-
-DFBResult CoreGraphicsState_FillSpans(
-                    CoreGraphicsState                         *obj,
-                    s32                                        y,
-                    const DFBSpan                             *spans,
-                    u32                                        num);
-
 DFBResult CoreGraphicsState_Blit(
                     CoreGraphicsState                         *obj,
                     const DFBRectangle                        *rects,
@@ -177,12 +161,6 @@ DFBResult CoreGraphicsState_TileBlit(
                     const DFBPoint                            *points1,
                     const DFBPoint                            *points2,
                     u32                                        num);
-
-DFBResult CoreGraphicsState_TextureTriangles(
-                    CoreGraphicsState                         *obj,
-                    const DFBVertex                           *vertices,
-                    u32                                        num,
-                    DFBTriangleFormation                       formation);
 
 DFBResult CoreGraphicsState_Flush(
                     CoreGraphicsState                         *obj
@@ -234,14 +212,10 @@ typedef enum {
     CoreGraphicsStateCall_DrawRectangles = 21,
     CoreGraphicsStateCall_DrawLines = 22,
     CoreGraphicsStateCall_FillRectangles = 23,
-    CoreGraphicsStateCall_FillTriangles = 24,
-    CoreGraphicsStateCall_FillTrapezoids = 25,
-    CoreGraphicsStateCall_FillSpans = 26,
     CoreGraphicsStateCall_Blit = 27,
     CoreGraphicsStateCall_Blit2 = 28,
     CoreGraphicsStateCall_StretchBlit = 29,
     CoreGraphicsStateCall_TileBlit = 30,
-    CoreGraphicsStateCall_TextureTriangles = 31,
     CoreGraphicsStateCall_Flush = 32,
     CoreGraphicsStateCall_ReleaseSource = 33,
     CoreGraphicsStateCall_SetSrcConvolution = 34,
@@ -786,6 +760,7 @@ struct _IGraphicsState
                     const DFBRectangle                        *rects,
                     u32                                        num
     );
+#if 0//kin
 
     DFBResult (*FillTriangles)(IGraphicsState *thiz,
                     const DFBTriangle                         *triangles,
@@ -802,7 +777,7 @@ struct _IGraphicsState
                     const DFBSpan                             *spans,
                     u32                                        num
     );
-
+#endif
     DFBResult (*Blit)(IGraphicsState *thiz,
                     const DFBRectangle                        *rects,
                     const DFBPoint                            *points,
@@ -828,13 +803,14 @@ struct _IGraphicsState
                     const DFBPoint                            *points2,
                     u32                                        num
     );
+#if 0//kin
 
     DFBResult (*TextureTriangles)(IGraphicsState *thiz,
                     const DFBVertex                           *vertices,
                     u32                                        num,
                     DFBTriangleFormation                       formation
     );
-
+#endif
     DFBResult (*Flush)(IGraphicsState *thiz
 
     );
@@ -849,11 +825,9 @@ struct _IGraphicsState
 
 };
 
-
-
 struct _IGraphicsStateReal
 {
-	IGraphicsState base;
+    IGraphicsState base;
 };
 
 void IGraphicsStateRealInit(IGraphicsStateReal *thiz, CoreDFB *core, CoreGraphicsState *obj);
@@ -861,7 +835,7 @@ void IGraphicsStateRealInit(IGraphicsStateReal *thiz, CoreDFB *core, CoreGraphic
 
 struct _IGraphicsStateRequestor
 {
-	IGraphicsState base;
+    IGraphicsState base;
 };
 
 void IGraphicsStateRequestorInit(IGraphicsStateRequestor *thiz, CoreDFB *core, CoreGraphicsState *obj);

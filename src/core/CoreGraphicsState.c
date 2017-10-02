@@ -57,9 +57,9 @@ CoreGraphicsState_SetDrawingFlags(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetDrawingFlags( super, flags );
@@ -68,9 +68,9 @@ CoreGraphicsState_SetDrawingFlags(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetDrawingFlags( super, flags );
@@ -95,9 +95,9 @@ CoreGraphicsState_SetBlittingFlags(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetBlittingFlags( super, flags );
@@ -106,9 +106,9 @@ CoreGraphicsState_SetBlittingFlags(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetBlittingFlags( super, flags );
@@ -133,9 +133,9 @@ CoreGraphicsState_SetClip(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetClip( super, region );
@@ -144,9 +144,9 @@ CoreGraphicsState_SetClip(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetClip( super, region );
@@ -171,9 +171,9 @@ CoreGraphicsState_SetColor(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetColor( super, color );
@@ -182,9 +182,9 @@ CoreGraphicsState_SetColor(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetColor( super, color );
@@ -210,9 +210,9 @@ CoreGraphicsState_SetColorAndIndex(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetColorAndIndex( super, color, index );
@@ -221,9 +221,9 @@ CoreGraphicsState_SetColorAndIndex(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetColorAndIndex( super, color, index );
@@ -248,9 +248,9 @@ CoreGraphicsState_SetSrcBlend(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSrcBlend( super, function );
@@ -259,9 +259,9 @@ CoreGraphicsState_SetSrcBlend(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSrcBlend( super, function );
@@ -286,9 +286,9 @@ CoreGraphicsState_SetDstBlend(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetDstBlend( super, function );
@@ -297,9 +297,9 @@ CoreGraphicsState_SetDstBlend(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetDstBlend( super, function );
@@ -324,9 +324,9 @@ CoreGraphicsState_SetSrcColorKey(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSrcColorKey( super, key );
@@ -335,9 +335,9 @@ CoreGraphicsState_SetSrcColorKey(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSrcColorKey( super, key );
@@ -362,9 +362,9 @@ CoreGraphicsState_SetDstColorKey(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetDstColorKey( super, key );
@@ -373,9 +373,9 @@ CoreGraphicsState_SetDstColorKey(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetDstColorKey( super, key );
@@ -400,9 +400,9 @@ CoreGraphicsState_SetDestination(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetDestination( super, surface );
@@ -411,9 +411,9 @@ CoreGraphicsState_SetDestination(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetDestination( super, surface );
@@ -438,9 +438,9 @@ CoreGraphicsState_SetSource(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSource( super, surface );
@@ -449,9 +449,9 @@ CoreGraphicsState_SetSource(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSource( super, surface );
@@ -476,9 +476,9 @@ CoreGraphicsState_SetSourceMask(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSourceMask( super, surface );
@@ -487,9 +487,9 @@ CoreGraphicsState_SetSourceMask(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSourceMask( super, surface );
@@ -515,9 +515,9 @@ CoreGraphicsState_SetSourceMaskVals(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSourceMaskVals( super, offset, flags );
@@ -526,9 +526,9 @@ CoreGraphicsState_SetSourceMaskVals(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSourceMaskVals( super, offset, flags );
@@ -554,9 +554,9 @@ CoreGraphicsState_SetIndexTranslation(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetIndexTranslation( super, indices, num );
@@ -565,9 +565,9 @@ CoreGraphicsState_SetIndexTranslation(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetIndexTranslation( super, indices, num );
@@ -592,9 +592,9 @@ CoreGraphicsState_SetColorKey(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetColorKey( super, key );
@@ -603,9 +603,9 @@ CoreGraphicsState_SetColorKey(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetColorKey( super, key );
@@ -630,9 +630,9 @@ CoreGraphicsState_SetRenderOptions(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetRenderOptions( super, options );
@@ -641,9 +641,9 @@ CoreGraphicsState_SetRenderOptions(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetRenderOptions( super, options );
@@ -668,9 +668,9 @@ CoreGraphicsState_SetMatrix(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetMatrix( super, values );
@@ -679,9 +679,9 @@ CoreGraphicsState_SetMatrix(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetMatrix( super, values );
@@ -706,9 +706,9 @@ CoreGraphicsState_SetSource2(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSource2( super, surface );
@@ -717,9 +717,9 @@ CoreGraphicsState_SetSource2(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSource2( super, surface );
@@ -745,9 +745,9 @@ CoreGraphicsState_SetFrom(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetFrom( super, role, eye );
@@ -756,9 +756,9 @@ CoreGraphicsState_SetFrom(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetFrom( super, role, eye );
@@ -784,9 +784,9 @@ CoreGraphicsState_SetTo(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetTo( super, role, eye );
@@ -795,9 +795,9 @@ CoreGraphicsState_SetTo(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetTo( super, role, eye );
@@ -823,9 +823,9 @@ CoreGraphicsState_DrawRectangles(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->DrawRectangles( super, rects, num );
@@ -834,9 +834,9 @@ CoreGraphicsState_DrawRectangles(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->DrawRectangles( super, rects, num );
@@ -862,9 +862,9 @@ CoreGraphicsState_DrawLines(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->DrawLines( super, lines, num );
@@ -873,9 +873,9 @@ CoreGraphicsState_DrawLines(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->DrawLines( super, lines, num );
@@ -901,9 +901,9 @@ CoreGraphicsState_FillRectangles(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->FillRectangles( super, rects, num );
@@ -912,130 +912,12 @@ CoreGraphicsState_FillRectangles(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->FillRectangles( super, rects, num );
-            Core_PopCalling();
-
-            return ret;
-        }
-        case COREDFB_CALL_DENY:
-            return DFB_DEAD;
-    }
-
-    return DFB_UNIMPLEMENTED;
-}
-
-DFBResult
-CoreGraphicsState_FillTriangles(
-                    CoreGraphicsState                         *obj,
-                    const DFBTriangle                         *triangles,
-                    u32                                        num
-)
-{
-    DFBResult ret;
-
-    switch (CoreDFB_CallMode( core_dfb )) {
-        case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
-
-            Core_PushCalling();
-            ret = super->FillTriangles( super, triangles, num );
-            Core_PopCalling();
-
-            return ret;
-        }
-        case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
-
-            Core_PushCalling();
-            ret = super->FillTriangles( super, triangles, num );
-            Core_PopCalling();
-
-            return ret;
-        }
-        case COREDFB_CALL_DENY:
-            return DFB_DEAD;
-    }
-
-    return DFB_UNIMPLEMENTED;
-}
-
-DFBResult
-CoreGraphicsState_FillTrapezoids(
-                    CoreGraphicsState                         *obj,
-                    const DFBTrapezoid                        *trapezoids,
-                    u32                                        num
-)
-{
-    DFBResult ret;
-
-    switch (CoreDFB_CallMode( core_dfb )) {
-        case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
-
-            Core_PushCalling();
-            ret = super->FillTrapezoids( super, trapezoids, num );
-            Core_PopCalling();
-
-            return ret;
-        }
-        case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
-
-            Core_PushCalling();
-            ret = super->FillTrapezoids( super, trapezoids, num );
-            Core_PopCalling();
-
-            return ret;
-        }
-        case COREDFB_CALL_DENY:
-            return DFB_DEAD;
-    }
-
-    return DFB_UNIMPLEMENTED;
-}
-
-DFBResult
-CoreGraphicsState_FillSpans(
-                    CoreGraphicsState                         *obj,
-                    s32                                        y,
-                    const DFBSpan                             *spans,
-                    u32                                        num
-)
-{
-    DFBResult ret;
-
-    switch (CoreDFB_CallMode( core_dfb )) {
-        case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
-
-            Core_PushCalling();
-            ret = super->FillSpans( super, y, spans, num );
-            Core_PopCalling();
-
-            return ret;
-        }
-        case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
-
-            Core_PushCalling();
-            ret = super->FillSpans( super, y, spans, num );
             Core_PopCalling();
 
             return ret;
@@ -1059,9 +941,9 @@ CoreGraphicsState_Blit(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->Blit( super, rects, points, num );
@@ -1070,9 +952,9 @@ CoreGraphicsState_Blit(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->Blit( super, rects, points, num );
@@ -1100,9 +982,9 @@ CoreGraphicsState_Blit2(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->Blit2( super, rects, points1, points2, num );
@@ -1111,9 +993,9 @@ CoreGraphicsState_Blit2(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->Blit2( super, rects, points1, points2, num );
@@ -1140,9 +1022,9 @@ CoreGraphicsState_StretchBlit(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->StretchBlit( super, srects, drects, num );
@@ -1151,9 +1033,9 @@ CoreGraphicsState_StretchBlit(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->StretchBlit( super, srects, drects, num );
@@ -1181,9 +1063,9 @@ CoreGraphicsState_TileBlit(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->TileBlit( super, rects, points1, points2, num );
@@ -1192,52 +1074,12 @@ CoreGraphicsState_TileBlit(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->TileBlit( super, rects, points1, points2, num );
-            Core_PopCalling();
-
-            return ret;
-        }
-        case COREDFB_CALL_DENY:
-            return DFB_DEAD;
-    }
-
-    return DFB_UNIMPLEMENTED;
-}
-
-DFBResult
-CoreGraphicsState_TextureTriangles(
-                    CoreGraphicsState                         *obj,
-                    const DFBVertex                           *vertices,
-                    u32                                        num,
-                    DFBTriangleFormation                       formation
-)
-{
-    DFBResult ret;
-
-    switch (CoreDFB_CallMode( core_dfb )) {
-        case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
-
-            Core_PushCalling();
-            ret = super->TextureTriangles( super, vertices, num, formation );
-            Core_PopCalling();
-
-            return ret;
-        }
-        case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
-
-            Core_PushCalling();
-            ret = super->TextureTriangles( super, vertices, num, formation );
             Core_PopCalling();
 
             return ret;
@@ -1259,9 +1101,9 @@ CoreGraphicsState_Flush(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->Flush( super );
@@ -1270,9 +1112,9 @@ CoreGraphicsState_Flush(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->Flush( super );
@@ -1297,9 +1139,9 @@ CoreGraphicsState_ReleaseSource(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->ReleaseSource( super );
@@ -1308,9 +1150,9 @@ CoreGraphicsState_ReleaseSource(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->ReleaseSource( super );
@@ -1335,9 +1177,9 @@ CoreGraphicsState_SetSrcConvolution(
 
     switch (CoreDFB_CallMode( core_dfb )) {
         case COREDFB_CALL_DIRECT:{
-			IGraphicsStateReal real;
-			IGraphicsState *super = (IGraphicsState *)&real;
-			IGraphicsStateRealInit( &real, core_dfb, obj );
+            IGraphicsStateReal real;
+            IGraphicsState *super = (IGraphicsState *)&real;
+            IGraphicsStateRealInit( &real, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSrcConvolution( super, filter );
@@ -1346,9 +1188,9 @@ CoreGraphicsState_SetSrcConvolution(
             return ret;
         }
         case COREDFB_CALL_INDIRECT: {
-			IGraphicsStateRequestor requestor;
-			IGraphicsState *super = (IGraphicsState *)&requestor;
-			IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
+            IGraphicsStateRequestor requestor;
+            IGraphicsState *super = (IGraphicsState *)&requestor;
+            IGraphicsStateRequestorInit( &requestor, core_dfb, obj );
 
             Core_PushCalling();
             ret = super->SetSrcConvolution( super, filter );
@@ -2163,109 +2005,6 @@ out:
 }
 
 
-DFBResult
-IGraphicsStateRequestor_FillTriangles(IGraphicsState *thiz,
-                    const DFBTriangle                         *triangles,
-                    u32                                        num
-)
-{
-    DFBResult           ret = DFB_OK;
-    char        args_static[FLUXED_ARGS_BYTES];
-    CoreGraphicsStateFillTriangles       *args = (CoreGraphicsStateFillTriangles*) args_alloc( args_static, sizeof(CoreGraphicsStateFillTriangles) + num * sizeof(DFBTriangle) );
-
-    if (!args)
-        return (DFBResult) D_OOM();
-
-    D_DEBUG_AT( DirectFB_CoreGraphicsState, "IGraphicsStateRequestor_%s()\n", __FUNCTION__ );
-
-    D_ASSERT( triangles != NULL );
-
-    args->num = num;
-    direct_memcpy( (char*) (args + 1), triangles, num * sizeof(DFBTriangle) );
-
-    ret = (DFBResult) CoreGraphicsState_Call( thiz->obj, (FusionCallExecFlags)(FCEF_ONEWAY | FCEF_QUEUE), CoreGraphicsStateCall_FillTriangles, args, sizeof(CoreGraphicsStateFillTriangles) + num * sizeof(DFBTriangle), NULL, 0, NULL );
-    if (ret) {
-        D_DERROR( ret, "%s: CoreGraphicsState_Call( CoreGraphicsState_FillTriangles ) failed!\n", __FUNCTION__ );
-        goto out;
-    }
-
-
-
-out:
-    args_free( args_static, args );
-    return ret;
-}
-
-
-DFBResult
-IGraphicsStateRequestor_FillTrapezoids(IGraphicsState *thiz,
-                    const DFBTrapezoid                        *trapezoids,
-                    u32                                        num
-)
-{
-    DFBResult           ret = DFB_OK;
-    char        args_static[FLUXED_ARGS_BYTES];
-    CoreGraphicsStateFillTrapezoids       *args = (CoreGraphicsStateFillTrapezoids*) args_alloc( args_static, sizeof(CoreGraphicsStateFillTrapezoids) + num * sizeof(DFBTrapezoid) );
-
-    if (!args)
-        return (DFBResult) D_OOM();
-
-    D_DEBUG_AT( DirectFB_CoreGraphicsState, "IGraphicsStateRequestor_%s()\n", __FUNCTION__ );
-
-    D_ASSERT( trapezoids != NULL );
-
-    args->num = num;
-    direct_memcpy( (char*) (args + 1), trapezoids, num * sizeof(DFBTrapezoid) );
-
-    ret = (DFBResult) CoreGraphicsState_Call( thiz->obj, (FusionCallExecFlags)(FCEF_ONEWAY | FCEF_QUEUE), CoreGraphicsStateCall_FillTrapezoids, args, sizeof(CoreGraphicsStateFillTrapezoids) + num * sizeof(DFBTrapezoid), NULL, 0, NULL );
-    if (ret) {
-        D_DERROR( ret, "%s: CoreGraphicsState_Call( CoreGraphicsState_FillTrapezoids ) failed!\n", __FUNCTION__ );
-        goto out;
-    }
-
-
-
-out:
-    args_free( args_static, args );
-    return ret;
-}
-
-
-DFBResult
-IGraphicsStateRequestor_FillSpans(IGraphicsState *thiz,
-                    s32                                        y,
-                    const DFBSpan                             *spans,
-                    u32                                        num
-)
-{
-    DFBResult           ret = DFB_OK;
-    char        args_static[FLUXED_ARGS_BYTES];
-    CoreGraphicsStateFillSpans       *args = (CoreGraphicsStateFillSpans*) args_alloc( args_static, sizeof(CoreGraphicsStateFillSpans) + num * sizeof(DFBSpan) );
-
-    if (!args)
-        return (DFBResult) D_OOM();
-
-    D_DEBUG_AT( DirectFB_CoreGraphicsState, "IGraphicsStateRequestor_%s()\n", __FUNCTION__ );
-
-    D_ASSERT( spans != NULL );
-
-    args->y = y;
-    args->num = num;
-    direct_memcpy( (char*) (args + 1), spans, num * sizeof(DFBSpan) );
-
-    ret = (DFBResult) CoreGraphicsState_Call( thiz->obj, (FusionCallExecFlags)(FCEF_ONEWAY | FCEF_QUEUE), CoreGraphicsStateCall_FillSpans, args, sizeof(CoreGraphicsStateFillSpans) + num * sizeof(DFBSpan), NULL, 0, NULL );
-    if (ret) {
-        D_DERROR( ret, "%s: CoreGraphicsState_Call( CoreGraphicsState_FillSpans ) failed!\n", __FUNCTION__ );
-        goto out;
-    }
-
-
-
-out:
-    args_free( args_static, args );
-    return ret;
-}
-
 
 DFBResult
 IGraphicsStateRequestor_Blit(IGraphicsState *thiz,
@@ -2422,42 +2161,6 @@ out:
 
 
 DFBResult
-IGraphicsStateRequestor_TextureTriangles(IGraphicsState *thiz,
-                    const DFBVertex                           *vertices,
-                    u32                                        num,
-                    DFBTriangleFormation                       formation
-)
-{
-    DFBResult           ret = DFB_OK;
-    char        args_static[FLUXED_ARGS_BYTES];
-    CoreGraphicsStateTextureTriangles       *args = (CoreGraphicsStateTextureTriangles*) args_alloc( args_static, sizeof(CoreGraphicsStateTextureTriangles) + num * sizeof(DFBVertex) );
-
-    if (!args)
-        return (DFBResult) D_OOM();
-
-    D_DEBUG_AT( DirectFB_CoreGraphicsState, "IGraphicsStateRequestor_%s()\n", __FUNCTION__ );
-
-    D_ASSERT( vertices != NULL );
-
-    args->num = num;
-    args->formation = formation;
-    direct_memcpy( (char*) (args + 1), vertices, num * sizeof(DFBVertex) );
-
-    ret = (DFBResult) CoreGraphicsState_Call( thiz->obj, (FusionCallExecFlags)(FCEF_ONEWAY | FCEF_QUEUE), CoreGraphicsStateCall_TextureTriangles, args, sizeof(CoreGraphicsStateTextureTriangles) + num * sizeof(DFBVertex), NULL, 0, NULL );
-    if (ret) {
-        D_DERROR( ret, "%s: CoreGraphicsState_Call( CoreGraphicsState_TextureTriangles ) failed!\n", __FUNCTION__ );
-        goto out;
-    }
-
-
-
-out:
-    args_free( args_static, args );
-    return ret;
-}
-
-
-DFBResult
 IGraphicsStateRequestor_Flush(IGraphicsState *thiz
 
 )
@@ -2576,14 +2279,10 @@ void IGraphicsStateRequestorInit(IGraphicsStateRequestor *thiz, CoreDFB *core, C
     thiz->base.DrawRectangles = IGraphicsStateRequestor_DrawRectangles;
     thiz->base.DrawLines = IGraphicsStateRequestor_DrawLines;
     thiz->base.FillRectangles = IGraphicsStateRequestor_FillRectangles;
-    thiz->base.FillTriangles = IGraphicsStateRequestor_FillTriangles;
-    thiz->base.FillTrapezoids = IGraphicsStateRequestor_FillTrapezoids;
-    thiz->base.FillSpans = IGraphicsStateRequestor_FillSpans;
     thiz->base.Blit = IGraphicsStateRequestor_Blit;
     thiz->base.Blit2 = IGraphicsStateRequestor_Blit2;
     thiz->base.StretchBlit = IGraphicsStateRequestor_StretchBlit;
     thiz->base.TileBlit = IGraphicsStateRequestor_TileBlit;
-    thiz->base.TextureTriangles = IGraphicsStateRequestor_TextureTriangles;
     thiz->base.Flush = IGraphicsStateRequestor_Flush;
     thiz->base.ReleaseSource = IGraphicsStateRequestor_ReleaseSource;
     thiz->base.SetSrcConvolution = IGraphicsStateRequestor_SetSrcConvolution;
@@ -2606,9 +2305,9 @@ __CoreGraphicsStateDispatch__Dispatch( CoreGraphicsState *obj,
     DFBResult ret;
 
 
-	IGraphicsStateReal real;
-	IGraphicsState *super = (IGraphicsState *)&real;
-	IGraphicsStateRealInit( &real, core_dfb, obj );
+    IGraphicsStateReal real;
+    IGraphicsState *super = (IGraphicsState *)&real;
+    IGraphicsStateRealInit( &real, core_dfb, obj );
 
     switch (method) {
         case CoreGraphicsStateCall_SetDrawingFlags: {
@@ -2730,7 +2429,7 @@ __CoreGraphicsStateDispatch__Dispatch( CoreGraphicsState *obj,
         }
 
         case CoreGraphicsStateCall_SetDestination: {
-    		CoreSurface *surface = NULL;
+            CoreSurface *surface = NULL;
             D_UNUSED
             CoreGraphicsStateSetDestination       *args        = (CoreGraphicsStateSetDestination *) ptr;
 
@@ -2753,7 +2452,7 @@ __CoreGraphicsStateDispatch__Dispatch( CoreGraphicsState *obj,
         }
 
         case CoreGraphicsStateCall_SetSource: {
-    		CoreSurface *surface = NULL;
+            CoreSurface *surface = NULL;
             D_UNUSED
             CoreGraphicsStateSetSource       *args        = (CoreGraphicsStateSetSource *) ptr;
 
@@ -2776,7 +2475,7 @@ __CoreGraphicsStateDispatch__Dispatch( CoreGraphicsState *obj,
         }
 
         case CoreGraphicsStateCall_SetSourceMask: {
-    		CoreSurface *surface = NULL;
+            CoreSurface *surface = NULL;
             D_UNUSED
             CoreGraphicsStateSetSourceMask       *args        = (CoreGraphicsStateSetSourceMask *) ptr;
 
@@ -2804,7 +2503,7 @@ __CoreGraphicsStateDispatch__Dispatch( CoreGraphicsState *obj,
 
             D_DEBUG_AT( DirectFB_CoreGraphicsState, "=-> CoreGraphicsState_SetSourceMaskVals\n" );
 
-         ;    // TODO: DFBPoint_debug args->offset;
+            // TODO: DFBPoint_debug args->offset;
             D_DEBUG_AT( DirectFB_CoreGraphicsState, "  -> flags = %x\n", args->flags );
 
             super->SetSourceMaskVals( super, &args->offset, args->flags );
@@ -2864,7 +2563,7 @@ __CoreGraphicsStateDispatch__Dispatch( CoreGraphicsState *obj,
         }
 
         case CoreGraphicsStateCall_SetSource2: {
-    		CoreSurface *surface = NULL;
+            CoreSurface *surface = NULL;
             D_UNUSED
             CoreGraphicsStateSetSource2       *args        = (CoreGraphicsStateSetSource2 *) ptr;
 
@@ -2953,46 +2652,6 @@ __CoreGraphicsStateDispatch__Dispatch( CoreGraphicsState *obj,
             return DFB_OK;
         }
 
-        case CoreGraphicsStateCall_FillTriangles: {
-            D_UNUSED
-            CoreGraphicsStateFillTriangles       *args        = (CoreGraphicsStateFillTriangles *) ptr;
-
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "=-> CoreGraphicsState_FillTriangles\n" );
-
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "  -> num = %u\n", args->num );
-
-            super->FillTriangles( super, (DFBTriangle*) ((char*)(args + 1)), args->num );
-
-            return DFB_OK;
-        }
-
-        case CoreGraphicsStateCall_FillTrapezoids: {
-            D_UNUSED
-            CoreGraphicsStateFillTrapezoids       *args        = (CoreGraphicsStateFillTrapezoids *) ptr;
-
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "=-> CoreGraphicsState_FillTrapezoids\n" );
-
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "  -> num = %u\n", args->num );
-
-            super->FillTrapezoids( super, (DFBTrapezoid*) ((char*)(args + 1)), args->num );
-
-            return DFB_OK;
-        }
-
-        case CoreGraphicsStateCall_FillSpans: {
-            D_UNUSED
-            CoreGraphicsStateFillSpans       *args        = (CoreGraphicsStateFillSpans *) ptr;
-
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "=-> CoreGraphicsState_FillSpans\n" );
-
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "  -> y = %d\n", args->y );
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "  -> num = %u\n", args->num );
-
-            super->FillSpans( super, args->y, (DFBSpan*) ((char*)(args + 1)), args->num );
-
-            return DFB_OK;
-        }
-
         case CoreGraphicsStateCall_Blit: {
             D_UNUSED
             CoreGraphicsStateBlit       *args        = (CoreGraphicsStateBlit *) ptr;
@@ -3041,20 +2700,6 @@ __CoreGraphicsStateDispatch__Dispatch( CoreGraphicsState *obj,
             D_DEBUG_AT( DirectFB_CoreGraphicsState, "  -> num = %u\n", args->num );
 
             super->TileBlit( super, (DFBRectangle*) ((char*)(args + 1)), (DFBPoint*) ((char*)(args + 1) + args->num * sizeof(DFBRectangle)), (DFBPoint*) ((char*)(args + 1) + args->num * sizeof(DFBRectangle) + args->num * sizeof(DFBPoint)), args->num );
-
-            return DFB_OK;
-        }
-
-        case CoreGraphicsStateCall_TextureTriangles: {
-            D_UNUSED
-            CoreGraphicsStateTextureTriangles       *args        = (CoreGraphicsStateTextureTriangles *) ptr;
-
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "=-> CoreGraphicsState_TextureTriangles\n" );
-
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "  -> num = %u\n", args->num );
-            D_DEBUG_AT( DirectFB_CoreGraphicsState, "  -> formation = %x\n", args->formation );
-
-            super->TextureTriangles( super, (DFBVertex*) ((char*)(args + 1)), args->num, args->formation );
 
             return DFB_OK;
         }

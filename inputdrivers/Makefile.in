@@ -146,8 +146,8 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = dbox2remote divine dreamboxremote dynapro elo gunze \
-	h3600_ts input_hub joystick keyboard linux_input lirc mutouch \
-	zytronic penmount ps2mouse serialmouse sonypi tslib ucb1x00_ts \
+	h3600_ts joystick keyboard linux_input lirc mutouch zytronic \
+	penmount ps2mouse serialmouse sonypi tslib ucb1x00_ts \
 	wm97xx_ts
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
@@ -416,7 +416,6 @@ top_srcdir = @top_srcdir@
 @ELO_INPUT_TRUE@ELO_INPUT_DIR = elo
 @GUNZE_INPUT_TRUE@GUNZE_INPUT_DIR = gunze
 @H3600_TS_TRUE@H3600_TS_DIR = h3600_ts
-@INPUT_HUB_TRUE@INPUT_HUB_DIR = input_hub
 @JOYSTICK_INPUT_TRUE@JOYSTICK_INPUT_DIR = joystick
 @KEYBOARD_INPUT_TRUE@KEYBOARD_INPUT_DIR = keyboard
 @LINUX_INPUT_TRUE@LINUX_INPUT_DIR = linux_input
@@ -438,7 +437,6 @@ SUBDIRS = \
 	$(ELO_INPUT_DIR)	\
 	$(GUNZE_INPUT_DIR)	\
 	$(H3600_TS_DIR)		\
-	$(INPUT_HUB_DIR)	\
 	$(JOYSTICK_INPUT_DIR)	\
 	$(KEYBOARD_INPUT_DIR)	\
 	$(LINUX_INPUT_DIR)	\

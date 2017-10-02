@@ -3,24 +3,6 @@
 AM_CPPFLAGS = \
 	-DDATADIR=\"${RUNTIME_SYSROOT}@DATADIR@\"
 
-if DIRECTFB_BUILD_ONE
-ONE_PROGS = \
-	OneBench	\
-	OneTest
-endif
-
-
-if DIRECTFB_BUILD_VOODOO
-SUBDIRS = voodoo
-
-VOODOO_PROGS = \
-	voodoo_bench	\
-	voodoo_bench_client		\
-	voodoo_bench_server		\
-	voodoo_bench_client_unix	\
-	voodoo_bench_server_unix
-endif
-
 if ENABLE_SAWMAN
 SAWMAN_PROGS = \
 	testrun	\
@@ -32,12 +14,6 @@ DIVINE_PROGS = \
 	divine_test
 endif
 
-if ENABLE_FUSIONDALE
-FUSIONDALE_PROGS = \
-	fdtest_bench \
-	fdtest_coma \
-	fdtest_init
-endif
 INCLUDES = \
 	-I$(top_builddir)/include \
 	-I$(top_builddir)/lib \
@@ -48,9 +24,7 @@ INCLUDES = \
 	-I$(top_builddir)/src	\
 	-I$(top_srcdir)/include	\
 	-I$(top_srcdir)/lib	\
-	-I$(top_srcdir)/lib/One	\
 	-I$(top_srcdir)/lib/divine	\
-	-I$(top_srcdir)/lib/fusiondale	\
 	-I$(top_srcdir)/lib/sawman	\
 	-I$(top_srcdir)/src	\
 	-DLINUX_2_6
@@ -116,11 +90,8 @@ bin_PROGRAMS = \
 	dfbtest_windows_watcher	\
 	direct_stream	\
 	direct_test	\
-	$(ONE_PROGS)	\
-	$(VOODOO_PROGS) \
 	$(SAWMAN_PROGS) \
-	$(DIVINE_PROGS) \
-	$(FUSIONDALE_PROGS)
+	$(DIVINE_PROGS)
 
 
 # for DFB_BASE_LIBS etc...
@@ -258,27 +229,6 @@ fusion_skirmish_LDADD   = $(DFB_BASE_LIBS)
 
 fusion_stream_SOURCES = fusion_stream.c
 fusion_stream_LDADD   = $(DFB_BASE_LIBS)
-
-OneBench_SOURCES = OneBench.c
-OneBench_LDADD   = $(DFB_BASE_LIBS)
-
-OneTest_SOURCES = OneTest.c
-OneTest_LDADD   = $(DFB_BASE_LIBS)
-
-voodoo_bench_SOURCES = voodoo_bench.c
-voodoo_bench_LDADD   = $(DFB_BASE_LIBS)
-
-voodoo_bench_client_SOURCES = voodoo_bench_client.c
-voodoo_bench_client_LDADD   = $(DFB_BASE_LIBS)
-
-voodoo_bench_server_SOURCES = voodoo_bench_server.c
-voodoo_bench_server_LDADD   = $(DFB_BASE_LIBS)
-
-voodoo_bench_client_unix_SOURCES = voodoo_bench_client_unix.c
-voodoo_bench_client_unix_LDADD   = $(DFB_BASE_LIBS)
-
-voodoo_bench_server_unix_SOURCES = voodoo_bench_server_unix.c
-voodoo_bench_server_unix_LDADD   = $(DFB_BASE_LIBS)
 
 testman_SOURCES = testman.c
 testman_LDADD   = $(DFB_BASE_LIBS) $(libsawman)

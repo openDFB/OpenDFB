@@ -281,6 +281,11 @@ struct _IScreen
                     u64                                       *ret_count
     );
 
+    DFBResult (*WaitFence)( IScreen *thiz,
+                  void       *driver_data,
+                  void       *screen_data
+    );
+
     DFBResult (*TestMixerConfig)(IScreen *thiz,
                     u32                                        mixer,
                     const DFBScreenMixerConfig                *config,

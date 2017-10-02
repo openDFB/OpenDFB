@@ -52,9 +52,9 @@ DataBuffer_Flush(
 
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->Flush( super );
 }
@@ -65,9 +65,9 @@ DataBuffer_Finish(
 
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->Finish( super );
 }
@@ -78,9 +78,9 @@ DataBuffer_SeekTo(
                     u64                                        offset
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->SeekTo( super, offset );
 }
@@ -91,9 +91,9 @@ DataBuffer_GetPosition(
                     u64                                       *ret_offset
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->GetPosition( super, ret_offset );
 }
@@ -104,9 +104,9 @@ DataBuffer_GetLength(
                     u64                                       *ret_length
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->GetLength( super, ret_length );
 }
@@ -117,9 +117,9 @@ DataBuffer_WaitForData(
                     u64                                        length
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->WaitForData( super, length );
 }
@@ -146,9 +146,9 @@ DataBuffer_GetData(
                     u32                                       *ret_read
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->GetData( super, length, ret_data, ret_read );
 }
@@ -162,9 +162,9 @@ DataBuffer_PeekData(
                     u32                                       *ret_read
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->PeekData( super, length, offset, ret_data, ret_read );
 }
@@ -175,9 +175,9 @@ DataBuffer_HasData(
 
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->HasData( super );
 }
@@ -189,9 +189,9 @@ DataBuffer_PutData(
                     u32                                        length
 )
 {
-	IDataBufferRequestor requestor;
-	IDataBuffer *super = (IDataBuffer *)&requestor;
-	IDataBufferRequestorInit( &requestor, core_dfb, obj );
+    IDataBufferRequestor requestor;
+    IDataBuffer *super = (IDataBuffer *)&requestor;
+    IDataBufferRequestorInit( &requestor, core_dfb, obj );
 
     return super->PutData( super, data, length );
 }
@@ -265,7 +265,7 @@ IDataBufferRequestor_Flush(IDataBuffer *thiz
     DataBufferFlush       *args = (DataBufferFlush*) args_alloc( args_static, sizeof(DataBufferFlush) );
     DataBufferFlushReturn *return_args;
 
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -312,7 +312,7 @@ IDataBufferRequestor_Finish(IDataBuffer *thiz
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferFinish       *args = (DataBufferFinish*) args_alloc( args_static, sizeof(DataBufferFinish) );
     DataBufferFinishReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -359,7 +359,7 @@ IDataBufferRequestor_SeekTo(IDataBuffer *thiz,
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferSeekTo       *args = (DataBufferSeekTo*) args_alloc( args_static, sizeof(DataBufferSeekTo) );
     DataBufferSeekToReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -407,7 +407,7 @@ IDataBufferRequestor_GetPosition(IDataBuffer *thiz,
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferGetPosition       *args = (DataBufferGetPosition*) args_alloc( args_static, sizeof(DataBufferGetPosition) );
     DataBufferGetPositionReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -455,7 +455,7 @@ IDataBufferRequestor_GetLength(IDataBuffer *thiz,
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferGetLength       *args = (DataBufferGetLength*) args_alloc( args_static, sizeof(DataBufferGetLength) );
     DataBufferGetLengthReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -503,7 +503,7 @@ IDataBufferRequestor_WaitForData(IDataBuffer *thiz,
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferWaitForData       *args = (DataBufferWaitForData*) args_alloc( args_static, sizeof(DataBufferWaitForData) );
     DataBufferWaitForDataReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -552,7 +552,7 @@ IDataBufferRequestor_WaitForDataWithTimeout(IDataBuffer *thiz,
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferWaitForDataWithTimeout       *args = (DataBufferWaitForDataWithTimeout*) args_alloc( args_static, sizeof(DataBufferWaitForDataWithTimeout) );
     DataBufferWaitForDataWithTimeoutReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -582,8 +582,6 @@ IDataBufferRequestor_WaitForDataWithTimeout(IDataBuffer *thiz,
         goto out;
     }
 
-
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -603,7 +601,7 @@ IDataBufferRequestor_GetData(IDataBuffer *thiz,
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferGetData       *args = (DataBufferGetData*) args_alloc( args_static, sizeof(DataBufferGetData) );
     DataBufferGetDataReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -656,7 +654,7 @@ IDataBufferRequestor_PeekData(IDataBuffer *thiz,
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferPeekData       *args = (DataBufferPeekData*) args_alloc( args_static, sizeof(DataBufferPeekData) );
     DataBufferPeekDataReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -707,7 +705,7 @@ IDataBufferRequestor_HasData(IDataBuffer *thiz
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferHasData       *args = (DataBufferHasData*) args_alloc( args_static, sizeof(DataBufferHasData) );
     DataBufferHasDataReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -735,8 +733,6 @@ IDataBufferRequestor_HasData(IDataBuffer *thiz
         goto out;
     }
 
-
-
 out:
     args_free( return_args_static, return_args );
     args_free( args_static, args );
@@ -755,7 +751,7 @@ IDataBufferRequestor_PutData(IDataBuffer *thiz,
     char        return_args_static[FLUXED_ARGS_BYTES];
     DataBufferPutData       *args = (DataBufferPutData*) args_alloc( args_static, sizeof(DataBufferPutData) + length * sizeof(u8) );
     DataBufferPutDataReturn *return_args;
-	IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
+    IDataBufferRequestor *ibr = (IDataBufferRequestor *)thiz;
 
     if (!args)
         return (DFBResult) D_OOM();
@@ -797,19 +793,19 @@ out:
 
 void IDataBufferRequestorInit(IDataBufferRequestor *thiz, CoreDFB *core, DataBuffer *obj)
 {
-	thiz->base.core = core;
-	thiz->obj = obj;
+    thiz->base.core = core;
+    thiz->obj = obj;
 
-	thiz->base.Flush = IDataBufferRequestor_Flush;
-	thiz->base.SeekTo = IDataBufferRequestor_SeekTo;
-	thiz->base.GetPosition = IDataBufferRequestor_GetPosition;
-	thiz->base.GetLength = IDataBufferRequestor_GetLength;
-	thiz->base.WaitForData = IDataBufferRequestor_WaitForData;
-	thiz->base.WaitForDataWithTimeout = IDataBufferRequestor_WaitForDataWithTimeout;
-	thiz->base.GetData = IDataBufferRequestor_GetData;
-	thiz->base.PeekData = IDataBufferRequestor_PeekData;
-	thiz->base.HasData = IDataBufferRequestor_HasData;
-	thiz->base.PutData = IDataBufferRequestor_PutData;
+    thiz->base.Flush = IDataBufferRequestor_Flush;
+    thiz->base.SeekTo = IDataBufferRequestor_SeekTo;
+    thiz->base.GetPosition = IDataBufferRequestor_GetPosition;
+    thiz->base.GetLength = IDataBufferRequestor_GetLength;
+    thiz->base.WaitForData = IDataBufferRequestor_WaitForData;
+    thiz->base.WaitForDataWithTimeout = IDataBufferRequestor_WaitForDataWithTimeout;
+    thiz->base.GetData = IDataBufferRequestor_GetData;
+    thiz->base.PeekData = IDataBufferRequestor_PeekData;
+    thiz->base.HasData = IDataBufferRequestor_HasData;
+    thiz->base.PutData = IDataBufferRequestor_PutData;
 }
 
 /*********************************************************************************************************************/
@@ -827,9 +823,9 @@ __DataBufferDispatch__Dispatch( IDirectFBDataBuffer *obj,
     D_UNUSED
     DFBResult ret;
 
-	IDataBufferReal real;
-	IDataBuffer *super = (IDataBuffer *)&real;
-	IDataBufferRealInit( &real, core_dfb, obj );
+    IDataBufferReal real;
+    IDataBuffer *super = (IDataBuffer *)&real;
+    IDataBufferRealInit( &real, core_dfb, obj );
 
     switch (method) {
         case DataBufferCall_Flush: {

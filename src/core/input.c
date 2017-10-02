@@ -67,7 +67,6 @@
 #include <core/layer_region.h>
 #include <core/layers.h>
 #include <core/input.h>
-#include <core/input_hub.h>
 #include <core/windows.h>
 #include <core/windows_internal.h>
 
@@ -199,8 +198,6 @@ struct __DFB_DFBInputCore {
 
      DirectLink         *drivers;
      DirectLink         *devices;
-
-     CoreInputHub       *hub;
 };
 
 
@@ -472,12 +469,7 @@ dfb_input_core_initialize( CoreDFB            *core,
           goto errorExit;
      }
 #endif
-
-     if (dfb_config->input_hub_service_qid)
-          CoreInputHub_Create( dfb_config->input_hub_service_qid, &core_local->hub );
-
      init_devices( core );
-
 
      D_MAGIC_SET( data, DFBInputCore );
      D_MAGIC_SET( shared, DFBInputCoreShared );
@@ -621,9 +613,6 @@ dfb_input_core_shutdown( DFBInputCore *data,
                driver_data = device->driver_data;
                device->driver_data = NULL;
                driver->funcs->CloseDevice( driver_data );
-
-               if (data->hub)
-                    CoreInputHub_RemoveDevice( data->hub, device->shared->id );
           }
 
           if (!--driver->nr_devices) {
@@ -649,9 +638,6 @@ dfb_input_core_shutdown( DFBInputCore *data,
 
           D_FREE( device );
      }
-
-     if (data->hub)
-          CoreInputHub_Destroy( data->hub );
 
      D_MAGIC_CLEAR( data );
      D_MAGIC_CLEAR( shared );
@@ -1063,9 +1049,6 @@ dfb_input_dispatch( CoreInputDevice *device, DFBInputEvent *event )
           D_DEBUG_AT( Core_InputEvt, "  => GLOBAL\n" );
 #endif
 
-     if (core_local->hub)
-          CoreInputHub_DispatchEvent( core_local->hub, device->shared->id, event );
-
      if (core_input_filter( device, event ))
           D_DEBUG_AT( Core_InputEvt, "  ****>> FILTERED\n" );
      else
@@ -1248,9 +1231,6 @@ input_add_device( CoreInputDevice *device )
      direct_list_append( &core_local->devices, &device->link );
 
      core_input->devices[ core_input->num++ ] = device->shared;
-
-     if (core_local->hub)
-          CoreInputHub_AddDevice( core_local->hub, device->shared->id, &device->shared->device_info.desc );
 }
 
 static void
@@ -1798,9 +1778,6 @@ dfb_input_remove_device(int device_index, void *driver_in)
      D_DEBUG_AT(Core_Input, "Find the device with dev_id=%d\n", device_id);
 
      device->driver->funcs->CloseDevice( device->driver_data );
-
-     if (core_local->hub)
-          CoreInputHub_RemoveDevice( core_local->hub, device->shared->id );
 
      device->driver->nr_devices--;
 
