@@ -53,11 +53,6 @@ else
 JPEG2000_PROVIDER =
 endif
 
-if MPEG2
-MPEG2_PROVIDER = libidirectfbimageprovider_mpeg2.la
-else
-MPEG2_PROVIDER =
-endif
 
 INCLUDES = \
 	-I$(top_builddir)/include	\
@@ -78,8 +73,7 @@ idirectfbimageprovider_LTLIBRARIES = \
 	$(PNM_PROVIDER)				\
 	$(SVG_PROVIDER)				\
 	$(BMP_PROVIDER)				\
-	$(JPEG2000_PROVIDER)			\
-	$(MPEG2_PROVIDER)
+	$(JPEG2000_PROVIDER)
 	
 if BUILD_STATIC
 idirectfbimageprovider_DATA = $(idirectfbimageprovider_LTLIBRARIES:.la=.o)
@@ -125,10 +119,6 @@ libidirectfbimageprovider_bmp_la_LDFLAGS = -avoid-version -module
 libidirectfbimageprovider_jpeg2000_la_SOURCES = idirectfbimageprovider_jpeg2000.c
 libidirectfbimageprovider_jpeg2000_la_LIBADD = $(libdirect) $(libdirectfb) $(JASPER_LIBS)
 libidirectfbimageprovider_jpeg2000_la_LDFLAGS = -avoid-version -module
-
-libidirectfbimageprovider_mpeg2_la_SOURCES = idirectfbimageprovider_mpeg2.c
-libidirectfbimageprovider_mpeg2_la_LIBADD = $(libdirect) $(libdirectfb) mpeg2/libmpeg2decode.la
-libidirectfbimageprovider_mpeg2_la_LDFLAGS = -avoid-version -module
 
 
 include $(top_srcdir)/rules/libobject.make

@@ -201,18 +201,7 @@ libidirectfbimageprovider_jpeg2000_la_LINK = $(LIBTOOL) $(AM_V_lt) \
 	$@
 @JPEG2000_TRUE@am_libidirectfbimageprovider_jpeg2000_la_rpath =  \
 @JPEG2000_TRUE@	-rpath $(idirectfbimageproviderdir)
-libidirectfbimageprovider_mpeg2_la_DEPENDENCIES = $(libdirect) \
-	$(libdirectfb) mpeg2/libmpeg2decode.la
-am_libidirectfbimageprovider_mpeg2_la_OBJECTS =  \
-	idirectfbimageprovider_mpeg2.lo
-libidirectfbimageprovider_mpeg2_la_OBJECTS =  \
-	$(am_libidirectfbimageprovider_mpeg2_la_OBJECTS)
-libidirectfbimageprovider_mpeg2_la_LINK = $(LIBTOOL) $(AM_V_lt) \
-	--tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
-	$(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(libidirectfbimageprovider_mpeg2_la_LDFLAGS) $(LDFLAGS) -o $@
-@MPEG2_TRUE@am_libidirectfbimageprovider_mpeg2_la_rpath = -rpath \
-@MPEG2_TRUE@	$(idirectfbimageproviderdir)
+
 libidirectfbimageprovider_png_la_DEPENDENCIES = $(libdirect) \
 	$(libdirectfb) $(am__DEPENDENCIES_1)
 am_libidirectfbimageprovider_png_la_OBJECTS =  \
@@ -289,7 +278,6 @@ SOURCES = $(libidirectfbimageprovider_bmp_la_SOURCES) \
 	$(libidirectfbimageprovider_imlib2_la_SOURCES) \
 	$(libidirectfbimageprovider_jpeg_la_SOURCES) \
 	$(libidirectfbimageprovider_jpeg2000_la_SOURCES) \
-	$(libidirectfbimageprovider_mpeg2_la_SOURCES) \
 	$(libidirectfbimageprovider_png_la_SOURCES) \
 	$(libidirectfbimageprovider_pnm_la_SOURCES) \
 	$(libidirectfbimageprovider_svg_la_SOURCES)
@@ -299,7 +287,6 @@ DIST_SOURCES = $(libidirectfbimageprovider_bmp_la_SOURCES) \
 	$(libidirectfbimageprovider_imlib2_la_SOURCES) \
 	$(libidirectfbimageprovider_jpeg_la_SOURCES) \
 	$(libidirectfbimageprovider_jpeg2000_la_SOURCES) \
-	$(libidirectfbimageprovider_mpeg2_la_SOURCES) \
 	$(libidirectfbimageprovider_png_la_SOURCES) \
 	$(libidirectfbimageprovider_pnm_la_SOURCES) \
 	$(libidirectfbimageprovider_svg_la_SOURCES)
@@ -605,7 +592,6 @@ target_vendor = @target_vendor@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = mpeg2
 idirectfbimageproviderdir = $(MODULEDIR)/interfaces/IDirectFBImageProvider
 @GIF_PROVIDER_FALSE@GIF_PROVIDER_LTLIB = 
 @GIF_PROVIDER_TRUE@GIF_PROVIDER_LTLIB = libidirectfbimageprovider_gif.la
@@ -623,8 +609,6 @@ idirectfbimageproviderdir = $(MODULEDIR)/interfaces/IDirectFBImageProvider
 @BMP_TRUE@BMP_PROVIDER = libidirectfbimageprovider_bmp.la
 @JPEG2000_FALSE@JPEG2000_PROVIDER = 
 @JPEG2000_TRUE@JPEG2000_PROVIDER = libidirectfbimageprovider_jpeg2000.la
-@MPEG2_FALSE@MPEG2_PROVIDER = 
-@MPEG2_TRUE@MPEG2_PROVIDER = libidirectfbimageprovider_mpeg2.la
 INCLUDES = \
 	-I$(top_builddir)/include	\
 	-I$(top_builddir)/lib	\
@@ -643,8 +627,7 @@ idirectfbimageprovider_LTLIBRARIES = \
 	$(PNM_PROVIDER)				\
 	$(SVG_PROVIDER)				\
 	$(BMP_PROVIDER)				\
-	$(JPEG2000_PROVIDER)			\
-	$(MPEG2_PROVIDER)
+	$(JPEG2000_PROVIDER)
 
 @BUILD_STATIC_TRUE@idirectfbimageprovider_DATA = $(idirectfbimageprovider_LTLIBRARIES:.la=.o)
 libdirect = $(top_builddir)/lib/direct/libdirect.la
@@ -676,9 +659,6 @@ libidirectfbimageprovider_bmp_la_LDFLAGS = -avoid-version -module
 libidirectfbimageprovider_jpeg2000_la_SOURCES = idirectfbimageprovider_jpeg2000.c
 libidirectfbimageprovider_jpeg2000_la_LIBADD = $(libdirect) $(libdirectfb) $(JASPER_LIBS)
 libidirectfbimageprovider_jpeg2000_la_LDFLAGS = -avoid-version -module
-libidirectfbimageprovider_mpeg2_la_SOURCES = idirectfbimageprovider_mpeg2.c
-libidirectfbimageprovider_mpeg2_la_LIBADD = $(libdirect) $(libdirectfb) mpeg2/libmpeg2decode.la
-libidirectfbimageprovider_mpeg2_la_LDFLAGS = -avoid-version -module
 all: all-recursive
 
 .SUFFIXES:
@@ -768,9 +748,6 @@ libidirectfbimageprovider_jpeg.la: $(libidirectfbimageprovider_jpeg_la_OBJECTS) 
 libidirectfbimageprovider_jpeg2000.la: $(libidirectfbimageprovider_jpeg2000_la_OBJECTS) $(libidirectfbimageprovider_jpeg2000_la_DEPENDENCIES) $(EXTRA_libidirectfbimageprovider_jpeg2000_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(libidirectfbimageprovider_jpeg2000_la_LINK) $(am_libidirectfbimageprovider_jpeg2000_la_rpath) $(libidirectfbimageprovider_jpeg2000_la_OBJECTS) $(libidirectfbimageprovider_jpeg2000_la_LIBADD) $(LIBS)
 
-libidirectfbimageprovider_mpeg2.la: $(libidirectfbimageprovider_mpeg2_la_OBJECTS) $(libidirectfbimageprovider_mpeg2_la_DEPENDENCIES) $(EXTRA_libidirectfbimageprovider_mpeg2_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libidirectfbimageprovider_mpeg2_la_LINK) $(am_libidirectfbimageprovider_mpeg2_la_rpath) $(libidirectfbimageprovider_mpeg2_la_OBJECTS) $(libidirectfbimageprovider_mpeg2_la_LIBADD) $(LIBS)
-
 libidirectfbimageprovider_png.la: $(libidirectfbimageprovider_png_la_OBJECTS) $(libidirectfbimageprovider_png_la_DEPENDENCIES) $(EXTRA_libidirectfbimageprovider_png_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(libidirectfbimageprovider_png_la_LINK) $(am_libidirectfbimageprovider_png_la_rpath) $(libidirectfbimageprovider_png_la_OBJECTS) $(libidirectfbimageprovider_png_la_LIBADD) $(LIBS)
 
@@ -792,7 +769,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbimageprovider_imlib2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbimageprovider_jpeg.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbimageprovider_jpeg2000.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbimageprovider_mpeg2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbimageprovider_png.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbimageprovider_pnm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbimageprovider_svg.Plo@am__quote@

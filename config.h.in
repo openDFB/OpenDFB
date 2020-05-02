@@ -42,9 +42,6 @@
 /* Simple dithering, uses small dither table */
 #undef DFB_DITHER_SIMPLE
 
-/* Define to 1 if Video4Linux 2 is supported. */
-#undef DFB_HAVE_V4L2
-
 /* Define to 1 if smooth scaling code should be built. */
 #undef DFB_SMOOTH_SCALING
 

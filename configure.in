@@ -599,19 +599,6 @@ else
   FUSION_BUILD_KERNEL=0
 fi
 
-AC_ARG_ENABLE(voodoo,
-              AC_HELP_STRING([--enable-voodoo],
-                             [enable Voodoo (network support) @<:@default=no@:>@]),
-              [], [enable_voodoo=no])
-if test "$enable_voodoo" = "yes"; then
-    DIRECTFB_BUILD_VOODOO=1
-    DEP_VOODOO=voodoo
-else
-    DIRECTFB_BUILD_VOODOO=0
-    enable_voodoo=no
-    DEP_VOODOO=
-fi
-
 
 AC_ARG_ENABLE(pure_voodoo,
               AC_HELP_STRING([--enable-pure-voodoo],
@@ -651,9 +638,6 @@ AM_CONDITIONAL(DIRECTFB_BUILD_VOODOO, test "$DIRECTFB_BUILD_VOODOO" = "1")
 
 AC_SUBST(DIRECTFB_BUILD_PURE_VOODOO)
 AM_CONDITIONAL(DIRECTFB_BUILD_PURE_VOODOO, test "$DIRECTFB_BUILD_PURE_VOODOO" = "1")
-
-AC_SUBST(DEP_ONE)
-AC_SUBST(DEP_VOODOO)
 
 dnl If we're not building a pure voodoo lib, we need sqrt sin cos for
 dnl various files
@@ -1075,31 +1059,6 @@ AC_ARG_ENABLE(gif,
 AM_CONDITIONAL(GIF_PROVIDER, test "$enable_gif" = "yes")
 
 
-
-dnl Imlib2 check
-imlib2="no"
-AC_ARG_ENABLE(imlib2,
-  [  --enable-imlib2         build Imlib2 image provider [[default=yes]]],
-  enable_imlib2="$enableval", enable_imlib2="yes")
-
-if test "x$enable_imlib2" = "xyes"; then
-  AC_PATH_PROG(IMLIB2_CONFIG, imlib2-config, no)
-  if test "x$IMLIB2_CONFIG" = xno; then
-    AC_MSG_WARN([*** Imlib2 library not found, building without Imlib2 support ***])
-    imlib2="no"
-  else
-    IMLIB2_CFLAGS=`imlib2-config --cflags`
-    IMLIB2_LIBS=`imlib2-config --libs`
-    imlib2="yes"
-  fi
-fi
-
-AC_SUBST(IMLIB2_LIBS)
-AC_SUBST(IMLIB2_CFLAGS)
-
-AM_CONDITIONAL(IMLIB2, test "x$imlib2" = xyes)
-
-
 dnl PNM check
 AC_ARG_ENABLE(pnm,
   [  --enable-pnm            build PNM (PBM/PGM/PPM) image provider [[default=yes]]],
@@ -1107,75 +1066,12 @@ AC_ARG_ENABLE(pnm,
 
 AM_CONDITIONAL(PNM, test "x$pnm" = "xyes")
 
-
-dnl SVG check
-SVGCAIRO_REQUIRED_VERSION=0.1.6
-
-svg="no"
-AC_ARG_ENABLE(svg,
-  [  --enable-svg            build SVG image provider [[default=yes]]],
-  enable_svg="$enableval", enable_svg="yes")
-
-if test "x$enable_svg" = "xyes"; then
-  AC_MSG_CHECKING(for libsvg-cairo >= $SVGCAIRO_REQUIRED_VERSION)
-  if $PKG_CONFIG --atleast-version=$SVGCAIRO_REQUIRED_VERSION libsvg-cairo; then
-    SVG_CFLAGS=`$PKG_CONFIG --cflags libsvg-cairo`
-    SVG_LIBS=`$PKG_CONFIG --libs libsvg-cairo`
-    SVG_VERSION=`$PKG_CONFIG --modversion libsvg-cairo`
-    AC_MSG_RESULT([found (version $SVG_VERSION)])
-    svg="yes"
-  else
-    AC_MSG_RESULT([not found])
-    AC_MSG_WARN([
-*** SVG-Cairo at least $SVGCAIRO_REQUIRED_VERSION not found -- SVG image provider will not be built.])
-  fi
-fi
-
-AC_SUBST(SVG_CFLAGS)
-AC_SUBST(SVG_LIBS)
-
-AM_CONDITIONAL(SVG, test "x$svg" = "xyes")
-
-
-dnl MPEG2 check
-AC_ARG_ENABLE(mpeg2,
-  [  --enable-mpeg2          build MPEG2 image provider [[default=yes]]],
-  mpeg2="$enableval", mpeg2="yes")
-
-AM_CONDITIONAL(MPEG2, test "x$mpeg2" = "xyes")
-
-
 dnl BMP check
 AC_ARG_ENABLE(bmp,
   [  --enable-bmp            build BMP image provider [[default=yes]]],
   bmp="$enableval", bmp="yes")
 
 AM_CONDITIONAL(BMP, test "x$bmp" = "xyes")
-
-
-dnl JPEG2000 Check
-AC_ARG_ENABLE(jpeg2000,
-  [  --enable-jpeg2000       build JPEG2000 image provider [[default=yes]]],
-  jpeg2000="$enableval", jpeg2000="yes")
-
-if test "$jpeg2000" = "yes"; then
-  dnl Test for libjasper
-  AC_CHECK_LIB(jasper, jas_image_decode, jasper="yes", jasper="no", [-lm])
-  if test "$jasper" = "yes"; then
-    AC_CHECK_HEADER(jasper/jasper.h,, jasper="no")
-  fi
-  if test "$jasper" == "yes"; then
-    JASPER_LIBS="-ljasper -lm -ljpeg"
-  else
-    AC_MSG_WARN([
-*** Jasper not found. JPEG2000 image provider will not be built.])
-    jpeg2000="no"
-  fi
-fi
-
-AC_SUBST(JASPER_LIBS)
-
-AM_CONDITIONAL(JPEG2000, test "x$jpeg2000" = "xyes")
 
 
 dnl Test for freetype
@@ -1208,38 +1104,6 @@ if test "x$enable_linotype" != "xno"; then
 fi
 
 AM_CONDITIONAL(LINOTYPE_PROVIDER, test "$LINOTYPE" = "yes")
-
-
-dnl Test for video4linux
-V4L=no
-
-if test "$have_linux" = "yes"; then
-  AC_ARG_ENABLE(video4linux,
-                AC_HELP_STRING([--enable-video4linux],
-                               [build Video4Linux video provider @<:@default=yes@:>@]),
-                [], [enable_video4linux=yes])
-  if test "$enable_video4linux" = "yes"; then
-    V4L=yes
-  fi
-fi
-
-AM_CONDITIONAL(V4L_PROVIDER, test "$V4L" = "yes")
-
-
-
-dnl Test for video4linux
-V4L2=no
-
-if test "$V4L" = "yes"; then
-  AC_ARG_ENABLE(video4linux2,
-                AC_HELP_STRING([--enable-video4linux2],
-                               [build with Video4Linux2 support @<:@default=no@:>@]),
-                [], [enable_video4linux2=no])
-  if test "$enable_video4linux2" = "yes"; then
-    V4L2=yes
-    AC_DEFINE( DFB_HAVE_V4L2, 1, [Define to 1 if Video4Linux 2 is supported.] )
-  fi
-fi
 
 
 dnl check which gfxdrivers to build
@@ -2225,7 +2089,6 @@ inputdrivers/wm97xx_ts/Makefile
 interfaces/Makefile
 interfaces/IDirectFBFont/Makefile
 interfaces/IDirectFBImageProvider/Makefile
-interfaces/IDirectFBImageProvider/mpeg2/Makefile
 interfaces/IDirectFBWindows/Makefile
 
 data/Makefile
@@ -2304,12 +2167,8 @@ Building Image Provider Modules:
   GIF                       $enable_gif
   JPEG                      $JPEG                 $LIBJPEG
   PNG                       $PNG                  $LIBPNG_CFLAGS $LIBPNG_LIBS
-  Imlib2                    $imlib2               $IMLIB2_CFLAGS $IMLIB2_LIBS
   PNM                       $pnm
-  SVG                       $svg                  $LIBSVG_CFLAGS $LIBSVG_LIBS
   BMP                       $bmp
-  JPEG2000                  $jpeg2000             $JASPER_LIBS
-  MPEG2                     $mpeg2
 
 Building Font Modules:
   FreeType2                 $FREETYPE                 $FREETYPE_CFLAGS $FREETYPE_LIBS
