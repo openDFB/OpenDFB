@@ -18,8 +18,7 @@ internalinclude_HEADERS = \
 	idirectfbdatabuffer_client.h	\
 	idirectfbfont.h			\
 	idirectfbimageprovider.h	\
-	idirectfbimageprovider_client.h	\
-	idirectfbvideoprovider.h
+	idirectfbimageprovider_client.h
 
 
 noinst_LTLIBRARIES = libdirectfb_media.la
@@ -34,7 +33,6 @@ NON_PURE_VOODOO_SOURCESs = \
 	idirectfbfont.c			\
 	idirectfbimageprovider.c	\
 	idirectfbimageprovider_client.c	\
-	idirectfbvideoprovider.c	\
 	DataBuffer.c			\
 	DataBuffer.h			\
 	DataBuffer_includes.h		\

@@ -79,7 +79,6 @@ bin_PROGRAMS = \
 	dfbtest_surface_compositor_threads	\
 	dfbtest_surface_updates	\
 	dfbtest_sync	\
-	dfbtest_video	\
 	dfbtest_waitserial	\
 	dfbtest_window	\
 	dfbtest_window_cursor	\
@@ -175,8 +174,6 @@ dfbtest_surface_updates_LDADD   = $(DFB_BASE_LIBS)
 dfbtest_sync_SOURCES = dfbtest_sync.c
 dfbtest_sync_LDADD   = $(DFB_BASE_LIBS)
 
-dfbtest_video_SOURCES = dfbtest_video.c
-dfbtest_video_LDADD   = $(DFB_BASE_LIBS)
 
 dfbtest_waitserial_SOURCES = dfbtest_waitserial.c
 dfbtest_waitserial_LDADD   = $(DFB_BASE_LIBS)

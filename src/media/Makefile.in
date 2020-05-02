@@ -100,7 +100,7 @@ am__DEPENDENCIES_1 =
 libdirectfb_media_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am__libdirectfb_media_la_SOURCES_DIST = idirectfbdatabuffer_client.c \
 	idirectfbfont.c idirectfbimageprovider.c \
-	idirectfbimageprovider_client.c idirectfbvideoprovider.c \
+	idirectfbimageprovider_client.c \
 	DataBuffer.c DataBuffer.h DataBuffer_includes.h \
 	DataBuffer_real.c ImageProvider.c ImageProvider.h \
 	ImageProvider_includes.h ImageProvider_real.c \
@@ -110,7 +110,6 @@ am__libdirectfb_media_la_SOURCES_DIST = idirectfbdatabuffer_client.c \
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	idirectfbfont.lo \
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	idirectfbimageprovider.lo \
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	idirectfbimageprovider_client.lo \
-@DIRECTFB_BUILD_PURE_VOODOO_FALSE@	idirectfbvideoprovider.lo \
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	DataBuffer.lo \
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	DataBuffer_real.lo \
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	ImageProvider.lo \
@@ -464,8 +463,7 @@ internalinclude_HEADERS = \
 	idirectfbdatabuffer_client.h	\
 	idirectfbfont.h			\
 	idirectfbimageprovider.h	\
-	idirectfbimageprovider_client.h	\
-	idirectfbvideoprovider.h
+	idirectfbimageprovider_client.h
 
 noinst_LTLIBRARIES = libdirectfb_media.la
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@NON_PURE_VOODOO_SOURCESs = \
@@ -473,7 +471,6 @@ noinst_LTLIBRARIES = libdirectfb_media.la
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	idirectfbfont.c			\
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	idirectfbimageprovider.c	\
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	idirectfbimageprovider_client.c	\
-@DIRECTFB_BUILD_PURE_VOODOO_FALSE@	idirectfbvideoprovider.c	\
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	DataBuffer.c			\
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	DataBuffer.h			\
 @DIRECTFB_BUILD_PURE_VOODOO_FALSE@	DataBuffer_includes.h		\
@@ -563,7 +560,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbfont.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbimageprovider.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbimageprovider_client.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/idirectfbvideoprovider.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

@@ -1070,7 +1070,7 @@ configure:18622: gcc -o conftest -O3 -g2 -ffast-math -pipe  -Wno-error -D_REENTR
 conftest.c:44:6: warning: conflicting types for built-in function 'sqrt'
  char sqrt ();
       ^
-/tmp/ccIvrevY.o: In function `main':
+/tmp/ccgcLNBb.o: In function `main':
 /home/kin/workspace/opendfb-workspace/openDFB-github-test/conftest.c:48: undefined reference to `sqrt'
 collect2: error: ld returned 1 exit status
 configure:18622: $? = 1

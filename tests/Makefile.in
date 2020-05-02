@@ -91,7 +91,6 @@ bin_PROGRAMS = $(am__EXEEXT_2) $(am__EXEEXT_3) dfbtest_blit$(EXEEXT) \
 	dfbtest_surface_compositor$(EXEEXT) \
 	dfbtest_surface_compositor_threads$(EXEEXT) \
 	dfbtest_surface_updates$(EXEEXT) dfbtest_sync$(EXEEXT) \
-	dfbtest_video$(EXEEXT) dfbtest_waitserial$(EXEEXT) \
 	dfbtest_window$(EXEEXT) dfbtest_window_cursor$(EXEEXT) \
 	dfbtest_window_flip$(EXEEXT) dfbtest_window_flip_once$(EXEEXT) \
 	dfbtest_window_surface$(EXEEXT) \
@@ -232,9 +231,6 @@ dfbtest_surface_updates_DEPENDENCIES = $(am__DEPENDENCIES_3)
 am_dfbtest_sync_OBJECTS = dfbtest_sync.$(OBJEXT)
 dfbtest_sync_OBJECTS = $(am_dfbtest_sync_OBJECTS)
 dfbtest_sync_DEPENDENCIES = $(am__DEPENDENCIES_3)
-am_dfbtest_video_OBJECTS = dfbtest_video.$(OBJEXT)
-dfbtest_video_OBJECTS = $(am_dfbtest_video_OBJECTS)
-dfbtest_video_DEPENDENCIES = $(am__DEPENDENCIES_3)
 am_dfbtest_waitserial_OBJECTS = dfbtest_waitserial.$(OBJEXT)
 dfbtest_waitserial_OBJECTS = $(am_dfbtest_waitserial_OBJECTS)
 dfbtest_waitserial_DEPENDENCIES = $(am__DEPENDENCIES_3)
@@ -341,7 +337,6 @@ SOURCES = $(coretest_blit2_SOURCES) $(dfbtest_blit_SOURCES) \
 	$(dfbtest_surface_compositor_SOURCES) \
 	$(dfbtest_surface_compositor_threads_SOURCES) \
 	$(dfbtest_surface_updates_SOURCES) $(dfbtest_sync_SOURCES) \
-	$(dfbtest_video_SOURCES) $(dfbtest_waitserial_SOURCES) \
 	$(dfbtest_window_SOURCES) $(dfbtest_window_cursor_SOURCES) \
 	$(dfbtest_window_flip_SOURCES) \
 	$(dfbtest_window_flip_once_SOURCES) \
@@ -366,7 +361,6 @@ DIST_SOURCES = $(coretest_blit2_SOURCES) $(dfbtest_blit_SOURCES) \
 	$(dfbtest_surface_compositor_SOURCES) \
 	$(dfbtest_surface_compositor_threads_SOURCES) \
 	$(dfbtest_surface_updates_SOURCES) $(dfbtest_sync_SOURCES) \
-	$(dfbtest_video_SOURCES) $(dfbtest_waitserial_SOURCES) \
 	$(dfbtest_window_SOURCES) $(dfbtest_window_cursor_SOURCES) \
 	$(dfbtest_window_flip_SOURCES) \
 	$(dfbtest_window_flip_once_SOURCES) \
@@ -748,8 +742,6 @@ dfbtest_surface_updates_SOURCES = dfbtest_surface_updates.c
 dfbtest_surface_updates_LDADD = $(DFB_BASE_LIBS)
 dfbtest_sync_SOURCES = dfbtest_sync.c
 dfbtest_sync_LDADD = $(DFB_BASE_LIBS)
-dfbtest_video_SOURCES = dfbtest_video.c
-dfbtest_video_LDADD = $(DFB_BASE_LIBS)
 dfbtest_waitserial_SOURCES = dfbtest_waitserial.c
 dfbtest_waitserial_LDADD = $(DFB_BASE_LIBS)
 dfbtest_window_SOURCES = dfbtest_window.c
@@ -971,10 +963,6 @@ dfbtest_sync$(EXEEXT): $(dfbtest_sync_OBJECTS) $(dfbtest_sync_DEPENDENCIES) $(EX
 	@rm -f dfbtest_sync$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(dfbtest_sync_OBJECTS) $(dfbtest_sync_LDADD) $(LIBS)
 
-dfbtest_video$(EXEEXT): $(dfbtest_video_OBJECTS) $(dfbtest_video_DEPENDENCIES) $(EXTRA_dfbtest_video_DEPENDENCIES) 
-	@rm -f dfbtest_video$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(dfbtest_video_OBJECTS) $(dfbtest_video_LDADD) $(LIBS)
-
 dfbtest_waitserial$(EXEEXT): $(dfbtest_waitserial_OBJECTS) $(dfbtest_waitserial_DEPENDENCIES) $(EXTRA_dfbtest_waitserial_DEPENDENCIES) 
 	@rm -f dfbtest_waitserial$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(dfbtest_waitserial_OBJECTS) $(dfbtest_waitserial_LDADD) $(LIBS)
@@ -1078,7 +1066,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_surface_compositor_threads.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_surface_updates.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_sync.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_video.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_waitserial.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_window.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dfbtest_window_cursor.Po@am__quote@

@@ -83,7 +83,6 @@
 #include <input/idirectfbinputdevice.h>
 #include <media/idirectfbfont.h>
 #include <media/idirectfbimageprovider.h>
-#include <media/idirectfbvideoprovider.h>
 #include <media/idirectfbdatabuffer.h>
 
 #include <idirectfb.h>
@@ -1382,44 +1381,6 @@ IDirectFB_CreateImageProvider( IDirectFB               *thiz,
 }
 
 static DFBResult
-IDirectFB_CreateVideoProvider( IDirectFB               *thiz,
-                               const char              *filename,
-                               IDirectFBVideoProvider **interface )
-{
-     DFBResult                 ret;
-     DFBDataBufferDescription  desc;
-     IDirectFBDataBuffer      *databuffer;
-     IDirectFBVideoProvider   *iface;
-
-     DIRECT_INTERFACE_GET_DATA(IDirectFB)
-
-     D_DEBUG_AT( IDFB, "%s( %p, '%s' )\n", __FUNCTION__, thiz, filename );
-
-     /* Check arguments */
-     if (!interface || !filename)
-          return DFB_INVARG;
-
-     /* Create a data buffer. */
-     desc.flags = DBDESC_FILE;
-     desc.file  = filename;
-
-     ret = thiz->CreateDataBuffer( thiz, &desc, &databuffer );
-     if (ret)
-          return ret;
-
-     /* Create (probing) the video provider. */
-     ret = IDirectFBVideoProvider_CreateFromBuffer( databuffer, data->core, &iface );
-
-     /* We don't need it anymore, video provider has its own reference. */
-     databuffer->Release( databuffer );
-
-     if (!ret)
-          *interface = iface;
-
-     return ret;
-}
-
-static DFBResult
 IDirectFB_CreateFont( IDirectFB                 *thiz,
                       const char                *filename,
                       const DFBFontDescription  *desc,
@@ -2046,7 +2007,6 @@ IDirectFB_Construct( IDirectFB *thiz, CoreDFB *core )
      thiz->CreateEventBuffer = IDirectFB_CreateEventBuffer;
      thiz->CreateInputEventBuffer = IDirectFB_CreateInputEventBuffer;
      thiz->CreateImageProvider = IDirectFB_CreateImageProvider;
-     thiz->CreateVideoProvider = IDirectFB_CreateVideoProvider;
      thiz->CreateFont = IDirectFB_CreateFont;
      thiz->CreateDataBuffer = IDirectFB_CreateDataBuffer;
      thiz->SetClipboardData = IDirectFB_SetClipboardData;
