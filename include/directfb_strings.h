@@ -50,6 +50,7 @@ struct DFBPixelFormatName {
      { DSPF_RGBAF88871, "RGBAF88871" }, \
      { DSPF_LUT4, "LUT4" }, \
      { DSPF_ALUT8, "ALUT8" }, \
+     { DSPF_LUT1, "LUT1" }, \
      { DSPF_UNKNOWN, "UNKNOWN" } \
 };
 
@@ -435,6 +436,12 @@ struct DFBScreenOutputResolutionName {
      { DSOR_1920_1080, "1920_1080" }, \
      { DSOR_960_540, "960_540" }, \
      { DSOR_1440_540, "1440_540" }, \
+     { DSOR_800_480, "800_480" }, \
+     { DSOR_1024_600, "1024_600" }, \
+     { DSOR_1366_768, "1366_768" }, \
+     { DSOR_1920_1200, "1920_1200" }, \
+     { DSOR_2560_1440, "2560_1440" }, \
+     { DSOR_2560_1600, "2560_1600" }, \
      { DSOR_UNKNOWN, "UNKNOWN" } \
 };
 

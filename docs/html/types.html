@@ -4089,6 +4089,13 @@
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
       <font color=#303030>16 bit   LUT (1 byte alpha and 8 bit color lookup from palette) </font>
     </TD></TR>
+    <TR><TD width=32>&nbsp;</TD><TD valign=top>
+      <font color=#429023><b>DSPF_LUT1</b></font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#234269>DFB_SURFACE_PIXELFORMAT( 41,  1, 0, 1, 1, 0, 7, 0, 0, 1, 0 )</font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#303030>1 bit    LUT (1 byte/ 8 pixel, 1 bit color and alpha lookup from palette) </font>
+    </TD></TR>
   </TABLE>
 </p><p>
   
@@ -4102,7 +4109,7 @@
     </h3>
   </a>
   <h4></h4>
-  <font color=#232342 size=+1><b>41</b></font>
+  <font color=#232342 size=+1><b>42</b></font>
 </p><p>
   
 </p><hr>
@@ -7139,11 +7146,53 @@
       <font color=#303030>1440x540 Resolution </font>
     </TD></TR>
     <TR><TD width=32>&nbsp;</TD><TD valign=top>
+      <font color=#429023><b>DSOR_800_480</b></font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#234269>0x00008000</font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#303030>800x480 Resolution </font>
+    </TD></TR>
+    <TR><TD width=32>&nbsp;</TD><TD valign=top>
+      <font color=#429023><b>DSOR_1024_600</b></font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#234269>0x00010000</font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#303030>1024x600 Resolution </font>
+    </TD></TR>
+    <TR><TD width=32>&nbsp;</TD><TD valign=top>
+      <font color=#429023><b>DSOR_1366_768</b></font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#234269>0x00020000</font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#303030>1366x768 Resolution </font>
+    </TD></TR>
+    <TR><TD width=32>&nbsp;</TD><TD valign=top>
+      <font color=#429023><b>DSOR_1920_1200</b></font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#234269>0x00040000</font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#303030>1920x1200 Resolution </font>
+    </TD></TR>
+    <TR><TD width=32>&nbsp;</TD><TD valign=top>
+      <font color=#429023><b>DSOR_2560_1440</b></font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#234269>0x00080000</font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#303030>2560x1440 Resolution </font>
+    </TD></TR>
+    <TR><TD width=32>&nbsp;</TD><TD valign=top>
+      <font color=#429023><b>DSOR_2560_1600</b></font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#234269>0x00100000</font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#303030>2650x1600 Resolution </font>
+    </TD></TR>
+    <TR><TD width=32>&nbsp;</TD><TD valign=top>
       <font color=#429023><b>DSOR_ALL</b></font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00007FFF</font>
+      <font color=#234269>0x001FFFFF</font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>All Resolution </font>
+      <font color=#303030>All Resolutions </font>
     </TD></TR>
   </TABLE>
 </p><p>
@@ -8591,6 +8640,13 @@
 </h4>
   <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
     <TR><TD width=32>&nbsp;</TD><TD valign=top>
+      <font color=#429023><b>DSSE_NONE</b></font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#234269>0x00000000</font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#303030>None </font>
+    </TD></TR>
+    <TR><TD width=32>&nbsp;</TD><TD valign=top>
       <font color=#429023><b>DSSE_LEFT</b></font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
       <font color=#234269>0x00000001</font>
@@ -9410,16 +9466,9 @@
       <font color=#303030>universal event for custom usage with variable size </font>
     </TD></TR>
     <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DFEC_VIDEOPROVIDER</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x05</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>video provider event </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
       <font color=#429023><b>DFEC_SURFACE</b></font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x06</font>
+      <font color=#234269>0x05</font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
       <font color=#303030>surface event </font>
     </TD></TR>
@@ -10073,143 +10122,18 @@
       <font color=#303030>repeat event, e.g. repeating key </font>
     </TD></TR>
     <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DWEF_ALL</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000013</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>all of these </font>
-    </TD></TR>
-  </TABLE>
-</p><p>
-  
-
-</p><hr>
-<p>
-  <a name="DFBVideoProviderEventType" href="#DFBVideoProviderEventType">
-    <h3><font color=#B04223>DFBVideoProviderEventType</font></h3>
-  </a>
-  <h4>
-        Video Provider Event Types - can also be used as flags for event filters.
-</h4>
-  <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_NONE</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000000</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030></font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_STARTED</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000001</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The video provider has started the playback     </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_STOPPED</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000002</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The video provider has stopped the playback     </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_SPEEDCHANGE</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000004</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>A speed change has occured                      </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_STREAMCHANGE</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000008</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>A stream description change has occured         </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_FATALERROR</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000010</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>A fatal error has occured: restart must be done </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_FINISHED</b></font>
+      <font color=#429023><b>DWEF_DEVICE_ID</b></font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
       <font color=#234269>0x00000020</font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The video provider has finished the playback    </font>
+      <font color=#303030>device_id field of <a href="types.html#DFBInputEvent">DFBInputEvent</a> is valid </font>
     </TD></TR>
     <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_SURFACECHANGE</b></font>
+      <font color=#429023><b>DWEF_ALL</b></font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000040</font>
+      <font color=#234269>0x00000033</font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>A surface description change has occured        </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_FRAMEDECODED</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000080</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>A frame has been decoded by the decoder         </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_FRAMEDISPLAYED</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000100</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>A frame has been rendered to the output         </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_DATAEXHAUSTED</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000200</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>There is no more data available for consumption </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_VIDEOACTION</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000400</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>An action is required on the video provider     </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_DATALOW</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000800</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The stream buffer is running low in data (threshold defined by implementation). </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_DATAHIGH</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00001000</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The stream buffer is high. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_BUFFERTIMELOW</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00002000</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The stream buffer has less than requested playout time buffered. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_BUFFERTIMEHIGH</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00004000</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The stream buffer has more than requested playout time buffered. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPET_ALL</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00007FFF</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>All event types </font>
+      <font color=#303030>all of these </font>
     </TD></TR>
   </TABLE>
 </p><p>
@@ -10246,9 +10170,16 @@
       <font color=#303030> </font>
     </TD></TR>
     <TR><TD width=32>&nbsp;</TD><TD valign=top>
+      <font color=#429023><b>DSEVT_DISPLAY</b></font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#234269>0x00000004</font>
+    </TD><TD width=20>&nbsp;</TD><TD valign=top>
+      <font color=#303030> </font>
+    </TD></TR>
+    <TR><TD width=32>&nbsp;</TD><TD valign=top>
       <font color=#429023><b>DSEVT_ALL</b></font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000003</font>
+      <font color=#234269>0x00000007</font>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
       <font color=#303030>All event types </font>
     </TD></TR>
@@ -10468,105 +10399,14 @@
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
       <font color=#303030>always set </font>
     </TD></TR>
-  </TABLE>
-</p><p>
-  
-
-</p><hr>
-<p>
-  <a name="DFBVideoProviderEventDataSubType" href="#DFBVideoProviderEventDataSubType">
-    <h3><font color=#B04223>DFBVideoProviderEventDataSubType</font></h3>
-  </a>
-  <h4>
-        Video Provider Event Types - can also be used as flags for event filters.
-</h4>
-  <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
     <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPEDST_UNKNOWN</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000000</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Event is valid for unknown Data   </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPEDST_AUDIO</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000001</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Event is valid for Audio Data     </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPEDST_VIDEO</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000002</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Event is valid for Video Data     </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPEDST_DATA</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000004</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Event is valid for Data types     </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVPEDST_ALL</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000007</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Event is valid for all Data types </font>
-    </TD></TR>
-  </TABLE>
-</p><p>
-  
-
-</p><hr>
-<p>  <a name="DFBVideoProviderEvent" href="#DFBVideoProviderEvent">
-    <h3><font color=#238423>DFBVideoProviderEvent</font></h3>
-  </a>
-  <h4>
-        Event from the video provider
-</h4>
-  <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <A href="types.html#DFBEventClass">DFBEventClass</A>
+      DFBInputDeviceID
     </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
       <FONT color=#424242></FONT>
     </TD><TD valign=top>
-      <FONT color=#234269><B>clazz</B></FONT>
+      <FONT color=#234269><B>device_id</B></FONT>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>clazz of event </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <A href="types.html#DFBVideoProviderEventType">DFBVideoProviderEventType</A>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>type</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>type of event </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <A href="types.html#DFBVideoProviderEventDataSubType">DFBVideoProviderEventDataSubType</A>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>data_type</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>data type that this event is applicable for. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>data[4]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>
-        custom data - large enough for 4 ints so that in most cases
-
-        memory allocation will not be needed 
-</font>
+      <font color=#303030></font>
     </TD></TR>
   </TABLE>
 </p><p>
@@ -10774,15 +10614,6 @@
       <font color=#303030>field for universal events </font>
     </TD></TR>
     <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <A href="types.html#DFBVideoProviderEvent">DFBVideoProviderEvent</A>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>videoprovider</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>field for video provider </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
       <A href="types.html#DFBSurfaceEvent">DFBSurfaceEvent</A>
     </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
       <FONT color=#424242></FONT>
@@ -10857,15 +10688,6 @@
       <FONT color=#424242></FONT>
     </TD><TD valign=top>
       <FONT color=#234269><B>DFEC_UNIVERSAL</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Number of universal events. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>DFEC_VIDEOPROVIDER</B></FONT>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
       <font color=#303030>Number of universal events. </font>
     </TD></TR>
@@ -11145,15 +10967,6 @@
       <FONT color=#424242></FONT>
     </TD><TD valign=top>
       <FONT color=#234269><B>DVPET_DATALOW</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030></font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>DVPET_VIDEOACTION</B></FONT>
     </TD><TD width=20>&nbsp;</TD><TD valign=top>
       <font color=#303030></font>
     </TD></TR>
@@ -11539,547 +11352,6 @@
   </TABLE>
 </p><p>
   
-</p><hr>
-<p>
-  <a name="DFBStreamCapabilities" href="#DFBStreamCapabilities">
-    <h3><font color=#B04223>DFBStreamCapabilities</font></h3>
-  </a>
-  <h4>
-        Capabilities of an audio/video stream.
-</h4>
-  <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVSCAPS_NONE</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000000</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>None of these.         </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVSCAPS_VIDEO</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000001</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Stream contains video. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DVSCAPS_AUDIO</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000002</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Stream contains audio. </font>
-    </TD></TR>
-  </TABLE>
-</p><p>
-  
-
-</p><hr>
-<p>
-  <a name="DFB_STREAM_DESC_ENCODING_LENGTH" href="#DFB_STREAM_DESC_ENCODING_LENGTH">
-    <h3>
-        <font color=#2342A0>DFB_STREAM_DESC_ENCODING_LENGTH</font>
-        <font color=#606080></font>
-    </h3>
-  </a>
-  <h4></h4>
-  <font color=#232342 size=+1><b>30</b></font>
-</p><p>
-  
-</p><hr>
-<p>
-  <a name="DFB_STREAM_DESC_TITLE_LENGTH" href="#DFB_STREAM_DESC_TITLE_LENGTH">
-    <h3>
-        <font color=#2342A0>DFB_STREAM_DESC_TITLE_LENGTH</font>
-        <font color=#606080></font>
-    </h3>
-  </a>
-  <h4></h4>
-  <font color=#232342 size=+1><b>255</b></font>
-</p><p>
-  
-</p><hr>
-<p>
-  <a name="DFB_STREAM_DESC_AUTHOR_LENGTH" href="#DFB_STREAM_DESC_AUTHOR_LENGTH">
-    <h3>
-        <font color=#2342A0>DFB_STREAM_DESC_AUTHOR_LENGTH</font>
-        <font color=#606080></font>
-    </h3>
-  </a>
-  <h4></h4>
-  <font color=#232342 size=+1><b>255</b></font>
-</p><p>
-  
-</p><hr>
-<p>
-  <a name="DFB_STREAM_DESC_ALBUM_LENGTH" href="#DFB_STREAM_DESC_ALBUM_LENGTH">
-    <h3>
-        <font color=#2342A0>DFB_STREAM_DESC_ALBUM_LENGTH</font>
-        <font color=#606080></font>
-    </h3>
-  </a>
-  <h4></h4>
-  <font color=#232342 size=+1><b>255</b></font>
-</p><p>
-  
-</p><hr>
-<p>
-  <a name="DFB_STREAM_DESC_GENRE_LENGTH" href="#DFB_STREAM_DESC_GENRE_LENGTH">
-    <h3>
-        <font color=#2342A0>DFB_STREAM_DESC_GENRE_LENGTH</font>
-        <font color=#606080></font>
-    </h3>
-  </a>
-  <h4></h4>
-  <font color=#232342 size=+1><b>32</b></font>
-</p><p>
-  
-</p><hr>
-<p>
-  <a name="DFB_STREAM_DESC_COMMENT_LENGTH" href="#DFB_STREAM_DESC_COMMENT_LENGTH">
-    <h3>
-        <font color=#2342A0>DFB_STREAM_DESC_COMMENT_LENGTH</font>
-        <font color=#606080></font>
-    </h3>
-  </a>
-  <h4></h4>
-  <font color=#232342 size=+1><b>255</b></font>
-</p><p>
-  
-</p><hr>
-<p>  <a name="DFBStreamDescription" href="#DFBStreamDescription">
-    <h3><font color=#238423>DFBStreamDescription</font></h3>
-  </a>
-  <h4>
-        Informations about an audio/video stream.
-</h4>
-  <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <A href="types.html#DFBStreamCapabilities">DFBStreamCapabilities</A>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>caps</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>capabilities </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      char
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>encoding[DFB_STREAM_DESC_ENCODING_LENGTH]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>encoding (e.g. "AAC") </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      double
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>framerate</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>number of frames per second </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      double
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>aspect</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>frame aspect ratio </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>bitrate</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>amount of bits per second </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>afd</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Active Format Descriptor </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>width</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Width as reported by Sequence Header </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>height</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Height as reported by Sequence Header </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      char
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>encoding[DFB_STREAM_DESC_ENCODING_LENGTH]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>encoding (e.g. "AAC") </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>samplerate</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>number of samples per second </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>channels</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>number of channels per sample </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>bitrate</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>amount of bits per second </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      char
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>title[DFB_STREAM_DESC_TITLE_LENGTH]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>title   </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      char
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>author[DFB_STREAM_DESC_AUTHOR_LENGTH]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>author  </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      char
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>album[DFB_STREAM_DESC_ALBUM_LENGTH]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>album   </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      short
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>year</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>year    </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      char
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>genre[DFB_STREAM_DESC_GENRE_LENGTH]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>genre   </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      char
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>comment[DFB_STREAM_DESC_COMMENT_LENGTH]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>comment </font>
-    </TD></TR>
-  </TABLE>
-</p><p>
-  
-
-</p><hr>
-<p>
-  <a name="DFBStreamFormat" href="#DFBStreamFormat">
-    <h3><font color=#B04223>DFBStreamFormat</font></h3>
-  </a>
-  <h4>
-        Type of an audio stream.
-</h4>
-  <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DSF_ES</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000000</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>ES.  </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <font color=#429023><b>DSF_PES</b></font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#234269>0x00000001</font>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>PES. </font>
-    </TD></TR>
-  </TABLE>
-</p><p>
-  
-
-</p><hr>
-<p>  <a name="DFBStreamAttributes" href="#DFBStreamAttributes">
-    <h3><font color=#238423>DFBStreamAttributes</font></h3>
-  </a>
-  <h4>
-        Stream attributes for an audio/video stream.
-</h4>
-  <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      char
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>encoding[DFB_STREAM_DESC_ENCODING_LENGTH]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>encoding (e.g. "AAC") </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <A href="types.html#DFBStreamFormat">DFBStreamFormat</A>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>format</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>format of the audio stream </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      char
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>encoding[DFB_STREAM_DESC_ENCODING_LENGTH]</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>encoding (e.g. "AAC") </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <A href="types.html#DFBStreamFormat">DFBStreamFormat</A>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>format</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>format of the audio stream </font>
-    </TD></TR>
-  </TABLE>
-</p><p>
-  
-
-</p><hr>
-<p>  <a name="DFBBufferOccupancy" href="#DFBBufferOccupancy">
-    <h3><font color=#238423>DFBBufferOccupancy</font></h3>
-  </a>
-  <h4>
-        Buffer levels and occupancy for Audio/Video input buffers.
-</h4>
-  <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <A href="types.html#DFBStreamCapabilities">DFBStreamCapabilities</A>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>valid</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Which of the Audio / Video sections are valid. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>buffer_size</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Size in bytes of the input buffer to audio decoder </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>minimum_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_DATALOW event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>maximum_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_DATAHIGH event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>current_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Current fill level of audio input buffer.</font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>buffer_size</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Size in bytes of the input buffer to audio decoder </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>minimum_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_DATALOW event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>maximum_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_DATAHIGH event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>current_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Current fill level of audio input buffer.</font>
-    </TD></TR>
-  </TABLE>
-</p><p>
-  
-
-</p><hr>
-<p>  <a name="DFBBufferThresholds" href="#DFBBufferThresholds">
-    <h3><font color=#238423>DFBBufferThresholds</font></h3>
-  </a>
-  <h4>
-        Buffer thresholds for Audio and Video.
-</h4>
-  <TABLE border=0 cellspacing=4 cellpadding=2 bgcolor=#D8E0E8>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      <A href="types.html#DFBStreamCapabilities">DFBStreamCapabilities</A>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>selection</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>Which of the Audio / Video are we setting? </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>minimum_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_DATALOW event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>maximum_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_DATAHIGH event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>minimum_time</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_BUFFERTIMELOW event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>maximum_time</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_BUFFERTIMEHIGH event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>minimum_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_DATALOW event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>maximum_level</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_DATAHIGH event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>minimum_time</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_BUFFERTIMELOW event will be generated. </font>
-    </TD></TR>
-    <TR><TD width=32>&nbsp;</TD><TD valign=top>
-      unsigned int
-    </TD><TD width=20>&nbsp;</TD><TD valign=top align=right>
-      <FONT color=#424242></FONT>
-    </TD><TD valign=top>
-      <FONT color=#234269><B>maximum_time</B></FONT>
-    </TD><TD width=20>&nbsp;</TD><TD valign=top>
-      <font color=#303030>The level at which a DVPET_BUFFERTIMEHIGH event will be generated. </font>
-    </TD></TR>
-  </TABLE>
-</p><p>
-  
-
 </p><hr>
 <p>
   <a name="DFBInputDeviceKeyType" href="#DFBInputDeviceKeyType">

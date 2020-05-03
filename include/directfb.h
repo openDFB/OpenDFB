@@ -1349,12 +1349,14 @@ typedef enum {
      DSPF_LUT4      = DFB_SURFACE_PIXELFORMAT( 39,  4, 0, 1, 4, 0, 1, 0, 0, 1, 0 ),
 
      /*  16 bit   LUT (1 byte alpha and 8 bit color lookup from palette) */
-     DSPF_ALUT8     = DFB_SURFACE_PIXELFORMAT( 40,  8, 8, 1, 0, 2, 0, 0, 0, 1, 0 )
+     DSPF_ALUT8     = DFB_SURFACE_PIXELFORMAT( 40,  8, 8, 1, 0, 2, 0, 0, 0, 1, 0 ),
 
+     /*  1 bit    LUT (1 byte/ 8 pixel, 1 bit color and alpha lookup from palette) */
+     DSPF_LUT1      = DFB_SURFACE_PIXELFORMAT( 41,  1, 0, 1, 1, 0, 7, 0, 0, 1, 0 )
 } DFBSurfacePixelFormat;
 
 /* Number of pixelformats defined */
-#define DFB_NUM_PIXELFORMATS            41
+#define DFB_NUM_PIXELFORMATS            42
 
 /* These macros extract information about the pixel format. */
 #define DFB_PIXELFORMAT_INDEX(fmt)      (((fmt) & 0x0000007F)      )
@@ -2476,7 +2478,13 @@ typedef enum {
     DSOR_1920_1080 = 0x00001000, /* 1920x1080 Resolution */
     DSOR_960_540   = 0x00002000, /* 960x540 Resolution */
     DSOR_1440_540  = 0x00004000, /* 1440x540 Resolution */
-    DSOR_ALL       = 0x00007FFF  /* All Resolution */
+    DSOR_800_480   = 0x00008000, /* 800x480 Resolution */
+    DSOR_1024_600  = 0x00010000, /* 1024x600 Resolution */
+    DSOR_1366_768  = 0x00020000, /* 1366x768 Resolution */
+    DSOR_1920_1200 = 0x00040000, /* 1920x1200 Resolution */
+    DSOR_2560_1440 = 0x00080000, /* 2560x1440 Resolution */
+    DSOR_2560_1600 = 0x00100000, /* 2650x1600 Resolution */
+    DSOR_ALL       = 0x001FFFFF  /* All Resolutions */
 } DFBScreenOutputResolution;
 
 
@@ -3552,6 +3560,8 @@ typedef enum {
  * Stereo eye buffer.
  */
 typedef enum {
+     DSSE_NONE           = 0x00000000,  /* None */
+
      DSSE_LEFT           = 0x00000001,  /* Left eye buffers to be used for all future
                                            operations on this surface. */
      DSSE_RIGHT          = 0x00000002   /* Right eye buffers to be used for all future
@@ -4317,7 +4327,6 @@ D_DEFINE_INTERFACE(   IDirectFBSurface,
           IDirectFBSurface         *thiz,
           IDirectFBGL             **ret_interface
      );
-
 
    /** Debug **/
 
@@ -5103,8 +5112,7 @@ typedef enum {
      DFEC_WINDOW         = 0x02,   /* windowing event */
      DFEC_USER           = 0x03,   /* custom event for the user of this library */
      DFEC_UNIVERSAL      = 0x04,   /* universal event for custom usage with variable size */
-     DFEC_VIDEOPROVIDER  = 0x05,   /* video provider event */
-     DFEC_SURFACE        = 0x06    /* surface event */
+     DFEC_SURFACE        = 0x05    /* surface event */
 } DFBEventClass;
 
 /*
@@ -5259,32 +5267,10 @@ typedef enum {
      DWEF_RETURNED       = 0x00000001,  /* This is a returned event, e.g. unconsumed key. */
      DWEF_RELATIVE       = 0x00000002,  /* This is a relative motion event (using DWCF_RELATIVE) */
      DWEF_REPEAT         = 0x00000010,  /* repeat event, e.g. repeating key */
+     DWEF_DEVICE_ID      = 0x00000020,  /* device_id field of DFBInputEvent is valid */
 
-     DWEF_ALL            = 0x00000013   /* all of these */
+     DWEF_ALL            = 0x00000033   /* all of these */
 } DFBWindowEventFlags;
-
-/*
- * Video Provider Event Types - can also be used as flags for event filters.
- */
-typedef enum {
-     DVPET_NONE           = 0x00000000,
-     DVPET_STARTED        = 0x00000001,  /* The video provider has started the playback     */
-     DVPET_STOPPED        = 0x00000002,  /* The video provider has stopped the playback     */
-     DVPET_SPEEDCHANGE    = 0x00000004,  /* A speed change has occured                      */
-     DVPET_STREAMCHANGE   = 0x00000008,  /* A stream description change has occured         */
-     DVPET_FATALERROR     = 0x00000010,  /* A fatal error has occured: restart must be done */
-     DVPET_FINISHED       = 0x00000020,  /* The video provider has finished the playback    */
-     DVPET_SURFACECHANGE  = 0x00000040,  /* A surface description change has occured        */
-     DVPET_FRAMEDECODED   = 0x00000080,  /* A frame has been decoded by the decoder         */
-     DVPET_FRAMEDISPLAYED = 0x00000100,  /* A frame has been rendered to the output         */
-     DVPET_DATAEXHAUSTED  = 0x00000200,  /* There is no more data available for consumption */
-     DVPET_VIDEOACTION    = 0x00000400,  /* An action is required on the video provider     */
-     DVPET_DATALOW        = 0x00000800,  /* The stream buffer is running low in data (threshold defined by implementation). */
-     DVPET_DATAHIGH       = 0x00001000,  /* The stream buffer is high. */
-     DVPET_BUFFERTIMELOW  = 0x00002000,  /* The stream buffer has less than requested playout time buffered. */
-     DVPET_BUFFERTIMEHIGH = 0x00004000,  /* The stream buffer has more than requested playout time buffered. */
-     DVPET_ALL            = 0x00007FFF   /* All event types */
-} DFBVideoProviderEventType;
 
 /*
  * Surface Event Types - can also be used as flags for event filters.
@@ -5293,7 +5279,8 @@ typedef enum {
      DSEVT_NONE           = 0x00000000,
      DSEVT_DESTROYED      = 0x00000001,  /* surface got destroyed by global deinitialization function or the application itself */
      DSEVT_UPDATE         = 0x00000002,  /*  */
-     DSEVT_ALL            = 0x00000003   /* All event types */
+     DSEVT_DISPLAY        = 0x00000004,  /*  */
+     DSEVT_ALL            = 0x00000007   /* All event types */
 } DFBSurfaceEventType;
 
 /*
@@ -5351,32 +5338,9 @@ typedef struct {
                                                     pressed buttons */
 
      struct timeval                  timestamp;  /* always set */
+
+     DFBInputDeviceID                device_id;
 } DFBWindowEvent;
-
-/*
- * Video Provider Event Types - can also be used as flags for event filters.
- */
-typedef enum {
-     DVPEDST_UNKNOWN      = 0x00000000, /* Event is valid for unknown Data   */
-     DVPEDST_AUDIO        = 0x00000001, /* Event is valid for Audio Data     */
-     DVPEDST_VIDEO        = 0x00000002, /* Event is valid for Video Data     */
-     DVPEDST_DATA         = 0x00000004, /* Event is valid for Data types     */
-     DVPEDST_ALL          = 0x00000007  /* Event is valid for all Data types */
-
-} DFBVideoProviderEventDataSubType;
-
-/*
- * Event from the video provider
- */
-typedef struct {
-     DFBEventClass                    clazz;      /* clazz of event */
-
-     DFBVideoProviderEventType        type;       /* type of event */
-     DFBVideoProviderEventDataSubType data_type;  /* data type that this event is applicable for. */
-
-     int                              data[4];    /* custom data - large enough for 4 ints so that in most cases
-                                                     memory allocation will not be needed */
-} DFBVideoProviderEvent;
 
 /*
  * Event from surface
@@ -5384,8 +5348,8 @@ typedef struct {
 typedef struct {
      DFBEventClass                    clazz;      /* clazz of event */
 
+     // all types
      DFBSurfaceEventType              type;       /* type of event */
-
      DFBSurfaceID                     surface_id; /* source of event */
      DFBRegion                        update;
      DFBRegion                        update_right;
@@ -5426,7 +5390,6 @@ typedef union {
      DFBWindowEvent                  window;        /* field for window events */
      DFBUserEvent                    user;          /* field for user-defined events */
      DFBUniversalEvent               universal;     /* field for universal events */
-     DFBVideoProviderEvent           videoprovider; /* field for video provider */
      DFBSurfaceEvent                 surface;       /* field for surface events */
 } DFBEvent;
 
@@ -5442,7 +5405,6 @@ typedef struct {
      unsigned int   DFEC_WINDOW;             /* Number of window events. */
      unsigned int   DFEC_USER;               /* Number of user events. */
      unsigned int   DFEC_UNIVERSAL;          /* Number of universal events. */
-     unsigned int   DFEC_VIDEOPROVIDER;      /* Number of universal events. */
 
      unsigned int   DIET_KEYPRESS;
      unsigned int   DIET_KEYRELEASE;
@@ -5477,7 +5439,6 @@ typedef struct {
      unsigned int   DVPET_FRAMEDISPLAYED;
      unsigned int   DVPET_DATAEXHAUSTED;
      unsigned int   DVPET_DATALOW;
-     unsigned int   DVPET_VIDEOACTION;
      unsigned int   DVPET_DATAHIGH;
      unsigned int   DVPET_BUFFERTIMELOW;
      unsigned int   DVPET_BUFFERTIMEHIGH;
@@ -6736,130 +6697,6 @@ D_DEFINE_INTERFACE(   IDirectFBImageProvider,
           const char               *filename
      );
 )
-
-/*
- * Capabilities of an audio/video stream.
- */
-typedef enum {
-     DVSCAPS_NONE         = 0x00000000, /* None of these.         */
-     DVSCAPS_VIDEO        = 0x00000001, /* Stream contains video. */
-     DVSCAPS_AUDIO        = 0x00000002  /* Stream contains audio. */
-     /* DVSCAPS_SUBPICTURE ?! */
-} DFBStreamCapabilities;
-
-#define DFB_STREAM_DESC_ENCODING_LENGTH   30
-
-#define DFB_STREAM_DESC_TITLE_LENGTH     255
-
-#define DFB_STREAM_DESC_AUTHOR_LENGTH    255
-
-#define DFB_STREAM_DESC_ALBUM_LENGTH     255
-
-#define DFB_STREAM_DESC_GENRE_LENGTH      32
-
-#define DFB_STREAM_DESC_COMMENT_LENGTH   255
-
-/*
- * Informations about an audio/video stream.
- */
-typedef struct {
-     DFBStreamCapabilities  caps;         /* capabilities */
-
-     struct {
-          char              encoding[DFB_STREAM_DESC_ENCODING_LENGTH]; /* encoding (e.g. "MPEG4") */
-          double            framerate;    /* number of frames per second */
-          double            aspect;       /* frame aspect ratio */
-          int               bitrate;      /* amount of bits per second */
-    	  int               afd;          /* Active Format Descriptor */
-    	  int               width;        /* Width as reported by Sequence Header */
-    	  int               height;       /* Height as reported by Sequence Header */
-     } video;                             /* struct containing the above encoding properties for video */
-
-     struct {
-          char              encoding[DFB_STREAM_DESC_ENCODING_LENGTH]; /* encoding (e.g. "AAC") */
-          int               samplerate;   /* number of samples per second */
-          int               channels;     /* number of channels per sample */
-          int               bitrate;      /* amount of bits per second */
-     } audio;                             /* struct containing the above four encoding properties for audio */
-
-     char                   title[DFB_STREAM_DESC_TITLE_LENGTH];     /* title   */
-     char                   author[DFB_STREAM_DESC_AUTHOR_LENGTH];   /* author  */
-     char                   album[DFB_STREAM_DESC_ALBUM_LENGTH];     /* album   */
-     short                  year;                                    /* year    */
-     char                   genre[DFB_STREAM_DESC_GENRE_LENGTH];     /* genre   */
-     char                   comment[DFB_STREAM_DESC_COMMENT_LENGTH]; /* comment */
-} DFBStreamDescription;
-
-/*
- * Type of an audio stream.
- */
-typedef enum {
-     DSF_ES         = 0x00000000, /* ES.  */
-     DSF_PES        = 0x00000001  /* PES. */
-} DFBStreamFormat;
-
-/*
- * Stream attributes for an audio/video stream.
- */
-typedef struct {
-     struct {
-          char            encoding[DFB_STREAM_DESC_ENCODING_LENGTH]; /* encoding (e.g. "MPEG4") */
-          DFBStreamFormat format;                                    /* format of the video stream */
-     } video;                           /* struct containing the above two encoding properties for video */
-
-     struct {
-          char            encoding[DFB_STREAM_DESC_ENCODING_LENGTH]; /* encoding (e.g. "AAC") */
-          DFBStreamFormat format;                                    /* format of the audio stream */
-     } audio;                           /* struct containing the above two encoding properties for audio */
-} DFBStreamAttributes;
-
-/*
- * Buffer levels and occupancy for Audio/Video input buffers.
- */
-typedef struct {
-     DFBStreamCapabilities valid;        /* Which of the Audio / Video sections are valid. */
-
-     struct {
-         unsigned int  buffer_size;      /* Size in bytes of the input buffer to video decoder */
-         unsigned int  minimum_level;    /* The level at which a DVPET_DATALOW event will be generated. */
-         unsigned int  maximum_level;    /* The level at which a DVPET_DATAHIGH event will be generated. */
-         unsigned int  current_level;    /* Current fill level of video input buffer.*/
-     } video;                           /* struct containing the above two encoding properties for video */
-
-     struct {
-         unsigned int  buffer_size;      /* Size in bytes of the input buffer to audio decoder */
-         unsigned int  minimum_level;    /* The level at which a DVPET_DATALOW event will be generated. */
-         unsigned int  maximum_level;    /* The level at which a DVPET_DATAHIGH event will be generated. */
-         unsigned int  current_level;    /* Current fill level of audio input buffer.*/
-     } audio;                           /* struct containing the above two encoding properties for audio */
-} DFBBufferOccupancy;
-
-/*
- * Buffer thresholds for Audio and Video.
- */
-typedef struct {
-     DFBStreamCapabilities selection;    /* Which of the Audio / Video are we setting? */
-
-     struct {
-          unsigned int  minimum_level;   /* The level at which a DVPET_DATALOW event will be generated. */
-          unsigned int  maximum_level;   /* The level at which a DVPET_DATAHIGH event will be generated. */
-          unsigned int  minimum_time;    /* The level at which a DVPET_BUFFERTIMELOW event will be generated. */
-          unsigned int  maximum_time;    /* The level at which a DVPET_BUFFERTIMEHIGH event will be generated. */
-     } video;                           /* struct containing the above two encoding properties for video */
-
-     struct {
-          unsigned int  minimum_level;   /* The level at which a DVPET_DATALOW event will be generated. */
-          unsigned int  maximum_level;   /* The level at which a DVPET_DATAHIGH event will be generated. */
-          unsigned int  minimum_time;    /* The level at which a DVPET_BUFFERTIMELOW event will be generated. */
-          unsigned int  maximum_time;    /* The level at which a DVPET_BUFFERTIMEHIGH event will be generated. */
-     } audio;                           /* struct containing the above two encoding properties for audio */
-} DFBBufferThresholds;
-
-/*
- * Called for each written frame.
- */
-typedef void (*DVFrameCallback)(void *ctx);
-
 
 /***********************
  * IDirectFBDataBuffer *

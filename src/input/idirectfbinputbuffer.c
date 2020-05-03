@@ -375,10 +375,6 @@ IDirectFBEventBuffer_GetEvent( IDirectFBEventBuffer *thiz,
                event->user = item->evt.user;
                break;
 
-          case DFEC_VIDEOPROVIDER:
-               event->videoprovider = item->evt.videoprovider;
-               break;
-
           case DFEC_UNIVERSAL:
                direct_memcpy( event, &item->evt, item->evt.universal.size );
                break;
@@ -440,10 +436,6 @@ IDirectFBEventBuffer_PeekEvent( IDirectFBEventBuffer *thiz,
                event->user = item->evt.user;
                break;
 
-          case DFEC_VIDEOPROVIDER:
-               event->videoprovider = item->evt.videoprovider;
-               break;
-
           case DFEC_UNIVERSAL:
                direct_memcpy( event, &item->evt, item->evt.universal.size );
                break;
@@ -492,7 +484,6 @@ IDirectFBEventBuffer_PostEvent( IDirectFBEventBuffer *thiz,
           case DFEC_INPUT:
           case DFEC_WINDOW:
           case DFEC_USER:
-          case DFEC_VIDEOPROVIDER:
           case DFEC_SURFACE:
                size = sizeof(EventBufferItem);
                break;
@@ -527,10 +518,6 @@ IDirectFBEventBuffer_PostEvent( IDirectFBEventBuffer *thiz,
 
           case DFEC_USER:
                item->evt.user = event->user;
-               break;
-
-          case DFEC_VIDEOPROVIDER:
-               item->evt.videoprovider = event->videoprovider;
                break;
 
           case DFEC_UNIVERSAL:
@@ -1196,75 +1183,6 @@ CollectEventStatistics( DFBEventBufferStats *stats,
 
           case DFEC_USER:
                stats->DFEC_USER += incdec;
-               break;
-
-          case DFEC_VIDEOPROVIDER:
-               stats->DFEC_VIDEOPROVIDER +=incdec;
-
-               switch (event->videoprovider.type) {
-                    case DVPET_STARTED:
-                         stats->DVPET_STARTED += incdec;
-                         break;
-
-                    case DVPET_STOPPED:
-                         stats->DVPET_STOPPED += incdec;
-                         break;
-
-                    case DVPET_SPEEDCHANGE:
-                         stats->DVPET_SPEEDCHANGE += incdec;
-                         break;
-
-                    case DVPET_STREAMCHANGE:
-                         stats->DVPET_STREAMCHANGE += incdec;
-                         break;
-
-                    case DVPET_FATALERROR:
-                         stats->DVPET_FATALERROR += incdec;
-                         break;
-                    
-                    case DVPET_FINISHED:
-                         stats->DVPET_FINISHED += incdec;
-                         break;
-                         
-                    case DVPET_SURFACECHANGE:
-                         stats->DVPET_SURFACECHANGE += incdec;
-                         break;
-
-                    case DVPET_FRAMEDECODED:
-                         stats->DVPET_FRAMEDECODED += incdec;
-                         break;
-
-                    case DVPET_FRAMEDISPLAYED:
-                         stats->DVPET_FRAMEDISPLAYED += incdec;
-                         break;
-
-                    case DVPET_DATAEXHAUSTED:
-                         stats->DVPET_DATAEXHAUSTED += incdec;
-                         break;
-
-                    case DVPET_VIDEOACTION:
-                         stats->DVPET_VIDEOACTION += incdec;
-                         break;
-
-                    case DVPET_DATALOW:
-                         stats->DVPET_DATALOW += incdec;
-                         break;
-
-                   case DVPET_DATAHIGH:
-                         stats->DVPET_DATAHIGH += incdec;
-                         break;
-
-                   case DVPET_BUFFERTIMELOW:
-                         stats->DVPET_BUFFERTIMELOW += incdec;
-                         break;
-
-                   case DVPET_BUFFERTIMEHIGH:
-                         stats->DVPET_BUFFERTIMEHIGH += incdec;
-                         break;
-
-                    default:
-                         D_BUG( "unknown video provider event type 0x%08x\n", event->videoprovider.type );
-               }
                break;
 
           case DFEC_UNIVERSAL:
