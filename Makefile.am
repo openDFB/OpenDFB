@@ -14,7 +14,6 @@ if BUILD_TESTS
 TESTS_DIR = tests
 endif
 
-
 if ENABLE_DIVINE
 DIVINE_DIR = lib/divine
 endif
@@ -31,13 +30,13 @@ SUBDIRS = \
 	systems			\
 	wm			\
 	interfaces 		\
+	rules		\
+	build-android	\
 	$(TOOLS_DIR)		\
 	$(SAWMAN_DIR)		\
 	$(DIVINE_DIR)		\
 	$(LINUXONLY_DIRS) \
-	$(TESTS_DIR)		\
-	rules			\
-	build-android
+	$(TESTS_DIR)
 
 bin_SCRIPTS = directfb-config
 

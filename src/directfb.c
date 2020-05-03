@@ -182,10 +182,8 @@ DirectFBCreate( IDirectFB **interface_ptr )
      if ( !(direct_config->quiet & DMT_BANNER) && dfb_config->banner) {
           direct_log_printf( NULL,
                              "\n"
-                             "   ~~~~~~~~~~~~~~~~~~~~~~~~~~| DirectFB " DIRECTFB_VERSION DIRECTFB_VERSION_VENDOR " |~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                             "        (c) 2012-2013  DirectFB integrated media GmbH\n"
-                             "        (c) 2001-2013  The world wide DirectFB Open Source Community\n"
-                             "        (c) 2000-2004  Convergence (integrated media) GmbH\n"
+                             "   ~~~~~~~~~~~~~~~~~~~~~~~~~~| OpenDFB " DIRECTFB_VERSION DIRECTFB_VERSION_VENDOR " |~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                             "        Powered by OpenDFB!!!\n"
                              "      ----------------------------------------------------------------\n"
                              "\n" );
      }
