@@ -1808,8 +1808,6 @@ lib/sawman/sawman.pc
 
 lib/divine/Makefile
 lib/divine/divine.pc
-patches/Makefile
-
 
 rules/Makefile
 

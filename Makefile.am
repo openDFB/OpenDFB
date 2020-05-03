@@ -36,7 +36,6 @@ SUBDIRS = \
 	$(DIVINE_DIR)		\
 	$(LINUXONLY_DIRS) \
 	$(TESTS_DIR)		\
-	patches			\
 	rules			\
 	build-android
 
