@@ -22,13 +22,6 @@ OpenDFB关注以下功能，其他功能和规格均会被删除或不会被纳�
 
 ## HOW TO USE OPENDFB
 
-### DirectFB README
-
-   DirectFB is a graphics library which was designed with embedded
-   systems in mind. It offers maximum hardware accelerated performance
-   at a minimum of resource usage and overhead. 
-
-
 ### Supported Operating Systems
 
    - GNU/Linux
