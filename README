@@ -5,8 +5,6 @@ DirectFB README
    systems in mind. It offers maximum hardware accelerated performance
    at a minimum of resource usage and overhead. 
 
-   Check http://www.directfb.org/ for more and up to date infos.
-
 
 Supported Operating Systems
 ---------------------------
@@ -169,17 +167,6 @@ Running multiple DirectFB applications at the same time
    DirectFB CVS/GIT repository). You can then start DirectFB applications
    from dfbterm.
 
-
-Recommendations
----------------
-
-   To take full advantage of hardware acceleration, 
-   a Matrox G200/G400/G450/G550 graphics card is recommend for this 
-   version of DirectFB. The drivers for ATI128, Voodoo 3/4/5/Banshee,
-   NeoMagic and S3 Savage cards included with this release are work in
-   progress and only yet support a subset of the possible accelerations.
-
-
 Installation
 ------------
 
@@ -315,131 +302,3 @@ Documentation
    as well as a concepts overview, tutorials and the FAQ online at
    http://www.directfb.org/documentation/. 
 
-
-Thanks to
----------
-
-   Johannes Zellner <johannes@zellner.org>
-   Till Adam <till@adam-lilienthal.de>
-   Joachim Steiger <roh@hyte.de>
-   Felix von Leitner <leitner@fefe.de>
-   Johannes Stezenbach <js@convergence.de>
-   Michael Natterer <mitch@convergence.de>
-   Holger Waechtler <holger@convergence.de>
-   Kim JeongHoe <king@mizi.com>
-   Jason Gaiser <jasno@san.rr.com>
-   W. Michael Petullo <mike@flyn.org>
-   Jiri Svoboda <Jiri.Svoboda@seznam.cz>
-   Hallvar Helleseth <hallvar@ii.uib.no>
-   Topi Kanerva <topi.kanerva@eke.fi>
-   Daniel Mack <daniel@convergence.de>
-   Ara Hacopian <ahacop@anthrotronix.com>
-   Mike Haertel <mike@albert.ai.mit.edu>
-   Enno Brehm <enno@convergence.de>
-   Martin Mueller <mm@convergence.de>
-   Sebastian Klemke <packet@convergence.de>
-   Fredrik Hallenberg <hallon@lysator.liu.se>
-   Antonino Daplas <adaplas@users.sourceforge.net>
-   Scott A McConnell <samcconn@cotw.com>
-   Alex SONG <zzaleson@uqconnect.net>
-   Ville Syrjälä <syrjala@sci.fi>
-   Brian J. Murrell <a40e8119bbddbe7b3d281db117f19b32@interlinx.bc.ca>
-   Tim Janik <timj@gtk.org>
-   Billy Biggs <vektor@dumbterm.net>
-   Andreas Oberritter <obi@tuxbox.org>
-   Simon Ueng <simon@ftech.com.tw>
-   Scott Brumbaugh <scottb.lists@verizon.net>
-   Sebastian Ley <sebastian.ley@mmweg.rwth-aachen.de>
-   James Su <suzhe@turbolinux.com.cn>
-   Sarma Kolluru <Sarma.Kolluru@nsc.com>
-   Oliver Schwartz <Oliver.Schwartz@gmx.de>
-   Florian <florian.fernandez2@wanadoo.fr>
-   J.P. Delport <jpdelport@csir.co.za>
-   Michel Dänzer <michel@daenzer.net>
-   Maurizio Monge <monge@sns.it>
-   Tim Wright <tim.wright@iosystems.co.uk>
-   Liam Girdwood <liam.girdwood@wolfsonmicro.com>
-   Andreas Robinson <andro134 at student.liu.se>
-   Michael Hunold <hunold@convergence.de>
-   Brandon M. Reynolds <breynolds@comtime.com>
-   Micha Nelissen <micha@neli.hopto.org>
-   Vadim Catana <vcatana@registru.md>
-   Henning Glawe <glaweh@physik.fu-berlin.de>
-   Ed Millard <emillard@direcway.com>
-   Claudio Ciccani <klan82@cheapnet.it>
-   Tom Bridgwater <genuss@gmail.com>
-   Oskar Liljeblad <oskar@osk.mine.nu>
-   Bryce Nichols <bryce@bnichols.org>
-   Stefan Lucke <stefan@lucke.in-berlin.de>
-   Mws <mws@twisted-brains.org>
-   Ivan Daniluk <ivan@shvydko.ua>
-   Mark Salter <msalter@redhat.com>
-   Martin Lütken <nitram@lutken.dk>
-   Sylvain Meyer <sylvain.meyer@worldonline.fr>
-   Mark Adams <mark147m@gmail.com>
-   Damian Kowalewski <damian.kowalewski@mail.mcgill.ca>
-   Jakub Bogusz <qboosh@pld-linux.org>
-   Nathanael D. Noblet <nathanael@gnat.ca>
-   Ryan Burns <rburns@mvista.com>
-   Colin Watson <cjwatson@debian.org>
-   Guillem Jover <guillem@debian.org>
-   Jeff Bailey <jbailey@ubuntu.com>
-   Andreas Jochens <aj@andaco.de>
-   Daniel J Laird <daniel.j.laird@nxp.com>
-   Marko Mäkelä <marko.makela@hut.fi>
-   Nils Magnus Larsgard <nmlarsgaard@atmel.no>
-   Pär Degerman <parde@ikp.liu.se>
-   Michel van Noorloos <michel.van.noorloos@sioux.nl>
-   Gery <gxkahn@gmail.com>
-   Shane <shanevolpe@gmail.com>
-   Paul Mackerras <paulus@samba.org>
-   Attilio Fiandrotti <attilio.fiandrotti@gmail.com>
-   Vaclav Slavik <vslavik@fastmail.fm>
-   Philip Jägenstedt <philipj@opera.com>
-   sridewa <sridewa@gmail.com>
-   Eugene Everson <eugene@tranzas.co.jp>
-   Mike Crowe <mac@mcrowe.com>
-   Kieran Bingham <kbingham@mpc-data.co.uk>
-   Luis Mondesi +lemsx1 +gmail,com
-   Keith Mok <ek9852@gmail.com>
-   GARDET Guillaume <ggardet@adeneo.adetelgroup.com>
-   Phil Endecott <spam_from_directfb_dev@chezphil.org>
-   Brian Austin <brian.austin@cirrus.com>
-   Keith Mok <ek9852@gmail.com>
-   Young Hoon <jcybha@hanmail.net>
-
-Special thanks to Ville Syrjala for his great work on the
-Matrox TV-Out support and for his several patches including
-fixes and enhancements for the whole library. He also did
-several ports like UAE or mplayer for DirectFB. Check out his
-site at 'http://www.sci.fi/~syrjala/'.
-
-
-Legal stuff
------------
-
-   (c) Copyright 2001-2009  The DirectFB Organization (directfb.org)
-   (c) Copyright 2000-2004  Convergence (integrated media) GmbH
-
-   All rights reserved.
-
-   Written by Denis Oliver Kropp <dok@directfb.org>,
-              Andreas Hundt <andi@fischlustig.de>,
-              Sven Neumann <neo@directfb.org>,
-              Ville SyrjÃ¤lÃ¤ <syrjala@sci.fi> and
-              Claudio Ciccani <klan@users.sf.net>.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-
-   You should have received a copy of the GNU Lesser General Public
-   License along with this library; if not, write to the
-   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
