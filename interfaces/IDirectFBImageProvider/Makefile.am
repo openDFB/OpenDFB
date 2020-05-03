@@ -1,7 +1,4 @@
 ## Makefile.am for DirectFB/interfaces/IDirectFBImageProvider
-
-SUBDIRS = mpeg2
-
 idirectfbimageproviderdir = $(MODULEDIR)/interfaces/IDirectFBImageProvider
 
 
@@ -23,34 +20,16 @@ else
 PNG_PROVIDER_LTLIB =
 endif
 
-if IMLIB2
-IMLIB2_PROVIDER = libidirectfbimageprovider_imlib2.la
-else
-IMLIB2_PROVIDER =
-endif
-
 if PNM
 PNM_PROVIDER = libidirectfbimageprovider_pnm.la
 else
 PNM_PROVIDER =
 endif
 
-if SVG
-SVG_PROVIDER = libidirectfbimageprovider_svg.la
-else
-SVG_PROVIDER =
-endif
-
 if BMP
 BMP_PROVIDER = libidirectfbimageprovider_bmp.la
 else
 BMP_PROVIDER =
-endif
-
-if JPEG2000
-JPEG2000_PROVIDER = libidirectfbimageprovider_jpeg2000.la
-else
-JPEG2000_PROVIDER =
 endif
 
 
@@ -69,11 +48,8 @@ idirectfbimageprovider_LTLIBRARIES = \
 	$(GIF_PROVIDER_LTLIB)			\
 	$(JPEG_PROVIDER_LTLIB)			\
 	$(PNG_PROVIDER_LTLIB)			\
-	$(IMLIB2_PROVIDER)			\
 	$(PNM_PROVIDER)				\
-	$(SVG_PROVIDER)				\
-	$(BMP_PROVIDER)				\
-	$(JPEG2000_PROVIDER)
+	$(BMP_PROVIDER)
 	
 if BUILD_STATIC
 idirectfbimageprovider_DATA = $(idirectfbimageprovider_LTLIBRARIES:.la=.o)
@@ -100,25 +76,12 @@ libidirectfbimageprovider_jpeg_la_SOURCES = idirectfbimageprovider_jpeg.c
 libidirectfbimageprovider_jpeg_la_LIBADD = $(libdirect) $(libdirectfb) $(LIBJPEG)
 libidirectfbimageprovider_jpeg_la_LDFLAGS = -avoid-version -module
 
-libidirectfbimageprovider_imlib2_la_SOURCES = idirectfbimageprovider_imlib2.c
-libidirectfbimageprovider_imlib2_la_LIBADD = $(libdirect) $(libdirectfb) $(IMLIB2_LIBS)
-libidirectfbimageprovider_imlib2_la_LDFLAGS = -avoid-version -module
-
 libidirectfbimageprovider_pnm_la_SOURCES = idirectfbimageprovider_pnm.c
 libidirectfbimageprovider_pnm_la_LIBADD = $(libdirect) $(libdirectfb)
 libidirectfbimageprovider_pnm_la_LDFLAGS = -avoid-version -module
 
-libidirectfbimageprovider_svg_la_SOURCES = idirectfbimageprovider_svg.c
-libidirectfbimageprovider_svg_la_LIBADD = $(libdirect) $(libdirectfb) $(SVG_LIBS) $(ZLIB_LIBS)
-libidirectfbimageprovider_svg_la_LDFLAGS = -avoid-version -module
-
 libidirectfbimageprovider_bmp_la_SOURCES = idirectfbimageprovider_bmp.c
 libidirectfbimageprovider_bmp_la_LIBADD = $(libdirect) $(libdirectfb)
 libidirectfbimageprovider_bmp_la_LDFLAGS = -avoid-version -module
-
-libidirectfbimageprovider_jpeg2000_la_SOURCES = idirectfbimageprovider_jpeg2000.c
-libidirectfbimageprovider_jpeg2000_la_LIBADD = $(libdirect) $(libdirectfb) $(JASPER_LIBS)
-libidirectfbimageprovider_jpeg2000_la_LDFLAGS = -avoid-version -module
-
 
 include $(top_srcdir)/rules/libobject.make

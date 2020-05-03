@@ -15,12 +15,6 @@ TESTS_DIR = tests
 endif
 
 
-NON_PURE_VOODOO_SUBDIRS = \
-	systems			\
-	wm			\
-	interfaces 		\
-	$(LINUXONLY_DIRS)
-
 if ENABLE_DIVINE
 DIVINE_DIR = lib/divine
 endif
@@ -28,24 +22,23 @@ endif
 if ENABLE_SAWMAN
 SAWMAN_DIR = lib/sawman
 endif
-
 SUBDIRS = \
 	data			\
 	docs			\
 	include 		\
 	lib			\
 	src 			\
+	systems			\
+	wm			\
+	interfaces 		\
+	$(TOOLS_DIR)		\
 	$(SAWMAN_DIR)		\
 	$(DIVINE_DIR)		\
-	$(DVC_DIR)		\
-	$(TOOLS_DIR)		\
-	$(NON_PURE_VOODOO_SUBDIRS)	\
-	$(PROXY_DIR)		\
+	$(LINUXONLY_DIRS) \
 	$(TESTS_DIR)		\
 	patches			\
 	rules			\
 	build-android
-
 
 bin_SCRIPTS = directfb-config
 

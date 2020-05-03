@@ -17,9 +17,7 @@ endif
 INCLUDES = \
 	-I$(top_builddir)/include \
 	-I$(top_builddir)/lib \
-	-I$(top_builddir)/lib/One \
 	-I$(top_builddir)/lib/divine \
-	-I$(top_builddir)/lib/fusiondale \
 	-I$(top_builddir)/lib/sawman \
 	-I$(top_builddir)/src	\
 	-I$(top_srcdir)/include	\
@@ -33,10 +31,6 @@ GL_PROGS_ = \
 	dfbtest_gl1	\
 	dfbtest_gl2	\
 	dfbtest_gl3
-
-if GFX_GL
-GL_PROGS = $(GL_PROGS_)
-endif
 
 if GFX_GLES2
 GL_PROGS = $(GL_PROGS_)

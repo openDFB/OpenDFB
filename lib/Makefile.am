@@ -1,4 +1,5 @@
 ## Makefile.am for DirectFB/lib
 
-SUBDIRS = direct fusion
 
+SUBDIRS = direct \
+	  fusion 

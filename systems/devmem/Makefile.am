@@ -24,8 +24,7 @@ systems_LTLIBRARIES = libdirectfb_devmem.la
 
 libdirectfb_devmem_la_LDFLAGS = \
 	-avoid-version	\
-	-module \
-	$(SH772X_DEP_LIBS)
+	-module
 
 libdirectfb_devmem_la_SOURCES = \
 	devmem.c		\

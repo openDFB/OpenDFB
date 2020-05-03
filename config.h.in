@@ -68,9 +68,6 @@
 /* Define to 1 if you want FusionSound support. */
 #undef HAVE_FUSIONSOUND
 
-/* Define to 1 if sh772x */
-#undef HAVE_GFX_SH772X
-
 /* Define to 1 if inb, outb and iopl are available. */
 #undef HAVE_INB_OUTB_IOPL
 
@@ -164,9 +161,6 @@
 
 /* Define to 1 if arm assembly is available. */
 #undef USE_ARMASM
-
-/* Define to 1 if GLX has been selected or detected */
-#undef USE_GLX
 
 /* Define to 1 if compiling on KallistiOS. */
 #undef USE_KOS

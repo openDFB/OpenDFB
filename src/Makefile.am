@@ -1,17 +1,7 @@
 ## Makefile.am for DirectFB/src
-
-
-if DIRECTFB_BUILD_PURE_VOODOO
-NON_PURE_VOODOO_SUBDIRS = 
-else
-NON_PURE_VOODOO_SUBDIRS = \
-	core display windows
-endif
-
 SUBDIRS = \
-	$(NON_PURE_VOODOO_SUBDIRS)	\
+	core display windows	\
 	gfx input media misc
-
 
 INCLUDES = \
 	-I$(top_builddir)/include	\
@@ -35,15 +25,8 @@ internalinclude_HEADERS = \
 
 lib_LTLIBRARIES = libdirectfb.la
 
-if DIRECTFB_BUILD_PURE_VOODOO
-NON_PURE_VOODOO_SOURCES = 
-else
-NON_PURE_VOODOO_SOURCES = \
-	idirectfb.c
-endif
-
 libdirectfb_la_SOURCES = 		\
-	$(NON_PURE_VOODOO_SOURCES)	\
+	idirectfb.c	\
 	directfb.c			\
 	directfb_result.c		\
 	dummy.cpp			\
@@ -54,40 +37,16 @@ libdirectfb_la_LDFLAGS = \
 	-release $(LT_RELEASE)					\
 	$(DFB_LDFLAGS)
 
-
-if DIRECTFB_BUILD_PURE_VOODOO
-NON_PURE_VOODOO_LIBS = 
-else
-NON_PURE_VOODOO_LIBS = \
+libdirectfb_la_LIBADD = \
 	core/libdirectfb_core.la	\
 	display/libdirectfb_display.la	\
-	windows/libdirectfb_windows.la
-endif
-
-if DIRECTFB_BUILD_ONE
-ONE_LIB = \
-	../lib/One/libone.la
-else
-ONE_LIB =
-endif
-
-if DIRECTFB_BUILD_VOODOO
-VOODOO_LIB = \
-	../lib/voodoo/libvoodoo.la
-else
-VOODOO_LIB = 
-endif
-
-libdirectfb_la_LIBADD = \
-	$(NON_PURE_VOODOO_LIBS)		\
+	windows/libdirectfb_windows.la  \
 	media/libdirectfb_media.la	\
 	input/libdirectfb_input.la	\
 	misc/libdirectfb_misc.la	\
 	gfx/libdirectfb_gfx.la		\
 	../lib/direct/libdirect.la	\
-	../lib/fusion/libfusion.la	\
-	$(ONE_LIB)			\
-	$(VOODOO_LIB)
+	../lib/fusion/libfusion.la
 
 
 MKRESULT = $(top_srcdir)/tools/mkresult.sh

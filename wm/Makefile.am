@@ -12,4 +12,6 @@ else
 SAWMAN_DIR =
 endif
 
-SUBDIRS = default $(UNIQUE_DIR) $(SAWMAN_DIR)
+SUBDIRS = default \
+		$(UNIQUE_DIR) \
+		$(SAWMAN_DIR)

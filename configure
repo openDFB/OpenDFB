@@ -705,34 +705,10 @@ GFX_VDPAU_FALSE
 GFX_VDPAU_TRUE
 GFX_VMWARE_FALSE
 GFX_VMWARE_TRUE
-GFX_UNICHROME_FALSE
-GFX_UNICHROME_TRUE
-GFX_TDFX_FALSE
-GFX_TDFX_TRUE
-GFX_SIS315_FALSE
-GFX_SIS315_TRUE
-GFX_SH772X_FALSE
-GFX_SH772X_TRUE
-GFX_SAVAGE_FALSE
-GFX_SAVAGE_TRUE
-GFX_RADEON_FALSE
-GFX_RADEON_TRUE
-GFX_PXA3XX_FALSE
-GFX_PXA3XX_TRUE
 GFX_PVR2D_FALSE
 GFX_PVR2D_TRUE
 GFX_OMAP_FALSE
 GFX_OMAP_TRUE
-GFX_NVIDIA_FALSE
-GFX_NVIDIA_TRUE
-GFX_NSC_FALSE
-GFX_NSC_TRUE
-GFX_NEOMAGIC_FALSE
-GFX_NEOMAGIC_TRUE
-GFX_MATROX_FALSE
-GFX_MATROX_TRUE
-GFX_MACH64_FALSE
-GFX_MACH64_TRUE
 GFX_I830_FALSE
 GFX_I830_TRUE
 GFX_I810_FALSE
@@ -741,18 +717,8 @@ GFX_GLX_FALSE
 GFX_GLX_TRUE
 GFX_GLES2_FALSE
 GFX_GLES2_TRUE
-GFX_GL_FALSE
-GFX_GL_TRUE
-GFX_EP9X_FALSE
-GFX_EP9X_TRUE
 GFX_DAVINCI_FALSE
 GFX_DAVINCI_TRUE
-GFX_CYBER5K_FALSE
-GFX_CYBER5K_TRUE
-GFX_CLE266_FALSE
-GFX_CLE266_TRUE
-GFX_ATI128_FALSE
-GFX_ATI128_TRUE
 DIRECTFB_CSOURCE
 RUNTIME_SYSROOT
 FUSION_MESSAGE_SIZE
@@ -763,10 +729,6 @@ SOFTWARE_RENDERING_FALSE
 SOFTWARE_RENDERING_TRUE
 TSLIB_LIBS
 TSLIB_CFLAGS
-SH772X_SHJPEG_DEP_LIBS
-SH772X_SHJPEG_DEP_CFLAGS
-SH772X_DEP_LIBS
-SH772X_DEP_CFLAGS
 GLES2_CFLAGS
 GLES2_LIBS
 GL_LIBS
@@ -1137,10 +1099,6 @@ FREETYPE_CFLAGS
 FREETYPE_LIBS
 LINOTYPE_CFLAGS
 LINOTYPE_LIBS
-SH772X_DEP_CFLAGS
-SH772X_DEP_LIBS
-SH772X_SHJPEG_DEP_CFLAGS
-SH772X_SHJPEG_DEP_LIBS
 TSLIB_CFLAGS
 TSLIB_LIBS'
 
@@ -1823,11 +1781,8 @@ Optional Packages:
                         (or the compiler's sysroot if not specified).
   --with-gfxdrivers=LIST  LIST is a comma separated selection of gfxdrivers to
                           build. Possible gfxdrivers are: all (builds all
-                          drivers), none (builds none), ati128, cle266,
-                          cyber5k, davinci, ep9x, gl, gles2, i810, i830,
-                          mach64, matrox, neomagic, nsc, nvidia, omap, pvr2d,
-                          pxa3xx, radeon, savage, sh772x, sis315, tdfx,
-                          unichrome, vdpau, vmware. [default=all]
+                          drivers), none (builds none), gles2, i810, i830
+                          omap, pvr2d, vdpau, vmware. [default=all]
   --with-inputdrivers=LIST
                           LIST is a comma separated selection of inputdrivers
                           to build. Possible inputdrivers are: all (builds all
@@ -1905,14 +1860,6 @@ Some influential environment variables:
               C compiler flags for LINOTYPE, overriding pkg-config
   LINOTYPE_LIBS
               linker flags for LINOTYPE, overriding pkg-config
-  SH772X_DEP_CFLAGS
-              C compiler flags for SH772X_DEP, overriding pkg-config
-  SH772X_DEP_LIBS
-              linker flags for SH772X_DEP, overriding pkg-config
-  SH772X_SHJPEG_DEP_CFLAGS
-              C compiler flags for SH772X_SHJPEG_DEP, overriding pkg-config
-  SH772X_SHJPEG_DEP_LIBS
-              linker flags for SH772X_SHJPEG_DEP, overriding pkg-config
   TSLIB_CFLAGS
               C compiler flags for TSLIB, overriding pkg-config
   TSLIB_LIBS  linker flags for TSLIB, overriding pkg-config
@@ -19986,31 +19933,13 @@ fi
 
 
 
-ati128=no
-cle266=no
-cyber5k=no
 davinci=no
-ep9x=no
-gl=no
 gles2=no
-glx=no
 i810=no
 i830=no
-mach64=no
-matrox=no
-neomagic=no
-nsc=no
-nvidia=no
 omap=no
 pvr2d=no
 egl=no
-pxa3xx=no
-radeon=no
-savage=no
-sh772x=no
-sis315=no
-tdfx=no
-unichrome=no
 vdpau=no
 vmware=no
 
@@ -20027,29 +19956,12 @@ else
 fi
 
 if test "$gfxdrivers" = "all"; then
-  checkfor_ati128=yes
-  checkfor_cle266=no
-  checkfor_cyber5k=no
   checkfor_davinci="$have_arm"
-  checkfor_ep9x=yes
-  checkfor_gl=yes
   checkfor_gles2=yes
   checkfor_i810=yes
   checkfor_i830=yes
-  checkfor_mach64=yes
-  checkfor_matrox=yes
-  checkfor_neomagic=yes
-  checkfor_nsc=yes
-  checkfor_nvidia=yes
   checkfor_omap="$have_arm"
   checkfor_pvr2d=yes
-  checkfor_pxa3xx=yes
-  checkfor_radeon=no
-  checkfor_savage=no
-  checkfor_sh772x=yes
-  checkfor_sis315=yes
-  checkfor_tdfx=yes
-  checkfor_unichrome=no
   checkfor_vdpau=yes
   checkfor_vmware=no
 
@@ -20061,23 +19973,8 @@ else
     for gfxdriver in $gfxdrivers
     do
       case "$gfxdriver" in
-          ati128)
-                  checkfor_ati128=yes
-                  ;;
-          cle266)
-                  checkfor_cle266=yes
-                  ;;
-          cyber5k)
-                  checkfor_cyber5k=yes
-                  ;;
           davinci)
                   checkfor_davinci=yes
-                  ;;
-          ep9x)
-                  checkfor_ep9x=yes
-                  ;;
-          gl)
-                  checkfor_gl=yes
                   ;;
           gles2)
                   checkfor_gles2=yes
@@ -20088,47 +19985,11 @@ else
           i830)
                   checkfor_i830=yes
                   ;;
-          mach64)
-                  checkfor_mach64=yes
-                  ;;
-          matrox)
-                  checkfor_matrox=yes
-                  ;;
-          neomagic)
-                  checkfor_neomagic=yes
-                  ;;
-          nsc)
-                  checkfor_nsc=yes
-                  ;;
-          nvidia)
-                  checkfor_nvidia=yes
-                  ;;
           omap)
                   checkfor_omap=yes
                   ;;
           pvr2d)
                   checkfor_pvr2d=yes
-                  ;;
-          pxa3xx)
-                  checkfor_pxa3xx=yes
-                  ;;
-          radeon)
-                  checkfor_radeon=yes
-                  ;;
-          savage)
-                  checkfor_savage=yes
-                  ;;
-          sh772x)
-                  checkfor_sh772x=yes
-                  ;;
-          sis315)
-                  checkfor_sis315=yes
-                  ;;
-          tdfx)
-                  checkfor_tdfx=yes
-                  ;;
-          unichrome)
-                  checkfor_unichrome=yes
                   ;;
           vmware)
                   checkfor_vmware=yes
@@ -20147,45 +20008,8 @@ $as_echo "$gfxdrivers" >&6; }
   fi
 fi
 
-if test "$checkfor_ati128" = "yes"; then
-  ati128=yes
-fi
-
-if test "$checkfor_cle266" = "yes" && test "$have_sysio" = "yes"; then
-  cle266=yes
-fi
-
-if test "$checkfor_cyber5k" = "yes"; then
-  cyber5k=yes
-fi
-
 if test "$checkfor_davinci" = "yes"; then
   davinci=yes
-fi
-
-if test "$checkfor_ep9x" = "yes"; then
-  ep9x=yes
-fi
-
-if test "$checkfor_gl" = "yes"; then
-  ac_fn_c_check_header_mongrel "$LINENO" "GL/gl.h" "ac_cv_header_GL_gl_h" "$ac_includes_default"
-if test "x$ac_cv_header_GL_gl_h" = xyes; then :
-  gl=yes
-fi
-
-
-  ac_fn_c_check_header_mongrel "$LINENO" "GL/glx.h" "ac_cv_header_GL_glx_h" "$ac_includes_default"
-if test "x$ac_cv_header_GL_glx_h" = xyes; then :
-
-                  glx=yes
-
-$as_echo "#define USE_GLX 1" >>confdefs.h
-
-
-fi
-
-
-  GL_LIBS="-lGL"
 fi
 
 
@@ -20220,26 +20044,6 @@ if test "$checkfor_i830" = "yes" && test "$have_sysio" = "yes"; then
   i830=yes
 fi
 
-if test "$checkfor_mach64" = "yes"; then
-  mach64=yes
-fi
-
-if test "$checkfor_matrox" = "yes"; then
-  matrox=yes
-fi
-
-if test "$checkfor_neomagic" = "yes" && test "$have_sysio" = "yes"; then
-  neomagic=yes
-fi
-
-if test "$checkfor_nsc" = "yes"; then
-  nsc=yes
-fi
-
-if test "$checkfor_nvidia" = "yes"; then
-  nvidia=yes
-fi
-
 if test "$checkfor_omap" = "yes"; then
   omap=yes
 fi
@@ -20248,188 +20052,6 @@ if test "$checkfor_pvr2d" = "yes"; then
   if test "$enable_pvr2d" = "yes"; then
     pvr2d=yes
   fi
-fi
-
-if test "$checkfor_pxa3xx" = "yes"; then
-  pxa3xx=yes
-fi
-
-if test "$checkfor_radeon" = "yes"; then
-  radeon=yes
-fi
-
-if test "$checkfor_savage" = "yes" && test "$have_sysio" = "yes"; then
-  savage=yes
-fi
-
-if test "$checkfor_sh772x" = "yes" && test "$have_sh4" = "yes"; then
-
-pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SH772X_DEP" >&5
-$as_echo_n "checking for SH772X_DEP... " >&6; }
-
-if test -n "$SH772X_DEP_CFLAGS"; then
-    pkg_cv_SH772X_DEP_CFLAGS="$SH772X_DEP_CFLAGS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"uiomux >= 1.5.0 shbeu >= 1.0.2\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "uiomux >= 1.5.0 shbeu >= 1.0.2") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_SH772X_DEP_CFLAGS=`$PKG_CONFIG --cflags "uiomux >= 1.5.0 shbeu >= 1.0.2" 2>/dev/null`
-		      test "x$?" != "x0" && pkg_failed=yes
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-if test -n "$SH772X_DEP_LIBS"; then
-    pkg_cv_SH772X_DEP_LIBS="$SH772X_DEP_LIBS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"uiomux >= 1.5.0 shbeu >= 1.0.2\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "uiomux >= 1.5.0 shbeu >= 1.0.2") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_SH772X_DEP_LIBS=`$PKG_CONFIG --libs "uiomux >= 1.5.0 shbeu >= 1.0.2" 2>/dev/null`
-		      test "x$?" != "x0" && pkg_failed=yes
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-
-
-
-if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-
-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
-else
-        _pkg_short_errors_supported=no
-fi
-        if test $_pkg_short_errors_supported = yes; then
-	        SH772X_DEP_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "uiomux >= 1.5.0 shbeu >= 1.0.2" 2>&1`
-        else
-	        SH772X_DEP_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "uiomux >= 1.5.0 shbeu >= 1.0.2" 2>&1`
-        fi
-	# Put the nasty error message in config.log where it belongs
-	echo "$SH772X_DEP_PKG_ERRORS" >&5
-
-	sh772x=no
-elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-	sh772x=no
-else
-	SH772X_DEP_CFLAGS=$pkg_cv_SH772X_DEP_CFLAGS
-	SH772X_DEP_LIBS=$pkg_cv_SH772X_DEP_LIBS
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-	sh772x=yes
-fi
-  if test "$sh772x" = "no"; then
-       { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: *** Missing UIOMUX or SHBEU library -- sh772x driver will not be built." >&5
-$as_echo "$as_me: WARNING: *** Missing UIOMUX or SHBEU library -- sh772x driver will not be built." >&2;}
-  fi
-
-pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SH772X_SHJPEG_DEP" >&5
-$as_echo_n "checking for SH772X_SHJPEG_DEP... " >&6; }
-
-if test -n "$SH772X_SHJPEG_DEP_CFLAGS"; then
-    pkg_cv_SH772X_SHJPEG_DEP_CFLAGS="$SH772X_SHJPEG_DEP_CFLAGS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"shjpeg >= 1.3.3\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "shjpeg >= 1.3.3") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_SH772X_SHJPEG_DEP_CFLAGS=`$PKG_CONFIG --cflags "shjpeg >= 1.3.3" 2>/dev/null`
-		      test "x$?" != "x0" && pkg_failed=yes
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-if test -n "$SH772X_SHJPEG_DEP_LIBS"; then
-    pkg_cv_SH772X_SHJPEG_DEP_LIBS="$SH772X_SHJPEG_DEP_LIBS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"shjpeg >= 1.3.3\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "shjpeg >= 1.3.3") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_SH772X_SHJPEG_DEP_LIBS=`$PKG_CONFIG --libs "shjpeg >= 1.3.3" 2>/dev/null`
-		      test "x$?" != "x0" && pkg_failed=yes
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-
-
-
-if test $pkg_failed = yes; then
-   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-
-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
-else
-        _pkg_short_errors_supported=no
-fi
-        if test $_pkg_short_errors_supported = yes; then
-	        SH772X_SHJPEG_DEP_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "shjpeg >= 1.3.3" 2>&1`
-        else
-	        SH772X_SHJPEG_DEP_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "shjpeg >= 1.3.3" 2>&1`
-        fi
-	# Put the nasty error message in config.log where it belongs
-	echo "$SH772X_SHJPEG_DEP_PKG_ERRORS" >&5
-
-	sh772x_shjpeg=no
-elif test $pkg_failed = untried; then
-     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-	sh772x_shjpeg=no
-else
-	SH772X_SHJPEG_DEP_CFLAGS=$pkg_cv_SH772X_SHJPEG_DEP_CFLAGS
-	SH772X_SHJPEG_DEP_LIBS=$pkg_cv_SH772X_SHJPEG_DEP_LIBS
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-	sh772x_shjpeg=yes
-fi
-  if test "$sh772x_shjpeg" = "no"; then
-       { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: *** Missing SHJPEG library -- sh772x driver will be build without shjpeg support." >&5
-$as_echo "$as_me: WARNING: *** Missing SHJPEG library -- sh772x driver will be build without shjpeg support." >&2;}
-  fi
-fi
-if test "$sh772x" = "yes"; then
-
-$as_echo "#define HAVE_GFX_SH772X /**/" >>confdefs.h
-
-fi
-
-if test "$checkfor_sis315" = "yes"; then
-  sis315=yes
-fi
-
-if test "$checkfor_tdfx" = "yes"; then
-  tdfx=yes
-fi
-
-if test "$checkfor_unichrome" = "yes" && test "$have_sysio" = "yes"; then
-  unichrome=yes
 fi
 
 if test "$checkfor_vmware" = "yes"; then
@@ -21149,54 +20771,12 @@ fi
   fi
 fi
 
-
-
- if test "$ati128" = "yes"; then
-  GFX_ATI128_TRUE=
-  GFX_ATI128_FALSE='#'
-else
-  GFX_ATI128_TRUE='#'
-  GFX_ATI128_FALSE=
-fi
-
- if test "$cle266" = "yes"; then
-  GFX_CLE266_TRUE=
-  GFX_CLE266_FALSE='#'
-else
-  GFX_CLE266_TRUE='#'
-  GFX_CLE266_FALSE=
-fi
-
- if test "$cyber5k" = "yes"; then
-  GFX_CYBER5K_TRUE=
-  GFX_CYBER5K_FALSE='#'
-else
-  GFX_CYBER5K_TRUE='#'
-  GFX_CYBER5K_FALSE=
-fi
-
  if test "$davinci" = "yes"; then
   GFX_DAVINCI_TRUE=
   GFX_DAVINCI_FALSE='#'
 else
   GFX_DAVINCI_TRUE='#'
   GFX_DAVINCI_FALSE=
-fi
-
- if test "$ep9x" = "yes"; then
-  GFX_EP9X_TRUE=
-  GFX_EP9X_FALSE='#'
-else
-  GFX_EP9X_TRUE='#'
-  GFX_EP9X_FALSE=
-fi
-
- if test "$gl" = "yes"; then
-  GFX_GL_TRUE=
-  GFX_GL_FALSE='#'
-else
-  GFX_GL_TRUE='#'
-  GFX_GL_FALSE=
 fi
 
  if test "$gles2" = "yes"; then
@@ -21231,46 +20811,6 @@ else
   GFX_I830_FALSE=
 fi
 
- if test "$mach64" = "yes"; then
-  GFX_MACH64_TRUE=
-  GFX_MACH64_FALSE='#'
-else
-  GFX_MACH64_TRUE='#'
-  GFX_MACH64_FALSE=
-fi
-
- if test "$matrox" = "yes"; then
-  GFX_MATROX_TRUE=
-  GFX_MATROX_FALSE='#'
-else
-  GFX_MATROX_TRUE='#'
-  GFX_MATROX_FALSE=
-fi
-
- if test "$neomagic" = "yes"; then
-  GFX_NEOMAGIC_TRUE=
-  GFX_NEOMAGIC_FALSE='#'
-else
-  GFX_NEOMAGIC_TRUE='#'
-  GFX_NEOMAGIC_FALSE=
-fi
-
- if test "$nsc" = "yes"; then
-  GFX_NSC_TRUE=
-  GFX_NSC_FALSE='#'
-else
-  GFX_NSC_TRUE='#'
-  GFX_NSC_FALSE=
-fi
-
- if test "$nvidia" = "yes"; then
-  GFX_NVIDIA_TRUE=
-  GFX_NVIDIA_FALSE='#'
-else
-  GFX_NVIDIA_TRUE='#'
-  GFX_NVIDIA_FALSE=
-fi
-
  if test "$omap" = "yes"; then
   GFX_OMAP_TRUE=
   GFX_OMAP_FALSE='#'
@@ -21285,62 +20825,6 @@ fi
 else
   GFX_PVR2D_TRUE='#'
   GFX_PVR2D_FALSE=
-fi
-
- if test "$pxa3xx" = "yes"; then
-  GFX_PXA3XX_TRUE=
-  GFX_PXA3XX_FALSE='#'
-else
-  GFX_PXA3XX_TRUE='#'
-  GFX_PXA3XX_FALSE=
-fi
-
- if test "$radeon" = "yes"; then
-  GFX_RADEON_TRUE=
-  GFX_RADEON_FALSE='#'
-else
-  GFX_RADEON_TRUE='#'
-  GFX_RADEON_FALSE=
-fi
-
- if test "$savage" = "yes"; then
-  GFX_SAVAGE_TRUE=
-  GFX_SAVAGE_FALSE='#'
-else
-  GFX_SAVAGE_TRUE='#'
-  GFX_SAVAGE_FALSE=
-fi
-
- if test "$sh772x" = "yes"; then
-  GFX_SH772X_TRUE=
-  GFX_SH772X_FALSE='#'
-else
-  GFX_SH772X_TRUE='#'
-  GFX_SH772X_FALSE=
-fi
-
- if test "$sis315" = "yes"; then
-  GFX_SIS315_TRUE=
-  GFX_SIS315_FALSE='#'
-else
-  GFX_SIS315_TRUE='#'
-  GFX_SIS315_FALSE=
-fi
-
- if test "$tdfx" = "yes"; then
-  GFX_TDFX_TRUE=
-  GFX_TDFX_FALSE='#'
-else
-  GFX_TDFX_TRUE='#'
-  GFX_TDFX_FALSE=
-fi
-
- if test "$unichrome" = "yes"; then
-  GFX_UNICHROME_TRUE=
-  GFX_UNICHROME_FALSE='#'
-else
-  GFX_UNICHROME_TRUE='#'
-  GFX_UNICHROME_FALSE=
 fi
 
  if test "$vmware" = "yes"; then
@@ -21669,7 +21153,7 @@ if test "$GCC" = "yes"; then
   CXXFLAGS="-Wall -Wno-strict-aliasing $CXXFLAGS"
 fi
 
-ac_config_files="$ac_config_files build-android/Makefile directfb-config directfb.pc directfb-internal.pc directfb.spec Makefile include/Makefile include/directfb_build.h include/directfb_version.h lib/Makefile lib/direct/Makefile lib/direct/build.h lib/direct/direct.pc lib/direct/os/Makefile lib/direct/os/linux/glibc/Makefile lib/fusion/Makefile lib/fusion/build.h lib/fusion/fusion.pc lib/fusion/shm/Makefile lib/sawman/Makefile lib/sawman/sawman.pc lib/divine/Makefile lib/divine/divine.pc patches/Makefile rules/Makefile src/Makefile src/core/Makefile src/display/Makefile src/gfx/Makefile src/gfx/generic/Makefile src/input/Makefile src/media/Makefile src/misc/Makefile src/windows/Makefile systems/Makefile systems/android/Makefile systems/devmem/Makefile systems/dummy/Makefile systems/fbdev/Makefile systems/mesa/Makefile systems/pvr2d/Makefile systems/egl/Makefile systems/x11/Makefile systems/x11vdpau/Makefile systems/osx/Makefile systems/sdl/Makefile systems/vnc/Makefile wm/Makefile wm/default/Makefile wm/unique/Makefile wm/unique/classes/Makefile wm/unique/data/Makefile wm/unique/devices/Makefile wm/sawman/Makefile gfxdrivers/Makefile gfxdrivers/ati128/Makefile gfxdrivers/cle266/Makefile gfxdrivers/cyber5k/Makefile gfxdrivers/davinci/Makefile gfxdrivers/ep9x/Makefile gfxdrivers/gl/Makefile gfxdrivers/gles2/Makefile gfxdrivers/i810/Makefile gfxdrivers/i830/Makefile gfxdrivers/mach64/Makefile gfxdrivers/matrox/Makefile gfxdrivers/neomagic/Makefile gfxdrivers/nsc/Makefile gfxdrivers/nsc/include/Makefile gfxdrivers/nvidia/Makefile gfxdrivers/omap/Makefile gfxdrivers/pvr2d/Makefile gfxdrivers/pxa3xx/Makefile gfxdrivers/radeon/Makefile gfxdrivers/savage/Makefile gfxdrivers/sh772x/Makefile gfxdrivers/sis315/Makefile gfxdrivers/tdfx/Makefile gfxdrivers/unichrome/Makefile gfxdrivers/vdpau/Makefile gfxdrivers/vmware/Makefile inputdrivers/Makefile inputdrivers/dbox2remote/Makefile inputdrivers/divine/Makefile inputdrivers/dreamboxremote/Makefile inputdrivers/dynapro/Makefile inputdrivers/elo/Makefile inputdrivers/gunze/Makefile inputdrivers/h3600_ts/Makefile inputdrivers/joystick/Makefile inputdrivers/keyboard/Makefile inputdrivers/linux_input/Makefile inputdrivers/lirc/Makefile inputdrivers/mutouch/Makefile inputdrivers/zytronic/Makefile inputdrivers/penmount/Makefile inputdrivers/ps2mouse/Makefile inputdrivers/serialmouse/Makefile inputdrivers/sonypi/Makefile inputdrivers/tslib/Makefile inputdrivers/ucb1x00_ts/Makefile inputdrivers/wm97xx_ts/Makefile interfaces/Makefile interfaces/IDirectFBFont/Makefile interfaces/IDirectFBImageProvider/Makefile interfaces/IDirectFBWindows/Makefile data/Makefile tests/Makefile tools/Makefile docs/Makefile docs/dfbg.1 docs/directfb-csource.1 docs/directfbrc.5 docs/html/Makefile"
+ac_config_files="$ac_config_files build-android/Makefile directfb-config directfb.pc directfb-internal.pc directfb.spec Makefile include/Makefile include/directfb_build.h include/directfb_version.h lib/Makefile lib/direct/Makefile lib/direct/build.h lib/direct/direct.pc lib/direct/os/Makefile lib/direct/os/linux/glibc/Makefile lib/fusion/Makefile lib/fusion/build.h lib/fusion/fusion.pc lib/fusion/shm/Makefile lib/sawman/Makefile lib/sawman/sawman.pc lib/divine/Makefile lib/divine/divine.pc patches/Makefile rules/Makefile src/Makefile src/core/Makefile src/display/Makefile src/gfx/Makefile src/gfx/generic/Makefile src/input/Makefile src/media/Makefile src/misc/Makefile src/windows/Makefile systems/Makefile systems/android/Makefile systems/devmem/Makefile systems/dummy/Makefile systems/fbdev/Makefile systems/mesa/Makefile systems/pvr2d/Makefile systems/egl/Makefile systems/x11/Makefile systems/x11vdpau/Makefile systems/osx/Makefile systems/sdl/Makefile systems/vnc/Makefile wm/Makefile wm/default/Makefile wm/unique/Makefile wm/unique/classes/Makefile wm/unique/data/Makefile wm/unique/devices/Makefile wm/sawman/Makefile gfxdrivers/Makefile gfxdrivers/davinci/Makefile gfxdrivers/gles2/Makefile gfxdrivers/i810/Makefile gfxdrivers/i830/Makefile gfxdrivers/omap/Makefile gfxdrivers/pvr2d/Makefile gfxdrivers/vdpau/Makefile gfxdrivers/vmware/Makefile inputdrivers/Makefile inputdrivers/dbox2remote/Makefile inputdrivers/divine/Makefile inputdrivers/dreamboxremote/Makefile inputdrivers/dynapro/Makefile inputdrivers/elo/Makefile inputdrivers/gunze/Makefile inputdrivers/h3600_ts/Makefile inputdrivers/joystick/Makefile inputdrivers/keyboard/Makefile inputdrivers/linux_input/Makefile inputdrivers/lirc/Makefile inputdrivers/mutouch/Makefile inputdrivers/zytronic/Makefile inputdrivers/penmount/Makefile inputdrivers/ps2mouse/Makefile inputdrivers/serialmouse/Makefile inputdrivers/sonypi/Makefile inputdrivers/tslib/Makefile inputdrivers/ucb1x00_ts/Makefile inputdrivers/wm97xx_ts/Makefile interfaces/Makefile interfaces/IDirectFBFont/Makefile interfaces/IDirectFBImageProvider/Makefile interfaces/IDirectFBWindows/Makefile data/Makefile tests/Makefile tools/Makefile docs/Makefile docs/dfbg.1 docs/directfb-csource.1 docs/directfbrc.5 docs/html/Makefile"
 
 ac_config_commands="$ac_config_commands default"
 
@@ -21983,28 +21467,8 @@ if test -z "${SOFTWARE_RENDERING_TRUE}" && test -z "${SOFTWARE_RENDERING_FALSE}"
   as_fn_error $? "conditional \"SOFTWARE_RENDERING\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${GFX_ATI128_TRUE}" && test -z "${GFX_ATI128_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_ATI128\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_CLE266_TRUE}" && test -z "${GFX_CLE266_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_CLE266\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_CYBER5K_TRUE}" && test -z "${GFX_CYBER5K_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_CYBER5K\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
 if test -z "${GFX_DAVINCI_TRUE}" && test -z "${GFX_DAVINCI_FALSE}"; then
   as_fn_error $? "conditional \"GFX_DAVINCI\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_EP9X_TRUE}" && test -z "${GFX_EP9X_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_EP9X\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_GL_TRUE}" && test -z "${GFX_GL_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_GL\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${GFX_GLES2_TRUE}" && test -z "${GFX_GLES2_FALSE}"; then
@@ -22023,60 +21487,12 @@ if test -z "${GFX_I830_TRUE}" && test -z "${GFX_I830_FALSE}"; then
   as_fn_error $? "conditional \"GFX_I830\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${GFX_MACH64_TRUE}" && test -z "${GFX_MACH64_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_MACH64\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_MATROX_TRUE}" && test -z "${GFX_MATROX_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_MATROX\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_NEOMAGIC_TRUE}" && test -z "${GFX_NEOMAGIC_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_NEOMAGIC\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_NSC_TRUE}" && test -z "${GFX_NSC_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_NSC\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_NVIDIA_TRUE}" && test -z "${GFX_NVIDIA_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_NVIDIA\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
 if test -z "${GFX_OMAP_TRUE}" && test -z "${GFX_OMAP_FALSE}"; then
   as_fn_error $? "conditional \"GFX_OMAP\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${GFX_PVR2D_TRUE}" && test -z "${GFX_PVR2D_FALSE}"; then
   as_fn_error $? "conditional \"GFX_PVR2D\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_PXA3XX_TRUE}" && test -z "${GFX_PXA3XX_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_PXA3XX\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_RADEON_TRUE}" && test -z "${GFX_RADEON_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_RADEON\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_SAVAGE_TRUE}" && test -z "${GFX_SAVAGE_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_SAVAGE\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_SH772X_TRUE}" && test -z "${GFX_SH772X_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_SH772X\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_SIS315_TRUE}" && test -z "${GFX_SIS315_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_SIS315\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_TDFX_TRUE}" && test -z "${GFX_TDFX_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_TDFX\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${GFX_UNICHROME_TRUE}" && test -z "${GFX_UNICHROME_FALSE}"; then
-  as_fn_error $? "conditional \"GFX_UNICHROME\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${GFX_VMWARE_TRUE}" && test -z "${GFX_VMWARE_FALSE}"; then
@@ -23212,30 +22628,12 @@ do
     "wm/unique/devices/Makefile") CONFIG_FILES="$CONFIG_FILES wm/unique/devices/Makefile" ;;
     "wm/sawman/Makefile") CONFIG_FILES="$CONFIG_FILES wm/sawman/Makefile" ;;
     "gfxdrivers/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/Makefile" ;;
-    "gfxdrivers/ati128/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/ati128/Makefile" ;;
-    "gfxdrivers/cle266/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/cle266/Makefile" ;;
-    "gfxdrivers/cyber5k/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/cyber5k/Makefile" ;;
     "gfxdrivers/davinci/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/davinci/Makefile" ;;
-    "gfxdrivers/ep9x/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/ep9x/Makefile" ;;
-    "gfxdrivers/gl/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/gl/Makefile" ;;
     "gfxdrivers/gles2/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/gles2/Makefile" ;;
     "gfxdrivers/i810/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/i810/Makefile" ;;
     "gfxdrivers/i830/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/i830/Makefile" ;;
-    "gfxdrivers/mach64/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/mach64/Makefile" ;;
-    "gfxdrivers/matrox/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/matrox/Makefile" ;;
-    "gfxdrivers/neomagic/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/neomagic/Makefile" ;;
-    "gfxdrivers/nsc/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/nsc/Makefile" ;;
-    "gfxdrivers/nsc/include/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/nsc/include/Makefile" ;;
-    "gfxdrivers/nvidia/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/nvidia/Makefile" ;;
     "gfxdrivers/omap/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/omap/Makefile" ;;
     "gfxdrivers/pvr2d/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/pvr2d/Makefile" ;;
-    "gfxdrivers/pxa3xx/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/pxa3xx/Makefile" ;;
-    "gfxdrivers/radeon/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/radeon/Makefile" ;;
-    "gfxdrivers/savage/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/savage/Makefile" ;;
-    "gfxdrivers/sh772x/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/sh772x/Makefile" ;;
-    "gfxdrivers/sis315/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/sis315/Makefile" ;;
-    "gfxdrivers/tdfx/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/tdfx/Makefile" ;;
-    "gfxdrivers/unichrome/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/unichrome/Makefile" ;;
     "gfxdrivers/vdpau/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/vdpau/Makefile" ;;
     "gfxdrivers/vmware/Makefile") CONFIG_FILES="$CONFIG_FILES gfxdrivers/vmware/Makefile" ;;
     "inputdrivers/Makefile") CONFIG_FILES="$CONFIG_FILES inputdrivers/Makefile" ;;
@@ -24941,31 +24339,14 @@ Building Font Modules:
 if test "$have_linux" = "yes"; then
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:
 Building Graphics Drivers:
-  3Dfx Voodoo               $tdfx
-  ATI Mach64                $mach64
-  ATI Rage 128              $ati128
-  ATI Radeon                $radeon
-  Cirrus EP9X               $ep9x
   Intel i810                $i810
   Intel i830                $i830
-  Matrox                    $matrox
-  NeoMagic                  $neomagic
-  NSC Geode                 $nsc
-  nVidia                    $nvidia
   PVR2D                     $pvr2d
-  PXA 3xx                   $pxa3xx
-  Renesas SH7722/SH7723     $sh772x
-  S3 Savage                 $savage
-  SiS 315                   $sis315
   TI Davinci                $davinci
   TI OMAP                   $omap
-  TVIA CyberPro             $cyber5k
-  VIA CLE266                $cle266
-  VIA UniChrome             $unichrome
   VMWare                    $vmware
   VDPAU                     $vdpau
   --
-  OpenGL                    $gl (GLX: $glx)
   OpenGL ES 2.0             $gles2 (Mesa:  $enable_mesa, PVR2D: $enable_pvr2d)
                                        $GLES2_CFLAGS $GLES2_LIBS
 
@@ -24990,31 +24371,14 @@ Building Input Drivers:
   WM97xx Touchscreen        $enable_wm97xx_ts" >&5
 $as_echo "
 Building Graphics Drivers:
-  3Dfx Voodoo               $tdfx
-  ATI Mach64                $mach64
-  ATI Rage 128              $ati128
-  ATI Radeon                $radeon
-  Cirrus EP9X               $ep9x
   Intel i810                $i810
   Intel i830                $i830
-  Matrox                    $matrox
-  NeoMagic                  $neomagic
-  NSC Geode                 $nsc
-  nVidia                    $nvidia
   PVR2D                     $pvr2d
-  PXA 3xx                   $pxa3xx
-  Renesas SH7722/SH7723     $sh772x
-  S3 Savage                 $savage
-  SiS 315                   $sis315
   TI Davinci                $davinci
   TI OMAP                   $omap
-  TVIA CyberPro             $cyber5k
-  VIA CLE266                $cle266
-  VIA UniChrome             $unichrome
   VMWare                    $vmware
   VDPAU                     $vdpau
   --
-  OpenGL                    $gl (GLX: $glx)
   OpenGL ES 2.0             $gles2 (Mesa:  $enable_mesa, PVR2D: $enable_pvr2d)
                                        $GLES2_CFLAGS $GLES2_LIBS
 
